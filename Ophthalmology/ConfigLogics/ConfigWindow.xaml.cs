@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ophthalmology.ConfigLogics
 {
@@ -20,34 +12,125 @@ namespace Ophthalmology.ConfigLogics
     public partial class ConfigWindow : Window
     {
         private ConfigLogic _cfg;
+        private ObservableCollection<string> _parameters;
+        private string _rootFolder;
+        private int _selectedIndex;
+
         public ConfigWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            _cfg = ConfigLogic.Instance;
+            if (_cfg.IsConfigPresent)
+            {
+                Tuple<string[], string> tpl = _cfg.ReadConfig();
+                _parameters = new ObservableCollection<string>(tpl.Item1);
+                _rootFolder = tpl.Item2;
+                RootFolderTextBox.Text = _rootFolder;
+                CheckData();
+            }
+            else
+            {
+                _parameters = new ObservableCollection<string>();
+            }
+            ParametersListListBox.ItemsSource = _parameters;
+        }
+
+        private void CheckData()
+        {
+            string ButtonText = "";
+
+            if (_parameters.Count != 0)
+            {
+                _cfg.ParametersTyped = true;
+            }
+            else
+            {
+                _cfg.ParametersTyped = false;
+                ButtonText += "Отсутствуют параметры. ";
+            }
+
+            if (!string.IsNullOrEmpty(_rootFolder))
+            {
+                _cfg.RootFolderTyped = true;
+                if (_cfg.ParametersTyped)
+                {
+                    SaveButton.IsEnabled = true;
+                    ButtonText = "Сохранить";
+                }
+            }
+            else
+            {
+                _cfg.RootFolderTyped = false;
+                ButtonText += "Не выбрана корневая папка.";
+            }
+
+            SaveButton.Content = ButtonText;
         }
 
         private void AddChangeParameterButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_cfg.IsAdding)
+            {
+                _parameters.Add(ParameterNameTextBox.Text);
+                ParameterNameTextBox.Text = "";
+            }
+            else
+            {
+                _parameters[_selectedIndex] = ParameterNameTextBox.Text;
+            }
+            CheckData();
         }
 
         private void SelectRootFolderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Windows.Forms.FolderBrowserDialog ofd = new System.Windows.Forms.FolderBrowserDialog();
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                _rootFolder = ofd.SelectedPath;
+                RootFolderTextBox.Text = _rootFolder;
+            }
+            CheckData();
         }
 
         private void RemoveParameterButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _parameters.RemoveAt(_selectedIndex);
+            _selectedIndex = -1;
+            ParameterNameTextBox.Text = "";
+            CheckData();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _cfg.CreateConfig(_parameters.ToArray(), _rootFolder);
+            if (!_cfg.IsConfigPresent)
+            {
+                _cfg.IsConfigPresent = true;
+            }
         }
 
         private void ParametersListListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ParametersListListBox.SelectedIndex < 0)
+            {
+                return;
+            }
+            _selectedIndex = ParametersListListBox.SelectedIndex;
+            ParameterNameTextBox.Text = _parameters[_selectedIndex];
+            RemoveParameterButton.IsEnabled = true;
+            AddChangeParameterButton.Content = "Изменить";
+            _cfg.IsAdding = false;
+        }
 
+        private void CancelParameterButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ParametersListListBox.SelectedIndex = -1;
+            _selectedIndex = -1;
+            RemoveParameterButton.IsEnabled = false;
+            AddChangeParameterButton.Content = "Добавить";
+            ParameterNameTextBox.Text = "";
+            _cfg.IsAdding = true;
         }
     }
 }
