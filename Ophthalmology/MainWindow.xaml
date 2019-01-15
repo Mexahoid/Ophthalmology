@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
-        Title="MainWindow" Height="820.697" Width="1096.824">
-    <Grid Margin="10,10,10,10">
+        Title="[ALPHA] Офтальмология" Height="820.697" Width="1096.824">
+    <Grid Margin="10,10,10,10" ShowGridLines="True">
         <Grid.Resources >
             <Style TargetType="Border" >
                 <Setter Property="Padding" Value="5,5,5,5" />
@@ -14,35 +14,110 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <ToolBar Grid.Column="0" Grid.Row="0">
             <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" VerticalAlignment="Bottom" Name="ShowListButton" Click="ShowListButton_Click">Список пациентов</Button>
             <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" VerticalAlignment="Bottom" Name="ShowConfigButton" Click="ShowConfigButton_Click">Конфигурация</Button>
         </ToolBar>
 
-        <Grid Grid.Row="1" Background="LightBlue">
+        <Grid Grid.Row="1" Background="LightBlue" ShowGridLines="True" Margin="10, 5, 10, 5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" FontSize="20">Пациент:  </TextBlock>
-            <TextBlock Grid.Column="1" Name="PatientNameTextBlock" VerticalAlignment="Center" FontSize="20">2. Зинькевич Георгий Владимирович</TextBlock>
-            <TextBlock Grid.Column="2" VerticalAlignment="Center" FontSize="20">Дата:  </TextBlock>
-            <TextBlock Grid.Column="3" Name="LastVisitTextBlock" VerticalAlignment="Center" FontSize="20">01.01.1970 00:00</TextBlock>
+            <Button Grid.Column="0" Name="PatientLeftButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False">
+                <Path Fill="DarkSlateGray" Data="M 0 10 L 20 0 L 20 20 Z"/>
+            </Button>
+
+            <TextBlock Grid.Column="1" Name="PatientNameTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="Выберите пациента"/>
+
+            <Button Grid.Column="2" Name="PatientRightButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False">
+                <Path Fill="DarkSlateGray" Data="M 0 0 L 0 20 L 20 10 Z"/>
+            </Button>
         </Grid>
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2" Name="DateGrid" Background="LightGreen" ShowGridLines="True" Margin="10, 5, 10, 5" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                <Path Fill="DarkGreen" Data="M 0 10 L 20 0 L 20 20 Z"/>
+            </Button>
+
+            <TextBlock Grid.Column="1" Name="DateTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="Дата осмотра"/>
+
+            <Button Grid.Column="2" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                <Path Fill="DarkGreen" Data="M 0 0 L 0 20 L 20 10 Z"/>
+            </Button>
+
+            <Button Grid.Column="3" Name="NewDateButton" Margin="10, 2, 10, 2" Background="AliceBlue" FontSize="18"  Click="NewDateButton_Click">Новое</Button>
+        </Grid>
+        
+        <Grid Grid.Row="3" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="LeftEyePrevButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                        <Path Fill="DarkSlateGray" Data="M 0 10 L 20 0 L 20 20 Z"/>
+                    </Button>
+                    <Button Grid.Column="1" Name="LeftEyeButton" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="LeftEyeButton_Click">
+                        <TextBlock Grid.Column="1" TextAlignment="Center" FontSize="20">Левый глаз</TextBlock>
+                    </Button>
+                    <Button Grid.Column="2" Name="LeftEyeNextButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                        <Path Fill="DarkSlateGray" Data="M 0 0 L 0 20 L 20 10 Z"/>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Name="RightEyePrevButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                        <Path Fill="DarkSlateGray" Data="M 0 10 L 20 0 L 20 20 Z"/>
+                    </Button>
+                    <Button Grid.Column="1" Name="RightEyeButton" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="RightEyeButton_Click">
+                        <TextBlock Grid.Column="1" TextAlignment="Center" FontSize="20">Правый глаз</TextBlock>
+                    </Button>
+                    
+                    <Button Grid.Column="2" Name="RightEyeNextButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+                        <Path Fill="DarkSlateGray" Data="M 0 0 L 0 20 L 20 10 Z"/>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--   <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"></ColumnDefinition>
                 <ColumnDefinition Width="50*"></ColumnDefinition>
@@ -92,10 +167,10 @@
             </Grid>
         </Grid>
 
-        <!--   ShowGridLines="True"  <Button Grid.Column="2" Grid.Row="2" Content="Комментарии"/> 
+         ShowGridLines="True"  <Button Grid.Column="2" Grid.Row="2" Content="Комментарии"/> 
             <TextBlock VerticalAlignment="Center" FontSize="20">Пациент:</TextBlock>-->
 
-        <Grid Grid.Row="5">
+       <!-- <Grid Grid.Row="5" Grid.ColumnSpan="2" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="10"/>
@@ -133,6 +208,6 @@
             <Button Grid.Column="2" Grid.Row="6" Name="SaveButton" FontSize="18" IsEnabled="True">Добавить</Button>
 
             <Button Grid.Column="4" Grid.Row="6" Name="DeleteButton" FontSize="18">Сбросить</Button>
-        </Grid>
+        </Grid> -->
     </Grid>
 </Window>

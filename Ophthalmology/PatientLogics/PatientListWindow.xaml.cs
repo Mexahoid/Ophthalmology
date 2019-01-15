@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,6 +74,8 @@ namespace Ophthalmology.PatientLogics
 
         private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (DialogResult == true)
+                return;
             var s = (sender as TreeViewItem)?.Header;
             
             if (s is DateTime time)
@@ -99,7 +102,7 @@ namespace Ophthalmology.PatientLogics
                 return;
             var name = w.Fields;
             ConfigLogics.ConfigLogic.Instance.AddPatient($"{name[0]} {name[1]} {name[2]}");
-            _patients = ConfigLogics.ConfigLogic.Instance.GetPatients();
+            _patients.Add(ConfigLogics.ConfigLogic.Instance.GetPatients().Last());
         }
     }
 }

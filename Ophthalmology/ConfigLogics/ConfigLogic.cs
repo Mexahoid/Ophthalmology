@@ -96,12 +96,43 @@ namespace Ophthalmology.ConfigLogics
             {
                 new string[0],
                 new string[0]
-            }, RootFolder + "\\" + path);
+            }, path);
             WritePatientsList(new List<string[]>
             {
                 names,
                 paths
             });
+        }
+
+        public void AddDate(Patient pat, DateTime date)
+        {
+            var pats = ReadPatientsList();
+            string paths = null;
+            for (int i = 0; i < pats[0].Length; i++)
+            {
+                if (pats[0][i] != pat.Name)
+                    continue;
+                paths = pats[1][i];
+                break;
+            }
+
+            var dates = ReadDatesList(paths);
+            var datesArr = dates[0];
+            var datesPaths = dates[1];
+
+            Array.Resize(ref datesArr, datesArr.Length + 1);
+            Array.Resize(ref datesPaths, datesArr.Length);
+
+            datesArr[datesArr.Length - 1] = date.ToShortDateString();
+            datesPaths[datesPaths.Length - 1] = date.ToShortDateString();
+            Directory.CreateDirectory(RootFolder + "\\" + paths + "\\" + datesPaths[datesPaths.Length - 1]);
+
+            WriteDatesList(new List<string[]>
+            {
+                datesArr,
+                datesPaths
+            }, paths);
+
         }
 
         public List<string[]> ReadPatientsList()
@@ -142,7 +173,7 @@ namespace Ophthalmology.ConfigLogics
                 pat.Dates = new ObservableCollection<DateTime>();
                 for (int j = 0; j < td[0].Length; j++)
                 {
-                    pat.Dates.Add(DateTime.Parse(td[0][i]));
+                    pat.Dates.Add(DateTime.Parse(td[0][j]));
                 }
                 pats.Add(pat);
             }
@@ -166,7 +197,7 @@ namespace Ophthalmology.ConfigLogics
                 DateStrings = fields[0],
                 DateFolderPaths = fields[1]
             };
-            Serialize(dj, patientPath + "\\datelist.json");
+            Serialize(dj, RootFolder + '\\' + patientPath + "\\datelist.json");
         }
     }
 }

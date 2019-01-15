@@ -63,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EyeLogics\EyeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,10 +82,17 @@
     </Compile>
     <Compile Include="ConfigLogics\DatesJson.cs" />
     <Compile Include="ConfigLogics\PatientsJson.cs" />
+    <Compile Include="EyeLogics\EyeWindow.xaml.cs">
+      <DependentUpon>EyeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PatientLogics\CalendarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PatientLogics\NewPatientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -92,6 +103,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PatientLogics\CalendarWindow.xaml.cs">
+      <DependentUpon>CalendarWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PatientLogics\NewPatientWindow.xaml.cs">
       <DependentUpon>NewPatientWindow.xaml</DependentUpon>
     </Compile>
