@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ophthalmology.ConfigLogics
 {
-    internal class ConfigJson
+    internal class PatientsJson
     {
-        public string[] Parameters { get; set; }
-        public string RootFolder { get; set; }
+        public string[] PatientNames { get; set; }
+        public string[] PatientFolderPaths { get; set; }
     }
 }

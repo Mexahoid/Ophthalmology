@@ -127,7 +127,7 @@
                 <ListBoxItem>Название точки 4</ListBoxItem>
             </ListBox>
 
-            <TextBox Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" BorderBrush="DarkSlateGray" Name="CommentaryTextBox" BorderThickness="2" FontSize="16" TextWrapping="Wrap"/>
+            <TextBox Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" Name="CommentaryTextBox" BorderBrush="DarkSlateGray" BorderThickness="2" FontSize="16" TextWrapping="Wrap"/>
 
 
             <Button Grid.Column="2" Grid.Row="6" Name="SaveButton" FontSize="18" IsEnabled="True">Добавить</Button>

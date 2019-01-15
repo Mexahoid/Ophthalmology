@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ophthalmology.ConfigLogics
 {
-    internal class ConfigJson
+    internal class DatesJson
     {
-        public string[] Parameters { get; set; }
-        public string RootFolder { get; set; }
+        public string[] DateStrings { get; set; }
+        public string[] DateFolderPaths { get; set; }
     }
 }
