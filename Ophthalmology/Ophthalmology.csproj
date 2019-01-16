@@ -81,6 +81,7 @@
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ConfigLogics\DatesJson.cs" />
+    <Compile Include="ConfigLogics\EyeJson.cs" />
     <Compile Include="ConfigLogics\PatientsJson.cs" />
     <Compile Include="EyeLogics\EyeWindow.xaml.cs">
       <DependentUpon>EyeWindow.xaml</DependentUpon>

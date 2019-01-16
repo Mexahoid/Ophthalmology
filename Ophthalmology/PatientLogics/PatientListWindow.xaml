@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
         Title="Список пациентов" Height="450" Width="400" MinWidth="400" MinHeight="450">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>

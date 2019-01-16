@@ -58,11 +58,18 @@ namespace Ophthalmology.EyeLogics
 
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
-            diagnosis.Add("Симптом 1, степень: 2");
-            diagnosis.Add("Симптом 2, степень: 4");
-            diagnosis.Add("Симптом 3, степень: 1");
-            diagnosis.Add("Симптом 4, степень: 5");
-            diagnosis.Add("Симптом 5, степень: 2");
+            diagnosis.Clear();
+
+            Random rnd = new Random();
+
+            diagnosis.Add($"Симптом 1, степень: {rnd.Next(0, 10)}");
+            diagnosis.Add($"Симптом 2, степень: {rnd.Next(0, 10)}");
+            diagnosis.Add($"Симптом 3, степень: {rnd.Next(0, 10)}");
+            diagnosis.Add($"Симптом 4, степень: {rnd.Next(0, 10)}");
+            diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");
+
+            DiagList.ItemsSource = null;
+            DiagList.ItemsSource = diagnosis;
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -87,11 +94,6 @@ namespace Ophthalmology.EyeLogics
             {
                 Parameters.Add(t.Property + ": " + t.Value);
             }
-           /* foreach (DataRowView row in ParametersDataGrid.Columns[0].GetCellContent(ParametersDataGrid.Items[2]) as TextBlock)
-            {
-                string text = row.Row.ItemArray[0].ToString() + ' ' + row.Row.ItemArray[1];
-                Parameters.Add(text);
-            }*/
             foreach (string diag in diagnosis)
             {
                 Diagnosis.Add(diag);

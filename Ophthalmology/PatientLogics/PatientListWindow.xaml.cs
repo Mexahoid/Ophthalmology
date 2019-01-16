@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,40 +22,8 @@ namespace Ophthalmology.PatientLogics
             InitializeComponent();
             DataContext = this;
 
-            var cfg = ConfigLogics.ConfigLogic.Instance;
+            ConfigLogics.ConfigLogic cfg = ConfigLogics.ConfigLogic.Instance;
             _patients = cfg.GetPatients();
-
-
-            /*Patients = new ObservableCollection<Patient>
-            {
-                new Patient
-                {
-                    Name = "Пациент 1",
-                    Dates = new ObservableCollection<DateTime>
-                    {
-                        DateTime.UtcNow,
-                        DateTime.MaxValue,
-                        DateTime.Now
-                    }
-                },
-                new Patient
-                {
-                    Name = "Пациент 2",
-                    Dates = new ObservableCollection<DateTime>
-                    {
-                        DateTime.UtcNow,
-                        DateTime.Now
-                    }
-                },
-                new Patient
-                {
-                Name = "Пациент 3",
-                Dates = new ObservableCollection<DateTime>
-                {
-                    DateTime.MaxValue,
-                }
-            }
-            };*/
 
             PatientTree.ItemsSource = _patients;
         }
@@ -75,20 +42,25 @@ namespace Ophthalmology.PatientLogics
         private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DialogResult == true)
+            {
                 return;
-            var s = (sender as TreeViewItem)?.Header;
-            
+            }
+
+            object s = (sender as TreeViewItem)?.Header;
+
             if (s is DateTime time)
             {
-                object p = ((TreeViewItem) GetSelectedTreeViewItemParent((TreeViewItem) sender)).Header;
-                Patient = (Patient) p;
+                object p = ((TreeViewItem)GetSelectedTreeViewItemParent((TreeViewItem)sender)).Header;
+                Patient = (Patient)p;
                 Time = time;
             }
             else
             {
-                Patient = (Patient) s;
+                Patient = (Patient)s;
                 if (Patient != null)
-                    Time = DateTime.MinValue;
+                {
+                    Time = Patient.Dates.Count > 0 ? Patient.Dates[0] : DateTime.MinValue;
+                }
             }
 
             DialogResult = true;
@@ -97,10 +69,13 @@ namespace Ophthalmology.PatientLogics
 
         private void AddPatientButton_Click(object sender, RoutedEventArgs e)
         {
-            var w = new NewPatientWindow();
+            NewPatientWindow w = new NewPatientWindow();
             if (w.ShowDialog() != true)
+            {
                 return;
-            var name = w.Fields;
+            }
+
+            List<string> name = w.Fields;
             ConfigLogics.ConfigLogic.Instance.AddPatient($"{name[0]} {name[1]} {name[2]}");
             _patients.Add(ConfigLogics.ConfigLogic.Instance.GetPatients().Last());
         }

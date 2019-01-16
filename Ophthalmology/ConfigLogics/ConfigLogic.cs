@@ -125,7 +125,10 @@ namespace Ophthalmology.ConfigLogics
 
             datesArr[datesArr.Length - 1] = date.ToShortDateString();
             datesPaths[datesPaths.Length - 1] = date.ToShortDateString();
-            Directory.CreateDirectory(RootFolder + "\\" + paths + "\\" + datesPaths[datesPaths.Length - 1]);
+            string path = RootFolder + "\\" + paths + "\\" + datesPaths[datesPaths.Length - 1];
+            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(path + "\\Левый глаз");
+            Directory.CreateDirectory(path + "\\Правый глаз");
 
             WriteDatesList(new List<string[]>
             {
@@ -133,6 +136,38 @@ namespace Ophthalmology.ConfigLogics
                 datesPaths
             }, paths);
 
+        }
+
+        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, List<string> pars, List<string> diags)
+        {
+            var pats = ReadPatientsList();
+            string paths = null;
+            for (int i = 0; i < pats[0].Length; i++)
+            {
+                if (pats[0][i] != pat.Name)
+                    continue;
+                paths = pats[1][i];
+                break;
+            }
+
+            var dates = ReadDatesList(paths);
+            string datePath = null;
+
+            for (int i = 0; i < dates[0].Length; i++)
+            {
+                if (dates[0][i] != date.ToShortDateString())
+                    continue;
+                datePath = dates[1][i];
+                break;
+            }
+
+            string eye = isLeft ? "Левый глаз" : "Правый глаз";
+
+            string rp = RootFolder + "\\" + paths + "\\" + datePath + "\\" + eye;
+
+            File.Copy(path, rp + "\\image.jpg");
+
+            WriteEyeInfo(pars, diags, rp);
         }
 
         public List<string[]> ReadPatientsList()
@@ -198,6 +233,51 @@ namespace Ophthalmology.ConfigLogics
                 DateFolderPaths = fields[1]
             };
             Serialize(dj, RootFolder + '\\' + patientPath + "\\datelist.json");
+        }
+
+        public void WriteEyeInfo(List<string> pars, List<string> diags, string eyePath)
+        {
+            EyeJson ej = new EyeJson
+            {
+                Params = pars.ToArray(),
+                Diags = diags.ToArray(),
+                Path = eyePath + "\\image.jpg"
+            };
+            Serialize(ej, eyePath + "\\info.json");
+        }
+
+        public bool CheckIfEyeExist(Patient pat, DateTime date, bool isLeft)
+        {
+            var pats = ReadPatientsList();
+            string patientPath = null;
+            for (int i = 0; i < pats[0].Length; i++)
+            {
+                if (pats[0][i] != pat.Name)
+                    continue;
+                patientPath = pats[1][i];
+                break;
+            }
+
+            return File.Exists(RootFolder + '\\' + patientPath + "\\" + date.ToShortDateString() + "\\" +
+                               (isLeft ? "Левый глаз\\info.json" : "Правый глаз\\info.json"));
+        }
+
+        public Tuple<List<string[]>, string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
+        {
+            var pats = ReadPatientsList();
+            string patientPath = null;
+            for (int i = 0; i < pats[0].Length; i++)
+            {
+                if (pats[0][i] != pat.Name)
+                    continue;
+                patientPath = pats[1][i];
+                break;
+            }
+
+            EyeJson ej = JsonConvert.DeserializeObject<EyeJson>(ReadData(RootFolder + '\\' + patientPath + "\\" + date.ToShortDateString() + "\\" + (isLeft ? "Левый глаз\\info.json" : "Правый глаз\\info.json")));
+
+            List<string[]> arList = new List<string[]> {ej.Params, ej.Diags};
+            return Tuple.Create(arList, ej.Path);
         }
     }
 }

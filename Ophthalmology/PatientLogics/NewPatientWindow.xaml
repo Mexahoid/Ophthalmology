@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ophthalmology.PatientLogics"
         mc:Ignorable="d"
         Title="Добавление пациента" Height="230" Width="400" MinHeight="230" MaxHeight="230" MinWidth="400">
-    <Grid ShowGridLines="True" >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

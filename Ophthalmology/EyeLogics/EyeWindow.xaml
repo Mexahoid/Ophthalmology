@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Ophthalmology.EyeLogics"
         mc:Ignorable="d"
         Title="Здесь могла быть ваша реклама" Height="650" Width="570" MinHeight="650" MinWidth="570" MaxHeight="800" MaxWidth="700">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
 
-            <Grid Grid.Column="0" ShowGridLines="True" Margin="10, 10, 10, 10" >
+            <Grid Grid.Column="0" Margin="10, 10, 10, 10" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
