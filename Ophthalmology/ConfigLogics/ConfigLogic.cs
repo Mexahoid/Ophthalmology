@@ -34,8 +34,8 @@ namespace Ophthalmology.ConfigLogics
 
         public Tuple<string[], string> ReadConfig()
         {
-            _path = ReadData(_path);
-            ConfigJson cfg = JsonConvert.DeserializeObject<ConfigJson>(_path);
+            string json = ReadData(_path);
+            ConfigJson cfg = JsonConvert.DeserializeObject<ConfigJson>(json);
             Parameters = cfg.Parameters;
             RootFolder = cfg.RootFolder;
             return new Tuple<string[], string>(cfg.Parameters, cfg.RootFolder);

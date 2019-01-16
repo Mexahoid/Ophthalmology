@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Ophthalmology.EyeLogics;
 using Ophthalmology.PatientLogics;
 
@@ -12,9 +14,20 @@ namespace Ophthalmology
     {
         private Patient pat;
         private DateTime time;
+
+        private List<string> LPars, LDiags, RPars, RDiags;
         public MainWindow()
         {
             InitializeComponent();
+            LPars = new List<string>();
+            RPars = new List<string>();
+            LDiags = new List<string>();
+            RDiags = new List<string>();
+
+            LeftDiagList.ItemsSource = LDiags;
+            RightDiagList.ItemsSource = RDiags;
+            LeftParsList.ItemsSource = LPars;
+            RightParsList.ItemsSource = RPars;
         }
 
         private void ShowListButton_Click(object sender, RoutedEventArgs e)
@@ -33,6 +46,7 @@ namespace Ophthalmology
             DateGrid.Visibility = Visibility.Visible;
             PatientLeftButton.IsEnabled = true;
             PatientRightButton.IsEnabled = true;
+            EyesGrid.Visibility = Visibility.Visible;
         }
 
         private void ShowConfigButton_Click(object sender, RoutedEventArgs e)
@@ -56,12 +70,45 @@ namespace Ophthalmology
             var w = new EyeWindow(true);
             if (w.ShowDialog() != true)
                 return;
+            foreach (string wParameter in w.Parameters)
+            {
+                LPars.Add(wParameter);
+            }
+            foreach (string wDiagnosi in w.Diagnosis)
+            {
+                LDiags.Add(wDiagnosi);
+            }
+            var path = w.ImagePath;
+
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(path);
+            bi3.EndInit();
+            LeftImage.Source = bi3;
 
         }
 
         private void RightEyeButton_Click(object sender, RoutedEventArgs e)
         {
             var w = new EyeWindow(false);
+            if (w.ShowDialog() != true)
+                return;
+            foreach (string wParameter in w.Parameters)
+            {
+                RPars.Add(wParameter);
+            }
+            foreach (string wDiagnosi in w.Diagnosis)
+            {
+                RDiags.Add(wDiagnosi);
+            }
+            var path = w.ImagePath;
+
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(path);
+            bi3.EndInit();
+            RightImage.Source = bi3;
+
         }
     }
 }

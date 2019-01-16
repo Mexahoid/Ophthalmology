@@ -19,12 +19,12 @@
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="LoadButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3">Загрузить фото</Button>
-            <Button Grid.Column="1" Name="OkButton" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" IsEnabled="False" FontSize="16" Padding="5, 3, 5, 3">Готово</Button>
-            <Button Grid.Column="2" Name="CancelButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3">Отмена</Button>
+            <Button Grid.Column="0" Name="LoadButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3" Click="LoadButton_Click">Загрузить фото</Button>
+            <Button Grid.Column="2" Name="OkButton" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" IsEnabled="False" FontSize="16" Padding="5, 3, 5, 3" Click="OkButton_Click">Готово</Button>
+            <Button Grid.Column="1" Name="CancelButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3">Отмена</Button>
         </Grid>
 
-        <Image Grid.Row="1" Source="../images/Eye.png"/>
+        <Image Grid.Row="1" Name="Image" Source="../images/Eye.png"/>
 
         <Grid Grid.Row="2"  MinHeight="200">
             <Grid.ColumnDefinitions>

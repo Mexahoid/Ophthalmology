@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace Ophthalmology.EyeLogics
 {
@@ -22,6 +24,11 @@ namespace Ophthalmology.EyeLogics
         private List<string> diagnosis;
         private List<PropObj> objs;
 
+        public List<string> Parameters { get; private set; }
+        public List<string> Diagnosis { get; private set; }
+        public string ImagePath { get; private set; }
+
+
         private class PropObj
         {
             public string Property { get; set; }
@@ -30,6 +37,9 @@ namespace Ophthalmology.EyeLogics
 
         public EyeWindow(bool isLeft)
         {
+            Parameters = new List<string>();
+            Diagnosis = new List<string>();
+
             InitializeComponent();
             diagnosis = new List<string>();
             objs = new List<PropObj>();
@@ -48,11 +58,47 @@ namespace Ophthalmology.EyeLogics
 
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
-            diagnosis.Add("Первый диываыва");
-            diagnosis.Add("выафываыв диываыва");
-            diagnosis.Add("впаывапывап диываыва");
-            diagnosis.Add("негк567ке диываыва");
-            diagnosis.Add("нкенгенг диываыва");
+            diagnosis.Add("Симптом 1, степень: 2");
+            diagnosis.Add("Симптом 2, степень: 4");
+            diagnosis.Add("Симптом 3, степень: 1");
+            diagnosis.Add("Симптом 4, степень: 5");
+            diagnosis.Add("Симптом 5, степень: 2");
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == true)
+            {
+                ImagePath = ofd.FileName;
+                BitmapImage bi3 = new BitmapImage();
+                bi3.BeginInit();
+                bi3.UriSource = new Uri(ImagePath);
+                bi3.EndInit();
+                Image.Source = bi3;
+
+                OkButton.IsEnabled = true;
+            }
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (PropObj t in objs)
+            {
+                Parameters.Add(t.Property + ": " + t.Value);
+            }
+           /* foreach (DataRowView row in ParametersDataGrid.Columns[0].GetCellContent(ParametersDataGrid.Items[2]) as TextBlock)
+            {
+                string text = row.Row.ItemArray[0].ToString() + ' ' + row.Row.ItemArray[1];
+                Parameters.Add(text);
+            }*/
+            foreach (string diag in diagnosis)
+            {
+                Diagnosis.Add(diag);
+            }
+            DialogResult = true;
+
+            Close();
         }
     }
 }
