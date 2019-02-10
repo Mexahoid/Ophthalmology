@@ -33,10 +33,34 @@ namespace Ophthalmology.PatientLogics
             DependencyObject parent = VisualTreeHelper.GetParent(item);
             while (!(parent is TreeViewItem || parent is TreeView))
             {
-                parent = VisualTreeHelper.GetParent(parent);
+                parent = VisualTreeHelper.GetParent(parent ?? throw new InvalidOperationException());
             }
 
             return parent as ItemsControl;
+        }
+
+        private void OnItemSelected(object sender, RoutedEventArgs e)
+        {
+            object s = (sender as TreeViewItem)?.Header;
+            if (s is Patient pat)
+            {
+                Patient = pat;
+                if (Patient != null)
+                {
+                    Time = DateTime.MaxValue;
+                }
+            }
+            else
+            {
+                if (s != null)
+                {
+                    DateTime time = (DateTime) s;
+                    object p = ((TreeViewItem)GetSelectedTreeViewItemParent((TreeViewItem)sender)).Header;
+                    Patient = (Patient)p;
+                    Time = time;
+                }
+            }
+            RemovePatientButton.IsEnabled = true;
         }
 
         private void OnItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -78,6 +102,25 @@ namespace Ophthalmology.PatientLogics
             List<string> name = w.Fields;
             ConfigLogics.ConfigLogic.Instance.AddPatient($"{name[0]} {name[1]} {name[2]}");
             _patients.Add(ConfigLogics.ConfigLogic.Instance.GetPatients().Last());
+        }
+
+        private void RemovePatientButton_Click(object sender, RoutedEventArgs e)
+        {
+            // todo: Добавить удаление даты
+            int pos = _patients.IndexOf(Patient);
+            // Лучший маркер
+            if (Time != DateTime.MaxValue)
+            {
+                ConfigLogics.ConfigLogic.Instance.DeleteDate(Patient, pos, Time);
+                _patients[pos].Dates.Remove(Time);
+            }
+            else
+            {
+                ConfigLogics.ConfigLogic.Instance.DeletePatient(Patient, pos);
+                _patients.Remove(Patient);
+            }
+            Patient = null;
+            RemovePatientButton.IsEnabled = false;
         }
     }
 }

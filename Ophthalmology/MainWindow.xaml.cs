@@ -31,6 +31,7 @@ namespace Ophthalmology
             RightDiagList.ItemsSource = RDiags;
             LeftParsList.ItemsSource = LPars;
             RightParsList.ItemsSource = RPars;
+            ShowListButton.IsEnabled = ConfigLogics.ConfigLogic.Instance.IsConfigPresent;
         }
 
         private void ShowListButton_Click(object sender, RoutedEventArgs e)
@@ -59,7 +60,9 @@ namespace Ophthalmology
             PatientRightButton.IsEnabled = true;
 
             if (time == DateTime.MinValue)
+            {
                 return;
+            }
 
             EyesGrid.Visibility = Visibility.Visible;
             LPars.Clear();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
-        Title="[PRE-ALPHA] Офтальмология" Height="820.697" Width="1096.824">
+        Title="[PRE-ALPHA] Офтальмология v. 0.2" Height="820.697" Width="1096.824">
     <Grid Margin="10,10,10,10">
         <Grid.Resources >
             <Style TargetType="Border" >
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Column="0" Grid.Row="0">
-            <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Name="ShowListButton" Click="ShowListButton_Click">Список пациентов</Button>
+            <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Name="ShowListButton" Click="ShowListButton_Click" IsEnabled="False">Список пациентов</Button>
             <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Name="ShowConfigButton" Click="ShowConfigButton_Click">Конфигурация</Button>
         </ToolBar>
 

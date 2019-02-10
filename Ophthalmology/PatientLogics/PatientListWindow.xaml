@@ -27,7 +27,8 @@
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <EventSetter Event="MouseDoubleClick" Handler="OnItemMouseDoubleClick" />
-                    </Style>
+                    <EventSetter Event="Selected" Handler="OnItemSelected" />
+                </Style>
                 </TreeView.ItemContainerStyle>
         </TreeView>
         
@@ -38,7 +39,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Margin="5, 5, 5, 5" Name="AddPatientButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6, 3, 6, 3" FontSize="16" Click="AddPatientButton_Click">Добавить</Button>
-            <Button Grid.Column="1" Margin="5, 5, 5, 5" IsEnabled="False" Name="RemovePatientButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6, 3, 6, 3" FontSize="16">Удалить</Button>
+            <Button Grid.Column="1" Margin="5, 5, 5, 5" IsEnabled="False" Name="RemovePatientButton" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6, 3, 6, 3" FontSize="16" Click="RemovePatientButton_Click">Удалить</Button>
         </Grid>
     </Grid>
 </Window>

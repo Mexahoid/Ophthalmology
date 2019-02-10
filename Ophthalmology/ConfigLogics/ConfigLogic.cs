@@ -104,6 +104,79 @@ namespace Ophthalmology.ConfigLogics
             });
         }
 
+        public void DeletePatient(Patient pat, int pos)
+        {
+            // 0 - Names, 1 - FolderPaths
+            var curr = ReadPatientsList();
+            //todo: rename folders
+            int i = 10;
+            var c = curr[0];
+            var p = curr[1];
+
+            string Name = pat.Name;
+            
+            // Delete [pos] directory
+            Directory.Delete(RootFolder + "\\" + p[pos], true);
+            var cl = c.ToList();
+            cl.RemoveAt(pos);
+            c = cl.ToArray();
+            cl = p.ToList();
+            cl.RemoveAt(pos);
+            p = cl.ToArray();
+            // For remains rename to N-1
+            i = 10;
+
+            for (i = pos; i < p.Length; i++)
+            {
+                int num = int.Parse(p[i].Split('.')[0]) - 1;
+                string old = p[i];
+                p[i] = $"{num}. " + c[i];
+                Directory.Move(RootFolder + "\\" + old, RootFolder + "\\" + p[i]);
+            }
+
+            WritePatientsList(new List<string[]>
+            {
+                c,
+                p
+            });
+        }
+
+        public void DeleteDate(Patient pat, int pos, DateTime date)
+        {
+            // Для дат переименования папок не надо.
+            var pats = ReadPatientsList();
+            string paths = null;
+            for (int i = 0; i < pats[0].Length; i++)
+            {
+                if (pats[0][i] != pat.Name)
+                    continue;
+                paths = pats[1][i];
+                break;
+            }
+
+            var dates = ReadDatesList(paths);
+            var datesArr = dates[0];
+            var datesPaths = dates[1];
+
+            string d = date.ToShortDateString();
+
+            var lp = datesPaths.ToList();
+            pos = lp.IndexOf(d);
+            lp.RemoveAt(pos);
+            datesPaths = lp.ToArray();
+            lp = datesArr.ToList();
+            lp.RemoveAt(pos);
+            datesArr = lp.ToArray();
+            Directory.Delete(RootFolder + "\\" + paths + "\\" + d, true);
+
+            WriteDatesList(new List<string[]>
+            {
+                datesArr,
+                datesPaths
+            }, paths);
+        }
+
+
         public void AddDate(Patient pat, DateTime date)
         {
             var pats = ReadPatientsList();
