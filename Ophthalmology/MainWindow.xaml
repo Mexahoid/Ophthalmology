@@ -32,13 +32,13 @@
                 <ColumnDefinition Width="90*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="PatientLeftButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False">
+            <Button Grid.Column="0" Name="PatientLeftButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False" Click="PatientLeftButton_Click">
                 <Path Fill="DarkSlateGray" Data="M 0 10 L 20 0 L 20 20 Z"/>
             </Button>
 
             <TextBlock Grid.Column="1" Name="PatientNameTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="Выберите пациента"/>
 
-            <Button Grid.Column="2" Name="PatientRightButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False">
+            <Button Grid.Column="2" Name="PatientRightButton" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" IsEnabled="False" Click="PatientRightButton_Click">
                 <Path Fill="DarkSlateGray" Data="M 0 0 L 0 20 L 20 10 Z"/>
             </Button>
         </Grid>
@@ -50,17 +50,17 @@
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+            <Button Grid.Column="0" Name="DatePrev" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DatePrev_Click">
                 <Path Fill="DarkGreen" Data="M 0 10 L 20 0 L 20 20 Z"/>
             </Button>
 
             <TextBlock Grid.Column="1" Name="DateTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="Дата осмотра"/>
 
-            <Button Grid.Column="2" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0">
+            <Button Grid.Column="2" Name="DateNext" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DateNext_Click">
                 <Path Fill="DarkGreen" Data="M 0 0 L 0 20 L 20 10 Z"/>
             </Button>
 
-            <Button Grid.Column="3" Name="NewDateButton" Margin="10, 2, 10, 2" Background="AliceBlue" FontSize="18"  Click="NewDateButton_Click">Новое</Button>
+            <Button Grid.Column="3" Margin="10, 2, 10, 2" Background="AliceBlue" FontSize="18"  Click="NewDateButton_Click">Новое</Button>
         </Grid>
         
         <Grid Grid.Row="3" Name="EyesGrid" Visibility="Hidden">

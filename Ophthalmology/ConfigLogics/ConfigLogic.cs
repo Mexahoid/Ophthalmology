@@ -263,6 +263,24 @@ namespace Ophthalmology.ConfigLogics
             Serialize(pj, RootFolder + "\\patientlist.json");
         }
 
+        public Patient GetPatient(Patient input, bool next)
+        {
+            var p = GetPatients();
+
+            int ind = 0;
+
+            for (ind = 0; ind < p.Count; ind++)
+            {
+                if (p[ind].Name == input.Name)
+                    break;
+            }
+
+            if (next)
+            {
+                return ind == p.Count ? null : p[ind];
+            }
+            return ind == 0 ? null : p[ind - 1];
+        }
 
         public ObservableCollection<Patient> GetPatients()
         {
