@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Ophthalmology.ConfigLogics.Serialization;
 using Ophthalmology.PatientLogics;
 
-namespace Ophthalmology.ConfigLogics
+namespace Ophthalmology.ConfigLogics.Classes
 {
     internal class ConfigLogic
     {
@@ -19,10 +18,10 @@ namespace Ophthalmology.ConfigLogics
         public bool ParametersTyped { get; set; }
         public bool IsAdding { get; set; }
         public bool IsConfigPresent { get; set; }
-        private string _path = Directory.GetCurrentDirectory() + "\\config.json";
+        private readonly string _path = Directory.GetCurrentDirectory() + "\\config.json";
 
         public string[] Parameters { get; private set; }
-        public string RootFolder { get; private set; }
+        private string RootFolder { get; set; }
 
         private ConfigLogic()
         {
@@ -91,6 +90,7 @@ namespace Ophthalmology.ConfigLogics
             Array.Resize(ref paths, num + 1);
             names[num] = name;
             paths[num] = path;
+
             Directory.CreateDirectory(RootFolder + "\\" + path);
             WriteDatesList(new List<string[]>
             {
@@ -199,10 +199,10 @@ namespace Ophthalmology.ConfigLogics
             datesArr[datesArr.Length - 1] = date.ToShortDateString();
             datesPaths[datesPaths.Length - 1] = date.ToShortDateString();
             string path = RootFolder + "\\" + paths + "\\" + datesPaths[datesPaths.Length - 1];
+
             Directory.CreateDirectory(path);
             Directory.CreateDirectory(path + "\\Левый глаз");
             Directory.CreateDirectory(path + "\\Правый глаз");
-
             WriteDatesList(new List<string[]>
             {
                 datesArr,

@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ConfigLogics\ConfigWindow.xaml">
+    <Page Include="ConfigLogics\Forms\ConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,14 +75,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ConfigLogics\ConfigJson.cs" />
-    <Compile Include="ConfigLogics\ConfigLogic.cs" />
-    <Compile Include="ConfigLogics\ConfigWindow.xaml.cs">
+    <Compile Include="ConfigLogics\Classes\EyeLogic.cs" />
+    <Compile Include="ConfigLogics\Classes\SerializerLogic.cs" />
+    <Compile Include="ConfigLogics\Serialization\ConfigJson.cs" />
+    <Compile Include="ConfigLogics\Classes\ConfigLogic.cs" />
+    <Compile Include="ConfigLogics\Forms\ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConfigLogics\DatesJson.cs" />
-    <Compile Include="ConfigLogics\EyeJson.cs" />
-    <Compile Include="ConfigLogics\PatientsJson.cs" />
+    <Compile Include="ConfigLogics\Serialization\DatesJson.cs" />
+    <Compile Include="ConfigLogics\Serialization\EyeJson.cs" />
+    <Compile Include="ConfigLogics\Serialization\PatientsJson.cs" />
     <Compile Include="EyeLogics\EyeWindow.xaml.cs">
       <DependentUpon>EyeWindow.xaml</DependentUpon>
     </Compile>
@@ -90,28 +92,28 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PatientLogics\CalendarWindow.xaml">
+    <Page Include="PatientLogics\Forms\CalendarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PatientLogics\NewPatientWindow.xaml">
+    <Page Include="PatientLogics\Forms\NewPatientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PatientLogics\PatientListWindow.xaml">
+    <Page Include="PatientLogics\Forms\PatientListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatientLogics\CalendarWindow.xaml.cs">
+    <Compile Include="PatientLogics\Forms\CalendarWindow.xaml.cs">
       <DependentUpon>CalendarWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientLogics\NewPatientWindow.xaml.cs">
+    <Compile Include="PatientLogics\Forms\NewPatientWindow.xaml.cs">
       <DependentUpon>NewPatientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientLogics\Patient.cs" />
-    <Compile Include="PatientLogics\PatientListWindow.xaml.cs">
+    <Compile Include="PatientLogics\Classes\Patient.cs" />
+    <Compile Include="PatientLogics\Forms\PatientListWindow.xaml.cs">
       <DependentUpon>PatientListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

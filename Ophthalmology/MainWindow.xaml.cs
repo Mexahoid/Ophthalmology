@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Ophthalmology.ConfigLogics.Classes;
 
 namespace Ophthalmology
 {
@@ -32,7 +33,7 @@ namespace Ophthalmology
             RightDiagList.ItemsSource = RDiags;
             LeftParsList.ItemsSource = LPars;
             RightParsList.ItemsSource = RPars;
-            ShowListButton.IsEnabled = ConfigLogics.ConfigLogic.Instance.IsConfigPresent;
+            ShowListButton.IsEnabled = ConfigLogic.Instance.IsConfigPresent;
         }
 
 
@@ -61,7 +62,7 @@ namespace Ophthalmology
             ListBox target_diag = left ? LeftDiagList : RightDiagList;
             ListBox target_pars = left ? LeftParsList : RightParsList;
 
-            Tuple<List<string[]>, string> art = ConfigLogics.ConfigLogic.Instance.ReadEyeInfo(pat, time, left);
+            Tuple<List<string[]>, string> art = ConfigLogic.Instance.ReadEyeInfo(pat, time, left);
             foreach (string par in art.Item1[0])
             {
                 target_pars_list.Add(par);
@@ -115,12 +116,12 @@ namespace Ophthalmology
             EyesGrid.Visibility = Visibility.Visible;
 
 
-            if (ConfigLogics.ConfigLogic.Instance.CheckIfEyeExist(pat, time, false))
+            if (ConfigLogic.Instance.CheckIfEyeExist(pat, time, false))
             {
                 FillSide(false);
             }
 
-            if (ConfigLogics.ConfigLogic.Instance.CheckIfEyeExist(pat, time, true))
+            if (ConfigLogic.Instance.CheckIfEyeExist(pat, time, true))
             {
                 FillSide(true);
             }
@@ -154,7 +155,7 @@ namespace Ophthalmology
 
         private void PatientRightButton_Click(object sender, RoutedEventArgs e)
         {
-            var tpat = ConfigLogics.ConfigLogic.Instance.GetPatient(pat, true);
+            var tpat = ConfigLogic.Instance.GetPatient(pat, true);
             if (tpat == null)
                 return;
             pat = tpat;
@@ -166,7 +167,7 @@ namespace Ophthalmology
 
         private void PatientLeftButton_Click(object sender, RoutedEventArgs e)
         {
-            var tpat = ConfigLogics.ConfigLogic.Instance.GetPatient(pat, false);
+            var tpat = ConfigLogic.Instance.GetPatient(pat, false);
             if (tpat == null)
                 return;
             pat = tpat;
@@ -196,7 +197,7 @@ namespace Ophthalmology
             }
 
             time = w.Date;
-            ConfigLogics.ConfigLogic.Instance.AddDate(pat, time);
+            ConfigLogic.Instance.AddDate(pat, time);
 
             ClearAll();
             // Сброс
@@ -246,7 +247,7 @@ namespace Ophthalmology
             bi3.UriSource = new Uri(path);
             bi3.EndInit();
             LeftImage.Source = bi3;
-            ConfigLogics.ConfigLogic.Instance.AddEye(true, pat, time, path, LPars, LDiags);
+            ConfigLogic.Instance.AddEye(true, pat, time, path, LPars, LDiags);
             UpdateLayout();
 
         }
@@ -281,7 +282,7 @@ namespace Ophthalmology
             bi3.UriSource = new Uri(path);
             bi3.EndInit();
             RightImage.Source = bi3;
-            ConfigLogics.ConfigLogic.Instance.AddEye(false, pat, time, path, RPars, RDiags);
+            ConfigLogic.Instance.AddEye(false, pat, time, path, RPars, RDiags);
             UpdateLayout();
 
         }

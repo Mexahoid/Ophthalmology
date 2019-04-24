@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Ophthalmology.ConfigLogics.Classes;
 
 namespace Ophthalmology.EyeLogics
 {
@@ -47,7 +48,7 @@ namespace Ophthalmology.EyeLogics
             DataContext = this;
             DiagList.ItemsSource = diagnosis;
 
-            foreach (string instanceParameter in ConfigLogics.ConfigLogic.Instance.Parameters)
+            foreach (string instanceParameter in ConfigLogic.Instance.Parameters)
             {
                 PropObj po = new PropObj {Property = instanceParameter};
                 objs.Add(po);
