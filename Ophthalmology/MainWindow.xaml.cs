@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Ophthalmology.ConfigLogics.Classes;
+using Ophthalmology.ConfigLogics.Forms;
+using Ophthalmology.Patients.Classes;
 
 namespace Ophthalmology
 {
@@ -142,7 +144,7 @@ namespace Ophthalmology
 
         private void ShowConfigButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigLogics.ConfigWindow win2 = new ConfigLogics.ConfigWindow();
+            ConfigWindow win2 = new ConfigWindow();
             win2.Show();
         }
 
@@ -150,6 +152,12 @@ namespace Ophthalmology
         {
             EyesGrid.Visibility = Visibility.Hidden;
             DateGrid.Visibility = Visibility.Hidden;
+
+            RDiags.Clear();
+            RPars.Clear();
+            LDiags.Clear();
+            LPars.Clear();
+
             DateTextBlock.Text = "Дата осмотра";
         }
 

@@ -17,6 +17,20 @@ namespace Ophthalmology.ConfigLogics.Classes
             _root = root;
         }
 
+        public void SaveConfig(ConfigJson js, bool isPresent)
+        {
+            Serialize(js, Directory.GetCurrentDirectory() + "\\config.json");
+
+            if (!isPresent || Directory.GetFiles(_root).Length < 1)
+            {
+                WritePatientsList(new List<string[]>
+                {
+                    new string[0],
+                    new string[0]
+                });
+            }
+        }
+
         public void WritePatientsList(List<string[]> fields)
         {
             PatientsJson pj = new PatientsJson
@@ -48,7 +62,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             Serialize(ej, eyePath + "\\info.json");
         }
 
-        private void Serialize(object obj, string path)
+        public void Serialize(object obj, string path)
         {
             var json = JsonConvert.SerializeObject(obj);
             using (StreamWriter sw = new StreamWriter(path))

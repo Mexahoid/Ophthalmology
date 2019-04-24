@@ -75,7 +75,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConfigLogics\Classes\DateLogic.cs" />
+    <Compile Include="ConfigLogics\Classes\DeserializerLogic.cs" />
     <Compile Include="ConfigLogics\Classes\EyeLogic.cs" />
+    <Compile Include="ConfigLogics\Classes\PatientLogic.cs" />
     <Compile Include="ConfigLogics\Classes\SerializerLogic.cs" />
     <Compile Include="ConfigLogics\Serialization\ConfigJson.cs" />
     <Compile Include="ConfigLogics\Classes\ConfigLogic.cs" />
@@ -92,28 +95,28 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PatientLogics\Forms\CalendarWindow.xaml">
+    <Page Include="Patients\Forms\CalendarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PatientLogics\Forms\NewPatientWindow.xaml">
+    <Page Include="Patients\Forms\NewPatientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PatientLogics\Forms\PatientListWindow.xaml">
+    <Page Include="Patients\Forms\PatientListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatientLogics\Forms\CalendarWindow.xaml.cs">
+    <Compile Include="Patients\Forms\CalendarWindow.xaml.cs">
       <DependentUpon>CalendarWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientLogics\Forms\NewPatientWindow.xaml.cs">
+    <Compile Include="Patients\Forms\NewPatientWindow.xaml.cs">
       <DependentUpon>NewPatientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PatientLogics\Classes\Patient.cs" />
-    <Compile Include="PatientLogics\Forms\PatientListWindow.xaml.cs">
+    <Compile Include="Patients\Classes\Patient.cs" />
+    <Compile Include="Patients\Forms\PatientListWindow.xaml.cs">
       <DependentUpon>PatientListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

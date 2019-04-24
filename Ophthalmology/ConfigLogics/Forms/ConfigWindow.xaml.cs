@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Ophthalmology.ConfigLogics.Classes;
 
-namespace Ophthalmology.ConfigLogics
+namespace Ophthalmology.ConfigLogics.Forms
 {
     /// <summary>
     /// Логика взаимодействия для ConfigWindow.xaml
@@ -24,7 +24,7 @@ namespace Ophthalmology.ConfigLogics
             _cfg = ConfigLogic.Instance;
             if (_cfg.IsConfigPresent)
             {
-                Tuple<string[], string> tpl = _cfg.ReadConfig();
+                Tuple<string[], string> tpl = _cfg.GetParametersAndRoot();
                 _parameters = new ObservableCollection<string>(tpl.Item1);
                 _rootFolder = tpl.Item2;
                 RootFolderTextBox.Text = _rootFolder;

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ophthalmology.ConfigLogics.Classes;
+using Ophthalmology.Patients.Classes;
 
 namespace Ophthalmology.PatientLogics
 {
@@ -112,12 +113,12 @@ namespace Ophthalmology.PatientLogics
             // Лучший маркер
             if (Time != DateTime.MaxValue)
             {
-                ConfigLogic.Instance.DeleteDate(Patient, pos, Time);
+                ConfigLogic.Instance.DeleteDate(Patient, Time);
                 _patients[pos].Dates.Remove(Time);
             }
             else
             {
-                ConfigLogic.Instance.DeletePatient(Patient, pos);
+                ConfigLogic.Instance.DeletePatient(pos);
                 _patients.Remove(Patient);
             }
             Patient = null;
