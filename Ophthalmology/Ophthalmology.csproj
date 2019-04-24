@@ -64,6 +64,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EyeLogics\EfronWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EyeLogics\EyeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +93,10 @@
     <Compile Include="ConfigLogics\Serialization\DatesJson.cs" />
     <Compile Include="ConfigLogics\Serialization\EyeJson.cs" />
     <Compile Include="ConfigLogics\Serialization\PatientsJson.cs" />
+    <Compile Include="EyeLogics\EfronLogic.cs" />
+    <Compile Include="EyeLogics\EfronWindow.xaml.cs">
+      <DependentUpon>EfronWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EyeLogics\EyeWindow.xaml.cs">
       <DependentUpon>EyeWindow.xaml</DependentUpon>
     </Compile>
@@ -157,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\Human2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EyeLogics\images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

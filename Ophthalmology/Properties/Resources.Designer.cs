@@ -61,12 +61,876 @@ namespace Ophthalmology.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Blepharitis.
+        /// </summary>
+        internal static string B {
+            get {
+                return ResourceManager.GetString("B", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Pale lid margin. Openings of meibomian glands visible. Clean lashes..
+        /// </summary>
+        internal static string B0 {
+            get {
+                return ResourceManager.GetString("B0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Pink lid margin. Openings of meibomian glands less visible. Clean lashes..
+        /// </summary>
+        internal static string B1 {
+            get {
+                return ResourceManager.GetString("B1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Red lid margin. Openings of meibomian glands barely visible. Yellow crust at base of lashes. Some lashes stuck together..
+        /// </summary>
+        internal static string B2 {
+            get {
+                return ResourceManager.GetString("B2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Telangiectasis lid margin. Increased crusting. More lashes stuck together. Bulbar conjunctival redness..
+        /// </summary>
+        internal static string B3 {
+            get {
+                return ResourceManager.GetString("B3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Severe telangiectasis of lid margin. Excess yellow crusting. Lashes stuck together. Increased bulbar conjunctival redness. Skin irritation..
+        /// </summary>
+        internal static string B4 {
+            get {
+                return ResourceManager.GetString("B4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal distortion.
+        /// </summary>
+        internal static string Cd {
+            get {
+                return ResourceManager.GetString("Cd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Bright, sharp, circular keratometer mire..
+        /// </summary>
+        internal static string Cd0 {
+            get {
+                return ResourceManager.GetString("Cd0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Slightly distorted keratometer mire. Variation in thickness of circle..
+        /// </summary>
+        internal static string Cd1 {
+            get {
+                return ResourceManager.GetString("Cd1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Distorted keratometer mire. Variation in thickness of circle. Loss of focus of right and top +/- signs..
+        /// </summary>
+        internal static string Cd2 {
+            get {
+                return ResourceManager.GetString("Cd2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Very distorted keratometer mire. Greater variation in thickness of circle. Loss of focus of right of all +/- signs..
+        /// </summary>
+        internal static string Cd3 {
+            get {
+                return ResourceManager.GetString("Cd3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Extremely distorted keratometer mire. Greater variation in thickness of circle with some gaps. Loss of focus of right of all +/- signs..
+        /// </summary>
+        internal static string Cd4 {
+            get {
+                return ResourceManager.GetString("Cd4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal infiltrates.
+        /// </summary>
+        internal static string Ci {
+            get {
+                return ResourceManager.GetString("Ci", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea. Clear conjunctiva and limbus. Clear reflex..
+        /// </summary>
+        internal static string Ci0 {
+            get {
+                return ResourceManager.GetString("Ci0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Single small grey infiltrate at 10 o&apos;clock near limbus. Adjacent limbal redness..
+        /// </summary>
+        internal static string Ci1 {
+            get {
+                return ResourceManager.GetString("Ci1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Five small grey infiltrates at 9-10 o&apos;clock near limbus. Adjacent limbus more red..
+        /// </summary>
+        internal static string Ci2 {
+            get {
+                return ResourceManager.GetString("Ci2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Numerous small hazy grey infiltrates at 8-10 o&apos;clock in peripheral cornea. Adjacent limbus very red..
+        /// </summary>
+        internal static string Ci3 {
+            get {
+                return ResourceManager.GetString("Ci3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Hazy grey confluent infiltrates that cover left half of cornea. Adjacent limbal redness from 5 to 11 o&apos;clock. Mild conjunctival redness..
+        /// </summary>
+        internal static string Ci4 {
+            get {
+                return ResourceManager.GetString("Ci4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal neovascularization.
+        /// </summary>
+        internal static string Cn {
+            get {
+                return ResourceManager.GetString("Cn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea. White reflex..
+        /// </summary>
+        internal static string Cn0 {
+            get {
+                return ResourceManager.GetString("Cn0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Vessels encroach &lt;1mm from lower left quadrant (LLQ)..
+        /// </summary>
+        internal static string Cn1 {
+            get {
+                return ResourceManager.GetString("Cn1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Vessels encroach 2-3mm from LLQ. Limbal redness. Reflex less crisp. Central corneal haze..
+        /// </summary>
+        internal static string Cn2 {
+            get {
+                return ResourceManager.GetString("Cn2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Vessels encroach 4-5mm from LLQ. Corneal haze around vessels. Speckled reflex..
+        /// </summary>
+        internal static string Cn3 {
+            get {
+                return ResourceManager.GetString("Cn3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Vessels encroach 6mm from LLQ. Lipid at leading edge of vessels. Very diffuze reflex..
+        /// </summary>
+        internal static string Cn4 {
+            get {
+                return ResourceManager.GetString("Cn4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal oedema.
+        /// </summary>
+        internal static string Co {
+            get {
+                return ResourceManager.GetString("Co", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea and 3mm wide parallelepiped. Left: endothelium. Centre: stroma. Right: epithelium..
+        /// </summary>
+        internal static string Co0 {
+            get {
+                return ResourceManager.GetString("Co0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Single vertical stria in posterior cornea..
+        /// </summary>
+        internal static string Co1 {
+            get {
+                return ResourceManager.GetString("Co1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Three vertical striae in posterior cornea..
+        /// </summary>
+        internal static string Co2 {
+            get {
+                return ResourceManager.GetString("Co2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Many vertical striae in posterior cornea. Folds in endothelium..
+        /// </summary>
+        internal static string Co3 {
+            get {
+                return ResourceManager.GetString("Co3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Many vertical striae in posterior cornea. Many folds in endothelium. Epithelial bullae..
+        /// </summary>
+        internal static string Co4 {
+            get {
+                return ResourceManager.GetString("Co4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Conjunctival redness.
+        /// </summary>
+        internal static string Cr {
+            get {
+                return ResourceManager.GetString("Cr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. &apos;White&apos; bulbar conjunctiva. One major vessel. Clear cornea..
+        /// </summary>
+        internal static string Cr0 {
+            get {
+                return ResourceManager.GetString("Cr0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Small increase in conjunctival redness. Major vessel more engorged..
+        /// </summary>
+        internal static string Cr1 {
+            get {
+                return ResourceManager.GetString("Cr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Further increase in conjunctival redness. Limbal redness. Slight ciliary flush..
+        /// </summary>
+        internal static string Cr2 {
+            get {
+                return ResourceManager.GetString("Cr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Conjunctiva very red. Increased limbal redness. Ciliary flush..
+        /// </summary>
+        internal static string Cr3 {
+            get {
+                return ResourceManager.GetString("Cr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Conjunctiva extremely red. Limbus very red. Intense ciliary flush. Reflex on major vessel..
+        /// </summary>
+        internal static string Cr4 {
+            get {
+                return ResourceManager.GetString("Cr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal staining.
+        /// </summary>
+        internal static string Cs {
+            get {
+                return ResourceManager.GetString("Cs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea. No staining. Fluorescein in eye. Cobalt blue reflex..
+        /// </summary>
+        internal static string Cs0 {
+            get {
+                return ResourceManager.GetString("Cs0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Light punctate staining. Slight conjunctival redness..
+        /// </summary>
+        internal static string Cs1 {
+            get {
+                return ResourceManager.GetString("Cs1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. More punctate staining. Increases redness..
+        /// </summary>
+        internal static string Cs2 {
+            get {
+                return ResourceManager.GetString("Cs2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Light pan-corneal punctate staining. Diffuse reflex..
+        /// </summary>
+        internal static string Cs3 {
+            get {
+                return ResourceManager.GetString("Cs3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Heavy pan-corneal punctate staining. Very diffuse reflex..
+        /// </summary>
+        internal static string Cs4 {
+            get {
+                return ResourceManager.GetString("Cs4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Conjunctival staining.
+        /// </summary>
+        internal static string Cst {
+            get {
+                return ResourceManager.GetString("Cst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea. Fluorescein pooling in some folds. Cobalt blue reflex..
+        /// </summary>
+        internal static string Cst0 {
+            get {
+                return ResourceManager.GetString("Cst0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Increased fluorescein pooling in folds. Slight staining at position of lens edge..
+        /// </summary>
+        internal static string Cst1 {
+            get {
+                return ResourceManager.GetString("Cst1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. More fluorescein pooling in folds. Increased lens edge staining. Increased conjunctival redness..
+        /// </summary>
+        internal static string Cst2 {
+            get {
+                return ResourceManager.GetString("Cst2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Widespread fluorescein pooling in folds. Continuous lens edge staining. Conjunctival redness..
+        /// </summary>
+        internal static string Cst3 {
+            get {
+                return ResourceManager.GetString("Cst3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Widespread fluorescein pooling in folds. Heavy lens edge staining. Conjunctival redness. Limbal staining..
+        /// </summary>
+        internal static string Cst4 {
+            get {
+                return ResourceManager.GetString("Cst4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Corneal ulcer.
+        /// </summary>
+        internal static string Cu {
+            get {
+                return ResourceManager.GetString("Cu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear cornea. Clear conjunctiva and limbus. Clear reflex..
+        /// </summary>
+        internal static string Cu0 {
+            get {
+                return ResourceManager.GetString("Cu0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. &lt;1mm corneal ulcer at left pupil margin. Stains with fluorescein. Mild limbal redness at 7-11 o&apos;clock..
+        /// </summary>
+        internal static string Cu1 {
+            get {
+                return ResourceManager.GetString("Cu1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. 2-3mm corneal ulcer. Haze around ulcer. Intense limbal redness at 7-11 o&apos;clock. Ciliary flush..
+        /// </summary>
+        internal static string Cu2 {
+            get {
+                return ResourceManager.GetString("Cu2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. 6mm corneal ulcer. Haze around ulcer. General corneal haze. Intense circumlimbal redness. Conjunctival redness. Increased ciliary flush..
+        /// </summary>
+        internal static string Cu3 {
+            get {
+                return ResourceManager.GetString("Cu3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. White pan-corneal ulcer. Cornea opaque. Intense circumlimbal and conjunctival redness. Intense ciliary flush..
+        /// </summary>
+        internal static string Cu4 {
+            get {
+                return ResourceManager.GetString("Cu4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Endothelial blebs.
+        /// </summary>
+        internal static string Eb {
+            get {
+                return ResourceManager.GetString("Eb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Cells same size. Hexagonal shape. No blebs..
+        /// </summary>
+        internal static string Eb0 {
+            get {
+                return ResourceManager.GetString("Eb0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. One bleb..
+        /// </summary>
+        internal static string Eb1 {
+            get {
+                return ResourceManager.GetString("Eb1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Three single blebs. Two double-cell blebs..
+        /// </summary>
+        internal static string Eb2 {
+            get {
+                return ResourceManager.GetString("Eb2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Large number of blebs. &apos;Thickened&apos; cell borders..
+        /// </summary>
+        internal static string Eb3 {
+            get {
+                return ResourceManager.GetString("Eb3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Very large number of blebs. Increased spacing between cells..
+        /// </summary>
+        internal static string Eb4 {
+            get {
+                return ResourceManager.GetString("Eb4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Epithelial microcysts.
+        /// </summary>
+        internal static string Em {
+            get {
+                return ResourceManager.GetString("Em", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. High magnification view of pupil margin. Clear cornea..
+        /// </summary>
+        internal static string Em0 {
+            get {
+                return ResourceManager.GetString("Em0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Single microcysts at pupillary margin. Mycrocyst dysplays reversed illumination..
+        /// </summary>
+        internal static string Em1 {
+            get {
+                return ResourceManager.GetString("Em1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. 16 microcysts. Some appear faint (newly formed)..
+        /// </summary>
+        internal static string Em2 {
+            get {
+                return ResourceManager.GetString("Em2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. About 70 microcysts. Some microcysts at the surface stain with fluorescein..
+        /// </summary>
+        internal static string Em3 {
+            get {
+                return ResourceManager.GetString("Em3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. About 180 microcysts. Many microcysts at the surface stain with fluorescein..
+        /// </summary>
+        internal static string Em4 {
+            get {
+                return ResourceManager.GetString("Em4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Endothelial polymegathism.
+        /// </summary>
+        internal static string Ep {
+            get {
+                return ResourceManager.GetString("Ep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Cells same size. Hexagonal shape. Coefficient of variation (COV) = 0.15..
+        /// </summary>
+        internal static string Ep0 {
+            get {
+                return ResourceManager.GetString("Ep0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Small variance in cell size. COV = 0.25..
+        /// </summary>
+        internal static string Ep1 {
+            get {
+                return ResourceManager.GetString("Ep1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Increased variance in cell size. COV = 0.35. Some five-, six- and seven-sided cells..
+        /// </summary>
+        internal static string Ep2 {
+            get {
+                return ResourceManager.GetString("Ep2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Considerable variance in cell size. COV = 0.45. Some three-, four-, five-, six- and seven-sided cells..
+        /// </summary>
+        internal static string Ep3 {
+            get {
+                return ResourceManager.GetString("Ep3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Substantial variance in cell size. COV = 0.55. Some three-, four-, five-, six-, seven-, eight- and nine-sided cells..
+        /// </summary>
+        internal static string Ep4 {
+            get {
+                return ResourceManager.GetString("Ep4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Eye {
             get {
                 object obj = ResourceManager.GetObject("Eye", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Limbal redness.
+        /// </summary>
+        internal static string Lr {
+            get {
+                return ResourceManager.GetString("Lr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. &apos;White&apos; limbus. White corneal reflex..
+        /// </summary>
+        internal static string Lr0 {
+            get {
+                return ResourceManager.GetString("Lr0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Slightly increased limbal redness. White corneal reflex..
+        /// </summary>
+        internal static string Lr1 {
+            get {
+                return ResourceManager.GetString("Lr1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Increased limbal redness. Increased conjunctival redness. White corneal reflex..
+        /// </summary>
+        internal static string Lr2 {
+            get {
+                return ResourceManager.GetString("Lr2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Limbus very red. Increased conjunctival redness. Speckled corneal reflex..
+        /// </summary>
+        internal static string Lr3 {
+            get {
+                return ResourceManager.GetString("Lr3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Limbus extremely red. Conjunctival redness. Hazy corneal reflex..
+        /// </summary>
+        internal static string Lr4 {
+            get {
+                return ResourceManager.GetString("Lr4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Meibomian gland dysfunction.
+        /// </summary>
+        internal static string Mgd {
+            get {
+                return ResourceManager.GetString("Mgd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Pale lid margin. Openings of meibomian glands visible. Clean lashes..
+        /// </summary>
+        internal static string Mgd0 {
+            get {
+                return ResourceManager.GetString("Mgd0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Pink lid margin. Cloudy expression at some gland orifices..
+        /// </summary>
+        internal static string Mgd1 {
+            get {
+                return ResourceManager.GetString("Mgd1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Red lid margin. Milky expression at most gland orifices. Increased tearing..
+        /// </summary>
+        internal static string Mgd2 {
+            get {
+                return ResourceManager.GetString("Mgd2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Red lid margin. Yellow expression at most gland orifices. Expressions becoming continuous..
+        /// </summary>
+        internal static string Mgd3 {
+            get {
+                return ResourceManager.GetString("Mgd3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Thick creamy expression at all gland orifices. Expressions continuous. Bulbar conjunctival redness..
+        /// </summary>
+        internal static string Mgd4 {
+            get {
+                return ResourceManager.GetString("Mgd4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Papillary conjunctivitis.
+        /// </summary>
+        internal static string Pc {
+            get {
+                return ResourceManager.GetString("Pc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Pale conjunctiva. Vessels clearly visible. Slight roughness at tarsal fold..
+        /// </summary>
+        internal static string Pc0 {
+            get {
+                return ResourceManager.GetString("Pc0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Pink conjunctiva. Vessels visible. Increased roughness at tarsal fold..
+        /// </summary>
+        internal static string Pc1 {
+            get {
+                return ResourceManager.GetString("Pc1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Red conjunctiva. Vessels less visible. Papillae at tarsal fold. Reflexes on some papillae..
+        /// </summary>
+        internal static string Pc2 {
+            get {
+                return ResourceManager.GetString("Pc2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Very red conjunctiva. Vessels barely visible. Large papillae. Bright papillary reflexes. Single mucus strand..
+        /// </summary>
+        internal static string Pc3 {
+            get {
+                return ResourceManager.GetString("Pc3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Extremely red conjunctiva. Vessels not visible. Very large papillae. Bright papillary reflexes. More mucus strands..
+        /// </summary>
+        internal static string Pc4 {
+            get {
+                return ResourceManager.GetString("Pc4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Superior limbic keratoconjunctivitis.
+        /// </summary>
+        internal static string Slk {
+            get {
+                return ResourceManager.GetString("Slk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 0. Clear conjunctiva. Clear superior limbus. Clear cornea. Clear reflex..
+        /// </summary>
+        internal static string Slk0 {
+            get {
+                return ResourceManager.GetString("Slk0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 1. Increased conjunctival redness. Slight limbal redness. Clear cornea..
+        /// </summary>
+        internal static string Slk1 {
+            get {
+                return ResourceManager.GetString("Slk1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 2. Conjunctival redness and staining. Increased limbal redness. Corneal staining and infiltrates..
+        /// </summary>
+        internal static string Slk2 {
+            get {
+                return ResourceManager.GetString("Slk2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 3. Greater conjunctival redness and staining. Increased limbal redness. 2-3mm fibrovascular pannus. Greater corneal staining and infiltrates..
+        /// </summary>
+        internal static string Slk3 {
+            get {
+                return ResourceManager.GetString("Slk3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Tier 4. Severe conjunctival redness and staining. Severe limbal redness. 5mm fibrovascular pannus. Severe corneal staining and infiltrates..
+        /// </summary>
+        internal static string Slk4 {
+            get {
+                return ResourceManager.GetString("Slk4", resourceCulture);
             }
         }
     }

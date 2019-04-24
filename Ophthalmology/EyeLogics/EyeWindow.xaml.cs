@@ -27,6 +27,8 @@ namespace Ophthalmology.EyeLogics
 
         public List<string> Parameters { get; }
         public List<string> Diagnosis { get; }
+
+        private List<int> _diagStates;
         public string ImagePath { get; private set; }
 
 
@@ -40,6 +42,7 @@ namespace Ophthalmology.EyeLogics
         {
             Parameters = new List<string>();
             Diagnosis = new List<string>();
+            _diagStates = new List<int>();
 
             InitializeComponent();
             _diagnosis = new List<string>();
@@ -60,6 +63,14 @@ namespace Ophthalmology.EyeLogics
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
             _diagnosis.Clear();
+
+            EfronWindow ew = new EfronWindow(null);
+            if (ew.ShowDialog() != true)
+            {
+                return;
+            }
+
+            var diagnosi = ew.GetDiagnosis();
 
             Random rnd = new Random();
 

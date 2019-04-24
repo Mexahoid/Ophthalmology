@@ -117,8 +117,296 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="B" xml:space="preserve">
+    <value>Blepharitis</value>
+  </data>
+  <data name="B0" xml:space="preserve">
+    <value>Tier 0. Pale lid margin. Openings of meibomian glands visible. Clean lashes.</value>
+  </data>
+  <data name="B1" xml:space="preserve">
+    <value>Tier 1. Pink lid margin. Openings of meibomian glands less visible. Clean lashes.</value>
+  </data>
+  <data name="B2" xml:space="preserve">
+    <value>Tier 2. Red lid margin. Openings of meibomian glands barely visible. Yellow crust at base of lashes. Some lashes stuck together.</value>
+  </data>
+  <data name="B3" xml:space="preserve">
+    <value>Tier 3. Telangiectasis lid margin. Increased crusting. More lashes stuck together. Bulbar conjunctival redness.</value>
+  </data>
+  <data name="B4" xml:space="preserve">
+    <value>Tier 4. Severe telangiectasis of lid margin. Excess yellow crusting. Lashes stuck together. Increased bulbar conjunctival redness. Skin irritation.</value>
+  </data>
+  <data name="Cd" xml:space="preserve">
+    <value>Corneal distortion</value>
+  </data>
+  <data name="Cd0" xml:space="preserve">
+    <value>Tier 0. Bright, sharp, circular keratometer mire.</value>
+  </data>
+  <data name="Cd1" xml:space="preserve">
+    <value>Tier 1. Slightly distorted keratometer mire. Variation in thickness of circle.</value>
+  </data>
+  <data name="Cd2" xml:space="preserve">
+    <value>Tier 2. Distorted keratometer mire. Variation in thickness of circle. Loss of focus of right and top +/- signs.</value>
+  </data>
+  <data name="Cd3" xml:space="preserve">
+    <value>Tier 3. Very distorted keratometer mire. Greater variation in thickness of circle. Loss of focus of right of all +/- signs.</value>
+  </data>
+  <data name="Cd4" xml:space="preserve">
+    <value>Tier 4. Extremely distorted keratometer mire. Greater variation in thickness of circle with some gaps. Loss of focus of right of all +/- signs.</value>
+  </data>
+  <data name="Ci" xml:space="preserve">
+    <value>Corneal infiltrates</value>
+  </data>
+  <data name="Ci0" xml:space="preserve">
+    <value>Tier 0. Clear cornea. Clear conjunctiva and limbus. Clear reflex.</value>
+  </data>
+  <data name="Ci1" xml:space="preserve">
+    <value>Tier 1. Single small grey infiltrate at 10 o'clock near limbus. Adjacent limbal redness.</value>
+  </data>
+  <data name="Ci2" xml:space="preserve">
+    <value>Tier 2. Five small grey infiltrates at 9-10 o'clock near limbus. Adjacent limbus more red.</value>
+  </data>
+  <data name="Ci3" xml:space="preserve">
+    <value>Tier 3. Numerous small hazy grey infiltrates at 8-10 o'clock in peripheral cornea. Adjacent limbus very red.</value>
+  </data>
+  <data name="Ci4" xml:space="preserve">
+    <value>Tier 4. Hazy grey confluent infiltrates that cover left half of cornea. Adjacent limbal redness from 5 to 11 o'clock. Mild conjunctival redness.</value>
+  </data>
+  <data name="Cn" xml:space="preserve">
+    <value>Corneal neovascularization</value>
+  </data>
+  <data name="Cn0" xml:space="preserve">
+    <value>Tier 0. Clear cornea. White reflex.</value>
+  </data>
+  <data name="Cn1" xml:space="preserve">
+    <value>Tier 1. Vessels encroach &lt;1mm from lower left quadrant (LLQ).</value>
+  </data>
+  <data name="Cn2" xml:space="preserve">
+    <value>Tier 2. Vessels encroach 2-3mm from LLQ. Limbal redness. Reflex less crisp. Central corneal haze.</value>
+  </data>
+  <data name="Cn3" xml:space="preserve">
+    <value>Tier 3. Vessels encroach 4-5mm from LLQ. Corneal haze around vessels. Speckled reflex.</value>
+  </data>
+  <data name="Cn4" xml:space="preserve">
+    <value>Tier 4. Vessels encroach 6mm from LLQ. Lipid at leading edge of vessels. Very diffuze reflex.</value>
+  </data>
+  <data name="Co" xml:space="preserve">
+    <value>Corneal oedema</value>
+  </data>
+  <data name="Co0" xml:space="preserve">
+    <value>Tier 0. Clear cornea and 3mm wide parallelepiped. Left: endothelium. Centre: stroma. Right: epithelium.</value>
+  </data>
+  <data name="Co1" xml:space="preserve">
+    <value>Tier 1. Single vertical stria in posterior cornea.</value>
+  </data>
+  <data name="Co2" xml:space="preserve">
+    <value>Tier 2. Three vertical striae in posterior cornea.</value>
+  </data>
+  <data name="Co3" xml:space="preserve">
+    <value>Tier 3. Many vertical striae in posterior cornea. Folds in endothelium.</value>
+  </data>
+  <data name="Co4" xml:space="preserve">
+    <value>Tier 4. Many vertical striae in posterior cornea. Many folds in endothelium. Epithelial bullae.</value>
+  </data>
+  <data name="Cr" xml:space="preserve">
+    <value>Conjunctival redness</value>
+  </data>
+  <data name="Cr0" xml:space="preserve">
+    <value>Tier 0. 'White' bulbar conjunctiva. One major vessel. Clear cornea.</value>
+  </data>
+  <data name="Cr1" xml:space="preserve">
+    <value>Tier 1. Small increase in conjunctival redness. Major vessel more engorged.</value>
+  </data>
+  <data name="Cr2" xml:space="preserve">
+    <value>Tier 2. Further increase in conjunctival redness. Limbal redness. Slight ciliary flush.</value>
+  </data>
+  <data name="Cr3" xml:space="preserve">
+    <value>Tier 3. Conjunctiva very red. Increased limbal redness. Ciliary flush.</value>
+  </data>
+  <data name="Cr4" xml:space="preserve">
+    <value>Tier 4. Conjunctiva extremely red. Limbus very red. Intense ciliary flush. Reflex on major vessel.</value>
+  </data>
+  <data name="Cs" xml:space="preserve">
+    <value>Corneal staining</value>
+  </data>
+  <data name="Cs0" xml:space="preserve">
+    <value>Tier 0. Clear cornea. No staining. Fluorescein in eye. Cobalt blue reflex.</value>
+  </data>
+  <data name="Cs1" xml:space="preserve">
+    <value>Tier 1. Light punctate staining. Slight conjunctival redness.</value>
+  </data>
+  <data name="Cs2" xml:space="preserve">
+    <value>Tier 2. More punctate staining. Increases redness.</value>
+  </data>
+  <data name="Cs3" xml:space="preserve">
+    <value>Tier 3. Light pan-corneal punctate staining. Diffuse reflex.</value>
+  </data>
+  <data name="Cs4" xml:space="preserve">
+    <value>Tier 4. Heavy pan-corneal punctate staining. Very diffuse reflex.</value>
+  </data>
+  <data name="Cst" xml:space="preserve">
+    <value>Conjunctival staining</value>
+  </data>
+  <data name="Cst0" xml:space="preserve">
+    <value>Tier 0. Clear cornea. Fluorescein pooling in some folds. Cobalt blue reflex.</value>
+  </data>
+  <data name="Cst1" xml:space="preserve">
+    <value>Tier 1. Increased fluorescein pooling in folds. Slight staining at position of lens edge.</value>
+  </data>
+  <data name="Cst2" xml:space="preserve">
+    <value>Tier 2. More fluorescein pooling in folds. Increased lens edge staining. Increased conjunctival redness.</value>
+  </data>
+  <data name="Cst3" xml:space="preserve">
+    <value>Tier 3. Widespread fluorescein pooling in folds. Continuous lens edge staining. Conjunctival redness.</value>
+  </data>
+  <data name="Cst4" xml:space="preserve">
+    <value>Tier 4. Widespread fluorescein pooling in folds. Heavy lens edge staining. Conjunctival redness. Limbal staining.</value>
+  </data>
+  <data name="Cu" xml:space="preserve">
+    <value>Corneal ulcer</value>
+  </data>
+  <data name="Cu0" xml:space="preserve">
+    <value>Tier 0. Clear cornea. Clear conjunctiva and limbus. Clear reflex.</value>
+  </data>
+  <data name="Cu1" xml:space="preserve">
+    <value>Tier 1. &lt;1mm corneal ulcer at left pupil margin. Stains with fluorescein. Mild limbal redness at 7-11 o'clock.</value>
+  </data>
+  <data name="Cu2" xml:space="preserve">
+    <value>Tier 2. 2-3mm corneal ulcer. Haze around ulcer. Intense limbal redness at 7-11 o'clock. Ciliary flush.</value>
+  </data>
+  <data name="Cu3" xml:space="preserve">
+    <value>Tier 3. 6mm corneal ulcer. Haze around ulcer. General corneal haze. Intense circumlimbal redness. Conjunctival redness. Increased ciliary flush.</value>
+  </data>
+  <data name="Cu4" xml:space="preserve">
+    <value>Tier 4. White pan-corneal ulcer. Cornea opaque. Intense circumlimbal and conjunctival redness. Intense ciliary flush.</value>
+  </data>
+  <data name="Eb" xml:space="preserve">
+    <value>Endothelial blebs</value>
+  </data>
+  <data name="Eb0" xml:space="preserve">
+    <value>Tier 0. Cells same size. Hexagonal shape. No blebs.</value>
+  </data>
+  <data name="Eb1" xml:space="preserve">
+    <value>Tier 1. One bleb.</value>
+  </data>
+  <data name="Eb2" xml:space="preserve">
+    <value>Tier 2. Three single blebs. Two double-cell blebs.</value>
+  </data>
+  <data name="Eb3" xml:space="preserve">
+    <value>Tier 3. Large number of blebs. 'Thickened' cell borders.</value>
+  </data>
+  <data name="Eb4" xml:space="preserve">
+    <value>Tier 4. Very large number of blebs. Increased spacing between cells.</value>
+  </data>
+  <data name="Em" xml:space="preserve">
+    <value>Epithelial microcysts</value>
+  </data>
+  <data name="Em0" xml:space="preserve">
+    <value>Tier 0. High magnification view of pupil margin. Clear cornea.</value>
+  </data>
+  <data name="Em1" xml:space="preserve">
+    <value>Tier 1. Single microcysts at pupillary margin. Mycrocyst dysplays reversed illumination.</value>
+  </data>
+  <data name="Em2" xml:space="preserve">
+    <value>Tier 2. 16 microcysts. Some appear faint (newly formed).</value>
+  </data>
+  <data name="Em3" xml:space="preserve">
+    <value>Tier 3. About 70 microcysts. Some microcysts at the surface stain with fluorescein.</value>
+  </data>
+  <data name="Em4" xml:space="preserve">
+    <value>Tier 4. About 180 microcysts. Many microcysts at the surface stain with fluorescein.</value>
+  </data>
+  <data name="Ep" xml:space="preserve">
+    <value>Endothelial polymegathism</value>
+  </data>
+  <data name="Ep0" xml:space="preserve">
+    <value>Tier 0. Cells same size. Hexagonal shape. Coefficient of variation (COV) = 0.15.</value>
+  </data>
+  <data name="Ep1" xml:space="preserve">
+    <value>Tier 1. Small variance in cell size. COV = 0.25.</value>
+  </data>
+  <data name="Ep2" xml:space="preserve">
+    <value>Tier 2. Increased variance in cell size. COV = 0.35. Some five-, six- and seven-sided cells.</value>
+  </data>
+  <data name="Ep3" xml:space="preserve">
+    <value>Tier 3. Considerable variance in cell size. COV = 0.45. Some three-, four-, five-, six- and seven-sided cells.</value>
+  </data>
+  <data name="Ep4" xml:space="preserve">
+    <value>Tier 4. Substantial variance in cell size. COV = 0.55. Some three-, four-, five-, six-, seven-, eight- and nine-sided cells.</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\Eye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lr" xml:space="preserve">
+    <value>Limbal redness</value>
+  </data>
+  <data name="Lr0" xml:space="preserve">
+    <value>Tier 0. 'White' limbus. White corneal reflex.</value>
+  </data>
+  <data name="Lr1" xml:space="preserve">
+    <value>Tier 1. Slightly increased limbal redness. White corneal reflex.</value>
+  </data>
+  <data name="Lr2" xml:space="preserve">
+    <value>Tier 2. Increased limbal redness. Increased conjunctival redness. White corneal reflex.</value>
+  </data>
+  <data name="Lr3" xml:space="preserve">
+    <value>Tier 3. Limbus very red. Increased conjunctival redness. Speckled corneal reflex.</value>
+  </data>
+  <data name="Lr4" xml:space="preserve">
+    <value>Tier 4. Limbus extremely red. Conjunctival redness. Hazy corneal reflex.</value>
+  </data>
+  <data name="Mgd" xml:space="preserve">
+    <value>Meibomian gland dysfunction</value>
+  </data>
+  <data name="Mgd0" xml:space="preserve">
+    <value>Tier 0. Pale lid margin. Openings of meibomian glands visible. Clean lashes.</value>
+  </data>
+  <data name="Mgd1" xml:space="preserve">
+    <value>Tier 1. Pink lid margin. Cloudy expression at some gland orifices.</value>
+  </data>
+  <data name="Mgd2" xml:space="preserve">
+    <value>Tier 2. Red lid margin. Milky expression at most gland orifices. Increased tearing.</value>
+  </data>
+  <data name="Mgd3" xml:space="preserve">
+    <value>Tier 3. Red lid margin. Yellow expression at most gland orifices. Expressions becoming continuous.</value>
+  </data>
+  <data name="Mgd4" xml:space="preserve">
+    <value>Tier 4. Thick creamy expression at all gland orifices. Expressions continuous. Bulbar conjunctival redness.</value>
+  </data>
+  <data name="Pc" xml:space="preserve">
+    <value>Papillary conjunctivitis</value>
+  </data>
+  <data name="Pc0" xml:space="preserve">
+    <value>Tier 0. Pale conjunctiva. Vessels clearly visible. Slight roughness at tarsal fold.</value>
+  </data>
+  <data name="Pc1" xml:space="preserve">
+    <value>Tier 1. Pink conjunctiva. Vessels visible. Increased roughness at tarsal fold.</value>
+  </data>
+  <data name="Pc2" xml:space="preserve">
+    <value>Tier 2. Red conjunctiva. Vessels less visible. Papillae at tarsal fold. Reflexes on some papillae.</value>
+  </data>
+  <data name="Pc3" xml:space="preserve">
+    <value>Tier 3. Very red conjunctiva. Vessels barely visible. Large papillae. Bright papillary reflexes. Single mucus strand.</value>
+  </data>
+  <data name="Pc4" xml:space="preserve">
+    <value>Tier 4. Extremely red conjunctiva. Vessels not visible. Very large papillae. Bright papillary reflexes. More mucus strands.</value>
+  </data>
+  <data name="Slk" xml:space="preserve">
+    <value>Superior limbic keratoconjunctivitis</value>
+  </data>
+  <data name="Slk0" xml:space="preserve">
+    <value>Tier 0. Clear conjunctiva. Clear superior limbus. Clear cornea. Clear reflex.</value>
+  </data>
+  <data name="Slk1" xml:space="preserve">
+    <value>Tier 1. Increased conjunctival redness. Slight limbal redness. Clear cornea.</value>
+  </data>
+  <data name="Slk2" xml:space="preserve">
+    <value>Tier 2. Conjunctival redness and staining. Increased limbal redness. Corneal staining and infiltrates.</value>
+  </data>
+  <data name="Slk3" xml:space="preserve">
+    <value>Tier 3. Greater conjunctival redness and staining. Increased limbal redness. 2-3mm fibrovascular pannus. Greater corneal staining and infiltrates.</value>
+  </data>
+  <data name="Slk4" xml:space="preserve">
+    <value>Tier 4. Severe conjunctival redness and staining. Severe limbal redness. 5mm fibrovascular pannus. Severe corneal staining and infiltrates.</value>
   </data>
 </root>
