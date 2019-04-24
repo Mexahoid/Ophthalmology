@@ -133,5 +133,41 @@ namespace Ophthalmology.ConfigLogics.Forms
             ParameterNameTextBox.Text = "";
             _cfg.IsAdding = true;
         }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch ((Selector.SelectedItem as TabItem)?.Tag)
+            {
+                case "Pars":
+                    MainForm.MinHeight = 360;
+                    MainForm.Height = 450;
+                    MainForm.MaxHeight = 450;
+
+                    MainForm.MinWidth = 550;
+                    MainForm.Width = 800;
+                    MainForm.MaxWidth = 800;
+                    break;
+                case "Image":
+                    MainForm.MinHeight = 500;
+                    MainForm.Height = 700;
+                    MainForm.MaxHeight = 900;
+
+                    MainForm.MinWidth = 900;
+                    MainForm.Width = 1100;
+                    MainForm.MaxWidth = 1200;
+                    break;
+                case "Report":
+                    MainForm.MinHeight = 700;
+                    MainForm.Height = 700;
+                    MainForm.MaxHeight = 1300;
+
+                    MainForm.MinWidth = 400;
+                    MainForm.Width = 500;
+                    MainForm.MaxWidth = 900;
+                    break;
+                default:
+                    throw new Exception("Wtf");
+            }
+        }
     }
 }

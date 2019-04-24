@@ -39,32 +39,17 @@ namespace Ophthalmology
         }
 
 
-        private void ClearAll()
-        {
-            EyesGrid.Visibility = Visibility.Visible;
-            LPars.Clear();
-            LDiags.Clear();
-            RPars.Clear();
-            RDiags.Clear();
 
-            RightImage.Source = _is;
-            RightDiagList.ItemsSource = null;
-            RightParsList.ItemsSource = null;
-            LeftImage.Source = _is;
-            LeftDiagList.ItemsSource = null;
-            LeftParsList.ItemsSource = null;
-        }
-
-
-        private void FillSide(bool left)
+        private void FillSide(bool left, Tuple<List<string[]>, string> inputargs = null)
         {
             List<string> target_pars_list = left ? LPars : RPars;
             List<string> target_diag_list = left ? LDiags : RDiags;
-            Image rarget_image = left ? LeftImage : RightImage;
+            Image target_image = left ? LeftImage : RightImage;
             ListBox target_diag = left ? LeftDiagList : RightDiagList;
             ListBox target_pars = left ? LeftParsList : RightParsList;
 
-            Tuple<List<string[]>, string> art = ConfigLogic.Instance.ReadEyeInfo(pat, time, left);
+            var art = inputargs ?? ConfigLogic.Instance.ReadEyeInfo(pat, time, left);
+
             foreach (string par in art.Item1[0])
             {
                 target_pars_list.Add(par);
@@ -78,7 +63,7 @@ namespace Ophthalmology
             bi3.BeginInit();
             bi3.UriSource = new Uri(art.Item2);
             bi3.EndInit();
-            rarget_image.Source = bi3;
+            target_image.Source = bi3;
 
             target_diag.ItemsSource = null;
             target_pars.ItemsSource = null;
@@ -136,9 +121,8 @@ namespace Ophthalmology
             {
                 return;
             }
-
+            PreClear();
             FillPat(win2.Patient, win2.Time);
-
             FillEyes();
         }
 
@@ -153,47 +137,79 @@ namespace Ophthalmology
             EyesGrid.Visibility = Visibility.Hidden;
             DateGrid.Visibility = Visibility.Hidden;
 
-            RDiags.Clear();
-            RPars.Clear();
-            LDiags.Clear();
             LPars.Clear();
+            LDiags.Clear();
+            RPars.Clear();
+            RDiags.Clear();
+
+            RightImage.Source = _is;
+            RightDiagList.ItemsSource = null;
+            RightParsList.ItemsSource = null;
+            LeftImage.Source = _is;
+            LeftDiagList.ItemsSource = null;
+            LeftParsList.ItemsSource = null;
+
 
             DateTextBlock.Text = "Дата осмотра";
         }
 
         private void PatientRightButton_Click(object sender, RoutedEventArgs e)
         {
-            var tpat = ConfigLogic.Instance.GetPatient(pat, true);
+            ChangePatient(true);
+        }
+
+        private void ChangePatient(bool next)
+        {
+            Patient tpat = ConfigLogic.Instance.GetPatient(pat, next);
             if (tpat == null)
                 return;
             pat = tpat;
             PreClear();
             time = pat.Dates.Count < 1 ? DateTime.MinValue : Convert.ToDateTime(pat.Dates[0]);
+
             FillPat(pat, time);
             FillEyes();
         }
 
         private void PatientLeftButton_Click(object sender, RoutedEventArgs e)
         {
-            var tpat = ConfigLogic.Instance.GetPatient(pat, false);
-            if (tpat == null)
-                return;
-            pat = tpat;
-            PreClear();
-            time = pat.Dates.Count < 1 ? DateTime.MinValue : Convert.ToDateTime(pat.Dates[0]);
+            ChangePatient(false);
+        }
 
+        private void ChangeDate(bool next)
+        {
+            if (pat.Dates.Count < 1)
+                return;
+            int pos;
+            for (pos = 0; pos < pat.Dates.Count; pos++)
+            {
+                if (pat.Dates[pos] == time)
+                    break;
+            }
+            if (next)
+                pos++;
+            else
+                pos--;
+
+            if (pos >= pat.Dates.Count)
+                return;
+
+            if (pos < 0)
+                return;
+            time = Convert.ToDateTime(pat.Dates[pos]);
+            PreClear();
             FillPat(pat, time);
             FillEyes();
         }
 
         private void DateNext_Click(object sender, RoutedEventArgs e)
         {
-
+            ChangeDate(true);
         }
 
         private void DatePrev_Click(object sender, RoutedEventArgs e)
         {
-
+            ChangeDate(false);
         }
 
         private void NewDateButton_Click(object sender, RoutedEventArgs e)
@@ -207,9 +223,9 @@ namespace Ophthalmology
             time = w.Date;
             ConfigLogic.Instance.AddDate(pat, time);
 
-            ClearAll();
+            PreClear();
             // Сброс
-
+            DateGrid.Visibility = Visibility.Visible;
             DateTextBlock.Text = time.ToShortDateString();
             EyesGrid.Visibility = Visibility.Visible;
         }
@@ -228,69 +244,30 @@ namespace Ophthalmology
 
         private void LeftEyeButton_Click(object sender, RoutedEventArgs e)
         {
-            EyeWindow w = new EyeWindow(true);
-            if (w.ShowDialog() != true)
-            {
-                return;
-            }
-            LPars.Clear();
-            LDiags.Clear();
-
-            foreach (string wParameter in w.Parameters)
-            {
-                LPars.Add(wParameter);
-            }
-            foreach (string wDiagnosi in w.Diagnosis)
-            {
-                LDiags.Add(wDiagnosi);
-            }
-            LeftDiagList.ItemsSource = null;
-            LeftParsList.ItemsSource = null;
-            LeftDiagList.ItemsSource = LDiags;
-            LeftParsList.ItemsSource = LPars;
-            string path = w.ImagePath;
-
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri(path);
-            bi3.EndInit();
-            LeftImage.Source = bi3;
-            ConfigLogic.Instance.AddEye(true, pat, time, path, LPars, LDiags);
-            UpdateLayout();
-
+            LoadEyeImage(true);
         }
 
         private void RightEyeButton_Click(object sender, RoutedEventArgs e)
         {
-            EyeWindow w = new EyeWindow(false);
+            LoadEyeImage(false);
+        }
+
+        private void LoadEyeImage(bool left)
+        {
+            EyeWindow w = new EyeWindow(left);
             if (w.ShowDialog() != true)
             {
                 return;
             }
 
-            RPars.Clear();
-            RDiags.Clear();
 
-            foreach (string wParameter in w.Parameters)
+            FillSide(left, Tuple.Create(new List<string[]>
             {
-                RPars.Add(wParameter);
-            }
-            foreach (string wDiagnosi in w.Diagnosis)
-            {
-                RDiags.Add(wDiagnosi);
-            }
-            RightDiagList.ItemsSource = null;
-            RightParsList.ItemsSource = null;
-            RightDiagList.ItemsSource = RDiags;
-            RightParsList.ItemsSource = RPars;
-            string path = w.ImagePath;
+                w.Parameters.ToArray(),
+                w.Diagnosis.ToArray()
+            }, w.ImagePath));
 
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri(path);
-            bi3.EndInit();
-            RightImage.Source = bi3;
-            ConfigLogic.Instance.AddEye(false, pat, time, path, RPars, RDiags);
+            ConfigLogic.Instance.AddEye(left, pat, time, w.ImagePath, w.Parameters, w.Diagnosis);
             UpdateLayout();
 
         }

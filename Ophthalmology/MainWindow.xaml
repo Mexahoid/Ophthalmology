@@ -50,13 +50,13 @@
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="DatePrev" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DatePrev_Click">
+            <Button Grid.Column="0" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DatePrev_Click">
                 <Path Fill="DarkGreen" Data="M 0 10 L 20 0 L 20 20 Z"/>
             </Button>
 
             <TextBlock Grid.Column="1" Name="DateTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="Дата осмотра"/>
 
-            <Button Grid.Column="2" Name="DateNext" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DateNext_Click">
+            <Button Grid.Column="2" Width="30" Margin="0, 2, 0, 2" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderThickness="0" Click="DateNext_Click">
                 <Path Fill="DarkGreen" Data="M 0 0 L 0 20 L 20 10 Z"/>
             </Button>
 
