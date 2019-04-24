@@ -62,7 +62,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             Serialize(ej, eyePath + "\\info.json");
         }
 
-        public void Serialize(object obj, string path)
+        private void Serialize(object obj, string path)
         {
             var json = JsonConvert.SerializeObject(obj);
             using (StreamWriter sw = new StreamWriter(path))

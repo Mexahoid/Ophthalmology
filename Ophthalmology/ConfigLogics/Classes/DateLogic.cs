@@ -10,9 +10,9 @@ namespace Ophthalmology.ConfigLogics.Classes
 {
     class DateLogic
     {
-        private SerializerLogic _sl;
-        private DeserializerLogic _dl;
-        private string _root;
+        private readonly SerializerLogic _sl;
+        private readonly DeserializerLogic _dl;
+        private readonly string _root;
         public DateLogic(SerializerLogic sl, string root, DeserializerLogic dl)
         {
             _sl = sl;
@@ -43,10 +43,18 @@ namespace Ophthalmology.ConfigLogics.Classes
             int pos = lp.IndexOf(d);
             lp.RemoveAt(pos);
             datesPaths = lp.ToArray();
+
             lp = datesArr.ToList();
             lp.RemoveAt(pos);
             datesArr = lp.ToArray();
-            Directory.Delete(_root + "\\" + paths + "\\" + d, true);
+            try
+            {
+                Directory.Delete(_root + "\\" + paths + "\\" + d, true);
+            }
+            catch
+            {
+                // Подавлено
+            }
 
             _sl.WriteDatesList(new List<string[]>
             {

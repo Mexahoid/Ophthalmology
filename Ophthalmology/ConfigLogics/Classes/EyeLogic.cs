@@ -10,9 +10,9 @@ namespace Ophthalmology.ConfigLogics.Classes
 {
     class EyeLogic
     {
-        private SerializerLogic _sl;
-        private DeserializerLogic _dl;
-        private string _root;
+        private readonly SerializerLogic _sl;
+        private readonly DeserializerLogic _dl;
+        private readonly string _root;
         public EyeLogic(SerializerLogic sl, string root, DeserializerLogic dl)
         {
             _sl = sl;
@@ -47,7 +47,14 @@ namespace Ophthalmology.ConfigLogics.Classes
 
             string rp = _root + "\\" + paths + "\\" + datePath + "\\" + eye;
 
-            File.Copy(path, rp + "\\image.jpg");
+            try
+            {
+                File.Copy(path, rp + "\\image.jpg");
+            }
+            catch
+            {
+                // Подавлено
+            }
 
             _sl.WriteEyeInfo(pars, diags, rp);
         }

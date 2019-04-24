@@ -12,9 +12,9 @@ namespace Ophthalmology.ConfigLogics.Classes
 {
     class PatientLogic
     {
-        private SerializerLogic _sl;
-        private DeserializerLogic _dl;
-        private string _root;
+        private readonly SerializerLogic _sl;
+        private readonly DeserializerLogic _dl;
+        private readonly string _root;
 
         public PatientLogic(SerializerLogic sl, string root, DeserializerLogic dl)
         {
@@ -102,12 +102,22 @@ namespace Ophthalmology.ConfigLogics.Classes
         {
             // 0 - Names, 1 - FolderPaths
             var curr = _dl.ReadPatientsList();
-            //todo: rename folders
+
+            // todo: переименованеи папок
+            // Да зачем? Будем считать, что это id'шники
+
             var c = curr[0];
             var p = curr[1];
 
             // Delete [pos] directory
-            Directory.Delete(_root + "\\" + p[pos], true);
+            try
+            {
+                Directory.Delete(_root + "\\" + p[pos], true);
+            }
+            catch
+            {
+                // Подавлено
+            }
             var cl = c.ToList();
             cl.RemoveAt(pos);
             c = cl.ToArray();
@@ -122,7 +132,15 @@ namespace Ophthalmology.ConfigLogics.Classes
                 int num = int.Parse(p[i].Split('.')[0]) - 1;
                 string old = p[i];
                 p[i] = $"{num}. " + c[i];
-                Directory.Move(_root + "\\" + old, _root + "\\" + p[i]);
+                try
+                {
+                    Directory.Move(_root + "\\" + old, _root + "\\" + p[i]);
+                }
+                catch
+                {
+                    // Подавлено
+                }
+
             }
 
             _sl.WritePatientsList(new List<string[]>

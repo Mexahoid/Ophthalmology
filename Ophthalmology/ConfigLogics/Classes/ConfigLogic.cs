@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 using Ophthalmology.ConfigLogics.Serialization;
-using Ophthalmology.PatientLogics;
 using Ophthalmology.Patients.Classes;
 
 namespace Ophthalmology.ConfigLogics.Classes
@@ -24,15 +22,11 @@ namespace Ophthalmology.ConfigLogics.Classes
         public string[] Parameters { get; private set; }
         private string _root;
 
-        private SerializerLogic _sl;
-
-        private PatientLogic _pl;
-
-        private DeserializerLogic _dl;
-
-        private DateLogic _dtl;
-
-        private EyeLogic _el;
+        private readonly SerializerLogic _sl;
+        private readonly DeserializerLogic _dl;
+        private readonly PatientLogic _pl;
+        private readonly DateLogic _dtl;
+        private readonly EyeLogic _el;
 
         private ConfigLogic()
         {
@@ -40,9 +34,9 @@ namespace Ophthalmology.ConfigLogics.Classes
             _dl = new DeserializerLogic();
             if (IsConfigPresent)
             {
-                var t = _dl.ReadConfig(_path);
-                Parameters = t.Item1;
-                _root = t.Item2;
+                (var pars, string root) = _dl.ReadConfig(_path);
+                Parameters = pars;
+                _root = root;
             }
 
             _sl = new SerializerLogic(_root);

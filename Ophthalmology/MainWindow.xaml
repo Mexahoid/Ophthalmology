@@ -23,7 +23,7 @@
 
         <ToolBar Grid.Column="0" Grid.Row="0">
             <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Name="ShowListButton" Click="ShowListButton_Click" IsEnabled="False">Список пациентов</Button>
-            <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Name="ShowConfigButton" Click="ShowConfigButton_Click">Конфигурация</Button>
+            <Button BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,1" FontSize="16" VerticalAlignment="Center" Click="ShowConfigButton_Click">Конфигурация</Button>
         </ToolBar>
 
         <Grid Grid.Row="1" Background="LightBlue" Margin="10, 5, 10, 5">

@@ -16,9 +16,11 @@ namespace Ophthalmology.PatientLogics
     /// </summary>
     public partial class PatientListWindow : Window
     {
-        private ObservableCollection<Patient> _patients;
-        public Patient Patient { get; set; }
-        public DateTime Time { get; set; }
+        private readonly ObservableCollection<Patient> _patients;
+        public Patient Patient { get; private set; }
+        public DateTime Time { get; private set; }
+
+        private bool _timeSelected;
         public PatientListWindow()
         {
             InitializeComponent();
@@ -44,22 +46,37 @@ namespace Ophthalmology.PatientLogics
         private void OnItemSelected(object sender, RoutedEventArgs e)
         {
             object s = (sender as TreeViewItem)?.Header;
+
+            // Надо сверить, если время уже было выбрано
+            // Время -> Пациент
+            // Пациент
+            // _timeSelected как флаг-переключатель
+
             if (s is Patient pat)
             {
-                Patient = pat;
-                if (Patient != null)
+                // Чорная магия для исключения дублирования и удаления даты
+                if(!_timeSelected)
                 {
-                    Time = DateTime.MaxValue;
+                    Patient = pat;
+                    if (Patient != null)
+                    {
+                        Time = DateTime.MaxValue;
+                    }
+                }
+                else
+                {
+                    _timeSelected = false;
                 }
             }
             else
             {
                 if (s != null)
                 {
-                    DateTime time = (DateTime) s;
+                    DateTime time = (DateTime)s;
                     object p = ((TreeViewItem)GetSelectedTreeViewItemParent((TreeViewItem)sender)).Header;
                     Patient = (Patient)p;
                     Time = time;
+                    _timeSelected = true;
                 }
             }
             RemovePatientButton.IsEnabled = true;

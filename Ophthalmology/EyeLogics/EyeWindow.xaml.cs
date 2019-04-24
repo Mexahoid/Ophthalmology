@@ -22,11 +22,11 @@ namespace Ophthalmology.EyeLogics
     /// </summary>
     public partial class EyeWindow : Window
     {
-        private List<string> diagnosis;
-        private List<PropObj> objs;
+        private readonly List<string> _diagnosis;
+        private readonly List<PropObj> _objs;
 
-        public List<string> Parameters { get; private set; }
-        public List<string> Diagnosis { get; private set; }
+        public List<string> Parameters { get; }
+        public List<string> Diagnosis { get; }
         public string ImagePath { get; private set; }
 
 
@@ -42,60 +42,59 @@ namespace Ophthalmology.EyeLogics
             Diagnosis = new List<string>();
 
             InitializeComponent();
-            diagnosis = new List<string>();
-            objs = new List<PropObj>();
+            _diagnosis = new List<string>();
+            _objs = new List<PropObj>();
             Title = isLeft ? "Левый глаз" : "Правый глаз";
             DataContext = this;
-            DiagList.ItemsSource = diagnosis;
+            DiagList.ItemsSource = _diagnosis;
 
             foreach (string instanceParameter in ConfigLogic.Instance.Parameters)
             {
                 PropObj po = new PropObj {Property = instanceParameter};
-                objs.Add(po);
+                _objs.Add(po);
             }
 
-            ParametersDataGrid.ItemsSource = objs;
+            ParametersDataGrid.ItemsSource = _objs;
         }
 
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
-            diagnosis.Clear();
+            _diagnosis.Clear();
 
             Random rnd = new Random();
 
-            diagnosis.Add($"Симптом 1, степень: {rnd.Next(0, 10)}");
-            diagnosis.Add($"Симптом 2, степень: {rnd.Next(0, 10)}");
-            diagnosis.Add($"Симптом 3, степень: {rnd.Next(0, 10)}");
-            diagnosis.Add($"Симптом 4, степень: {rnd.Next(0, 10)}");
-            diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 1, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 2, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 3, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 4, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");
 
             DiagList.ItemsSource = null;
-            DiagList.ItemsSource = diagnosis;
+            DiagList.ItemsSource = _diagnosis;
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             var ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == true)
-            {
-                ImagePath = ofd.FileName;
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri(ImagePath);
-                bi3.EndInit();
-                Image.Source = bi3;
+            if (ofd.ShowDialog() != true)
+                return;
+            ImagePath = ofd.FileName;
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(ImagePath);
+            bi3.EndInit();
+            Image.Source = bi3;
 
-                OkButton.IsEnabled = true;
-            }
+            OkButton.IsEnabled = true;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (PropObj t in objs)
+            foreach (PropObj t in _objs)
             {
                 Parameters.Add(t.Property + ": " + t.Value);
             }
-            foreach (string diag in diagnosis)
+            foreach (string diag in _diagnosis)
             {
                 Diagnosis.Add(diag);
             }
