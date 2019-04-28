@@ -44,7 +44,9 @@ namespace Ophthalmology
         private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string>> inputargs = null)
         {
             List<string> target_pars_list = left ? LPars : RPars;
+            target_pars_list.Clear();
             List<string> target_diag_list = left ? LDiags : RDiags;
+            target_diag_list.Clear();
             Image target_image = left ? LeftImage : RightImage;
             ListBox target_diag = left ? LeftDiagList : RightDiagList;
             ListBox target_pars = left ? LeftParsList : RightParsList;
