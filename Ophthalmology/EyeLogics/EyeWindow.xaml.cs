@@ -22,13 +22,14 @@ namespace Ophthalmology.EyeLogics
     /// </summary>
     public partial class EyeWindow : Window
     {
-        private readonly List<string> _diagnosis;
+        private readonly List<string> _diagnosisBinding;
         private readonly List<PropObj> _objs;
+
+        private readonly List<int> _realDiagnosis;
 
         public List<string> Parameters { get; }
         public List<string> Diagnosis { get; }
 
-        private List<int> _diagStates;
         public string ImagePath { get; private set; }
 
 
@@ -42,14 +43,14 @@ namespace Ophthalmology.EyeLogics
         {
             Parameters = new List<string>();
             Diagnosis = new List<string>();
-            _diagStates = new List<int>();
+            _realDiagnosis = new List<int>();
 
             InitializeComponent();
-            _diagnosis = new List<string>();
+            _diagnosisBinding = new List<string>();
             _objs = new List<PropObj>();
             Title = isLeft ? "Левый глаз" : "Правый глаз";
             DataContext = this;
-            DiagList.ItemsSource = _diagnosis;
+            DiagList.ItemsSource = _diagnosisBinding;
 
             foreach (string instanceParameter in ConfigLogic.Instance.Parameters)
             {
@@ -62,7 +63,7 @@ namespace Ophthalmology.EyeLogics
 
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
-            _diagnosis.Clear();
+            _diagnosisBinding.Clear();
 
             EfronWindow ew = new EfronWindow(null);
             if (ew.ShowDialog() != true)
@@ -70,18 +71,28 @@ namespace Ophthalmology.EyeLogics
                 return;
             }
 
-            var diagnosi = ew.GetDiagnosis();
+            var diagnosi = ew.Diagnosis;
 
-            Random rnd = new Random();
+            /*Random rnd = new Random();
 
             _diagnosis.Add($"Симптом 1, степень: {rnd.Next(0, 10)}");
             _diagnosis.Add($"Симптом 2, степень: {rnd.Next(0, 10)}");
             _diagnosis.Add($"Симптом 3, степень: {rnd.Next(0, 10)}");
             _diagnosis.Add($"Симптом 4, степень: {rnd.Next(0, 10)}");
-            _diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");
+            _diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");*/
+
+            var texts = diagnosi.Item1;
+            var diags = diagnosi.Item2;
+
+            for (int i = 0; i < diagnosi.Item1.Count; i++)
+            {
+                if (diags[i] == 0)
+                    continue;
+                _diagnosisBinding.Add($"{texts[i]}: {diags[i]}");
+            }
 
             DiagList.ItemsSource = null;
-            DiagList.ItemsSource = _diagnosis;
+            DiagList.ItemsSource = _diagnosisBinding;
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -105,7 +116,7 @@ namespace Ophthalmology.EyeLogics
             {
                 Parameters.Add(t.Property + ": " + t.Value);
             }
-            foreach (string diag in _diagnosis)
+            foreach (string diag in _diagnosisBinding)
             {
                 Diagnosis.Add(diag);
             }

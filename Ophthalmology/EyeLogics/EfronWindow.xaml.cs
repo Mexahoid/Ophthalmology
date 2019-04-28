@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,16 +21,26 @@ namespace Ophthalmology.EyeLogics
     /// </summary>
     public partial class EfronWindow : Window
     {
-        private EfronLogic _el;
+        private readonly EfronLogic _el;
         private List<string> _diagStrings;
-        private bool  _systemCheckedChange = true;
+        private bool  _systemCheckedChange;
         private bool _showNulls;
+        private readonly List<RadioButton> _rbs;
+
+        public Tuple<List<string>, List<int>> Diagnosis { get; set; }
 
         public EfronWindow(List<int> curr)
         {
-            InitializeComponent();
             _el = new EfronLogic(curr);
-            _showNulls = true;
+            InitializeComponent();
+            _rbs = new List<RadioButton>
+            {
+                RB0,
+                RB1,
+                RB2,
+                RB3,
+                RB4
+            };
             _diagStrings = new List<string>();
             FillDiags();
             //SetImage();
@@ -40,13 +51,10 @@ namespace Ophthalmology.EyeLogics
             if (_el == null)
                 return;
             _diagStrings = _el.GetDiagnosis(_showNulls);
+            if (DiagList == null)
+                return;
             DiagList.ItemsSource = null;
             DiagList.ItemsSource = _diagStrings;
-        }
-
-        public Tuple<List<string>, List<int>> GetDiagnosis()
-        {
-            return _el.GetDiagnosisTuple();
         }
 
         private void OnCheckedChanged(object sender, RoutedEventArgs e)
@@ -90,40 +98,11 @@ namespace Ophthalmology.EyeLogics
         {
             DiagTB.Text = _el.GetCurrentStageText();
             int cs = _el.CurrentStage;
-            switch (cs)
+
+            if (_rbs[cs].IsChecked != null && !(bool)_rbs[cs].IsChecked)
             {
-                case 0:
-                    if (RB0.IsChecked != null && (bool) RB0.IsChecked)
-                        break;
-                    _systemCheckedChange = true;
-                    RB0.IsChecked = true;
-                    break;
-                case 1:
-                    if (RB1.IsChecked != null && (bool)RB1.IsChecked)
-                        break;
-                    _systemCheckedChange = true;
-                    RB1.IsChecked = true;
-                    break;
-                case 2:
-                    if (RB2.IsChecked != null && (bool)RB2.IsChecked)
-                        break;
-                    _systemCheckedChange = true;
-                    RB2.IsChecked = true;
-                    break;
-                case 3:
-                    if (RB3.IsChecked != null && (bool)RB3.IsChecked)
-                        break;
-                    _systemCheckedChange = true;
-                    RB3.IsChecked = true;
-                    break;
-                case 4:
-                    if (RB4.IsChecked != null && (bool)RB4.IsChecked)
-                        break;
-                    _systemCheckedChange = true;
-                    RB4.IsChecked = true;
-                    break;
-                default:
-                    throw new Exception("Wtf?");
+                _systemCheckedChange = true;
+                _rbs[cs].IsChecked = true;
             }
             SetImage();
         }
@@ -138,8 +117,17 @@ namespace Ophthalmology.EyeLogics
 
         private void OnShowChanged(object sender, RoutedEventArgs e)
         {
+            if (ShowRB == null)
+                return;
             _showNulls = ShowRB.IsChecked != null && (bool) ShowRB.IsChecked;
             FillDiags();
+        }
+
+        private void Save(object sender, RoutedEventArgs e)
+        {
+            Diagnosis = _el.GetDiagnosisTuple();
+            DialogResult = true;
+            Close();
         }
     }
 }
