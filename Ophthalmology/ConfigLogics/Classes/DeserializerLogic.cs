@@ -22,6 +22,16 @@ namespace Ophthalmology.ConfigLogics.Classes
             }
         }
 
+        public DeserializerLogic(string root)
+        {
+            _root = root;
+        }
+
+        public DeserializerLogic()
+        {
+            
+        }
+
         public Tuple<string[], string> ReadConfig(string path)
         {
             string json = ReadData(path);
@@ -40,7 +50,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             };
         }
 
-        public Tuple<List<string[]>, string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
+        public Tuple<string[], int[], int[], string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
         {
             var pats = ReadPatientsList();
             string patientPath = null;
@@ -52,10 +62,14 @@ namespace Ophthalmology.ConfigLogics.Classes
                 break;
             }
 
-            EyeJson ej = JsonConvert.DeserializeObject<EyeJson>(ReadData(_root + '\\' + patientPath + "\\" + date.ToShortDateString() + "\\" + (isLeft ? "Левый глаз\\info.json" : "Правый глаз\\info.json")));
+            string path = _root + '\\' + patientPath + "\\" + date.ToShortDateString() + "\\" +
+                          (isLeft ? "Левый глаз\\info.json" : "Правый глаз\\info.json");
+            if (!File.Exists(path))
+                return null;
+            
+            EyeJson ej = JsonConvert.DeserializeObject<EyeJson>(ReadData(path));
 
-            List<string[]> arList = new List<string[]> { ej.Params, ej.Diags };
-            return Tuple.Create(arList, ej.Path);
+            return Tuple.Create(ej.Params, ej.ParamsValues, ej.Diags, ej.Path);
         }
 
         public List<string[]> ReadDatesList(string patientPath)

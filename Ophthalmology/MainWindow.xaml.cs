@@ -2,6 +2,7 @@
 using Ophthalmology.PatientLogics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -40,7 +41,7 @@ namespace Ophthalmology
 
 
 
-        private void FillSide(bool left, Tuple<List<string[]>, string> inputargs = null)
+        private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string>> inputargs = null)
         {
             List<string> target_pars_list = left ? LPars : RPars;
             List<string> target_diag_list = left ? LDiags : RDiags;
@@ -48,22 +49,28 @@ namespace Ophthalmology
             ListBox target_diag = left ? LeftDiagList : RightDiagList;
             ListBox target_pars = left ? LeftParsList : RightParsList;
 
-            var art = inputargs ?? ConfigLogic.Instance.ReadEyeInfo(pat, time, left);
 
-            foreach (string par in art.Item1[0])
+            var art = inputargs == null ? ConfigLogic.Instance.ReadEyeInfo(pat, time, left) : inputargs.Item2;
+            target_pars_list.AddRange(art.Item1.Select((t, i) => $"{t}: {art.Item2[i]}"));
+
+            var diagTexts = DiagnosiTextHolder.Instance.DiagsItself;
+
+            var tt = art.Item3;
+            for (int i = 0; i < tt.Length; i++)
             {
-                target_pars_list.Add(par);
+                if (tt[i] > 0)
+                {
+                    target_diag_list.Add($"{diagTexts[i]}: {art.Item3[i]}");
+                }
             }
 
-            foreach (string diag in art.Item1[1])
-            {
-                target_diag_list.Add(diag);
-            }
+            string path = inputargs == null ? art.Item4 : inputargs.Item1;
             BitmapImage bi3 = new BitmapImage();
             bi3.BeginInit();
-            bi3.UriSource = new Uri(art.Item2);
+            bi3.UriSource = new Uri(path);
             bi3.EndInit();
             target_image.Source = bi3;
+
 
             target_diag.ItemsSource = null;
             target_pars.ItemsSource = null;
@@ -129,7 +136,11 @@ namespace Ophthalmology
         private void ShowConfigButton_Click(object sender, RoutedEventArgs e)
         {
             ConfigWindow win2 = new ConfigWindow();
-            win2.Show();
+            if (win2.ShowDialog() != true)
+            {
+                return;
+            }
+            ShowListButton.IsEnabled = ConfigLogic.Instance.IsConfigPresent;
         }
 
         private void PreClear()
@@ -231,17 +242,6 @@ namespace Ophthalmology
         }
 
 
-        private void EyeClick(bool left)
-        {
-            EyeWindow w = new EyeWindow(left);
-            if (w.ShowDialog() != true)
-            {
-                return;
-            }
-            LPars.Clear();
-            LDiags.Clear();
-        }
-
         private void LeftEyeButton_Click(object sender, RoutedEventArgs e)
         {
             LoadEyeImage(true);
@@ -254,20 +254,20 @@ namespace Ophthalmology
 
         private void LoadEyeImage(bool left)
         {
-            EyeWindow w = new EyeWindow(left);
+            EyeWindow w = new EyeWindow(left, pat, time);
             if (w.ShowDialog() != true)
             {
                 return;
             }
-
-
-            FillSide(left, Tuple.Create(new List<string[]>
-            {
+            var t = Tuple.Create(
                 w.Parameters.ToArray(),
-                w.Diagnosis.ToArray()
-            }, w.ImagePath));
+                w.GetParamValues().ToArray(),
+                w.RealDiagnosis.ToArray(),
+                w.UsedImagePath);
+            FillSide(left, Tuple.Create(w.NewImagePath, t));
 
-            ConfigLogic.Instance.AddEye(left, pat, time, w.ImagePath, w.Parameters, w.Diagnosis);
+            ConfigLogic.Instance.AddEye(left, pat, time, w.NewImagePath, t);
+            //FillEyes();
             UpdateLayout();
 
         }

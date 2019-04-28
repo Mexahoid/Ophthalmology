@@ -73,8 +73,11 @@ namespace Ophthalmology.ConfigLogics.Forms
         {
             if (_cfg.IsAdding)
             {
-                _parameters.Add(ParameterNameTextBox.Text);
-                ParameterNameTextBox.Text = "";
+                if(!_parameters.Contains(ParameterNameTextBox.Text))
+                {
+                    _parameters.Add(ParameterNameTextBox.Text);
+                    ParameterNameTextBox.Text = "";
+                }
             }
             else
             {
@@ -105,10 +108,10 @@ namespace Ophthalmology.ConfigLogics.Forms
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             _cfg.CreateConfig(_parameters.ToArray(), _rootFolder);
-            if (!_cfg.IsConfigPresent)
-            {
-                _cfg.IsConfigPresent = true;
-            }
+            if (_cfg.IsConfigPresent)
+                return;
+            _cfg.IsConfigPresent = true;
+            DialogResult = true;
         }
 
         private void ParametersListListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

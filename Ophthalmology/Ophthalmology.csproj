@@ -98,6 +98,7 @@
     <Compile Include="EyeLogics\EfronWindow.xaml.cs">
       <DependentUpon>EfronWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EyeLogics\EyeParser.cs" />
     <Compile Include="EyeLogics\EyeWindow.xaml.cs">
       <DependentUpon>EyeWindow.xaml</DependentUpon>
     </Compile>

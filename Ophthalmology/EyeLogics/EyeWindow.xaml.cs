@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Ophthalmology.ConfigLogics.Classes;
+using Ophthalmology.Patients.Classes;
 
 namespace Ophthalmology.EyeLogics
 {
@@ -25,25 +26,26 @@ namespace Ophthalmology.EyeLogics
         private readonly List<string> _diagnosisBinding;
         private readonly List<PropObj> _objs;
 
-        private readonly List<int> _realDiagnosis;
+        public List<int> RealDiagnosis { get; private set; }
 
         public List<string> Parameters { get; }
-        public List<string> Diagnosis { get; }
 
-        public string ImagePath { get; private set; }
+        public string NewImagePath { get; private set; }
+
+        public string UsedImagePath { get; }
 
 
-        private class PropObj
+        public class PropObj
         {
             public string Property { get; set; }
             public int Value { get; set; }
         }
 
-        public EyeWindow(bool isLeft)
+        public EyeWindow(bool isLeft, Patient pat, DateTime time)
         {
             Parameters = new List<string>();
-            Diagnosis = new List<string>();
-            _realDiagnosis = new List<int>();
+
+            var t = ConfigLogic.Instance.ReadEyeInfo(pat, time, isLeft);
 
             InitializeComponent();
             _diagnosisBinding = new List<string>();
@@ -58,41 +60,61 @@ namespace Ophthalmology.EyeLogics
                 _objs.Add(po);
             }
 
+            if (t != null)
+            {
+                EyeParser ep = new EyeParser(t);
+                ep.FillParams(_objs);
+                RealDiagnosis = ep.DiagsValues;
+                UpdateDiag();
+                Image.Source = ep.GetImage();
+                UsedImagePath = ep.ImagePath;
+                NewImagePath = ep.ImagePath;
+                OkButton.IsEnabled = true;
+            }
+            else
+            {
+                RealDiagnosis = null;
+            }
+
             ParametersDataGrid.ItemsSource = _objs;
+        }
+
+        public List<int> GetParamValues()
+        {
+            var vals = new List<int>();
+            foreach (PropObj propObj in _objs)
+            {
+                vals.Add(propObj.Value);
+            }
+            return vals;
+        }
+
+        private void UpdateDiag()
+        {
+            var texts = DiagnosiTextHolder.Instance.DiagsItself;
+            _diagnosisBinding.Clear();
+            for (int i = 0; i < texts.Count; i++)
+            {
+                if (RealDiagnosis[i] == 0)
+                    continue;
+                _diagnosisBinding.Add($"{texts[i]}: {RealDiagnosis[i]}");
+            }
+
+            DiagList.ItemsSource = null;
+            DiagList.ItemsSource = _diagnosisBinding;
         }
 
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
-            _diagnosisBinding.Clear();
-
-            EfronWindow ew = new EfronWindow(null);
+            EfronWindow ew = new EfronWindow(RealDiagnosis);
             if (ew.ShowDialog() != true)
             {
                 return;
             }
 
-            var diagnosi = ew.Diagnosis;
+            RealDiagnosis = ew.Diagnosis;
 
-            /*Random rnd = new Random();
-
-            _diagnosis.Add($"Симптом 1, степень: {rnd.Next(0, 10)}");
-            _diagnosis.Add($"Симптом 2, степень: {rnd.Next(0, 10)}");
-            _diagnosis.Add($"Симптом 3, степень: {rnd.Next(0, 10)}");
-            _diagnosis.Add($"Симптом 4, степень: {rnd.Next(0, 10)}");
-            _diagnosis.Add($"Симптом 5, степень: {rnd.Next(0, 10)}");*/
-
-            var texts = diagnosi.Item1;
-            var diags = diagnosi.Item2;
-
-            for (int i = 0; i < diagnosi.Item1.Count; i++)
-            {
-                if (diags[i] == 0)
-                    continue;
-                _diagnosisBinding.Add($"{texts[i]}: {diags[i]}");
-            }
-
-            DiagList.ItemsSource = null;
-            DiagList.ItemsSource = _diagnosisBinding;
+            UpdateDiag();
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -100,10 +122,10 @@ namespace Ophthalmology.EyeLogics
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() != true)
                 return;
-            ImagePath = ofd.FileName;
+            NewImagePath = ofd.FileName;
             BitmapImage bi3 = new BitmapImage();
             bi3.BeginInit();
-            bi3.UriSource = new Uri(ImagePath);
+            bi3.UriSource = new Uri(NewImagePath);
             bi3.EndInit();
             Image.Source = bi3;
 
@@ -114,11 +136,7 @@ namespace Ophthalmology.EyeLogics
         {
             foreach (PropObj t in _objs)
             {
-                Parameters.Add(t.Property + ": " + t.Value);
-            }
-            foreach (string diag in _diagnosisBinding)
-            {
-                Diagnosis.Add(diag);
+                Parameters.Add(t.Property);
             }
             DialogResult = true;
 

@@ -20,7 +20,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             _dl = dl;
         }
 
-        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, List<string> pars, List<string> diags)
+        private string ReadPaths(bool isLeft, Patient pat, DateTime date)
         {
             var pats = _dl.ReadPatientsList();
             string paths = null;
@@ -45,19 +45,32 @@ namespace Ophthalmology.ConfigLogics.Classes
 
             string eye = isLeft ? "Левый глаз" : "Правый глаз";
 
-            string rp = _root + "\\" + paths + "\\" + datePath + "\\" + eye;
-
-            try
-            {
-                File.Copy(path, rp + "\\image.jpg");
-            }
-            catch
-            {
-                // Подавлено
-            }
-
-            _sl.WriteEyeInfo(pars, diags, rp);
+            return _root + "\\" + paths + "\\" + datePath + "\\" + eye;
         }
+
+        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, Tuple<string[], int[], int[], string> args)
+        {
+            string rp = ReadPaths(isLeft, pat, date);
+            if(path != args.Item4)
+            {
+                try
+                {
+                    File.Copy(path, rp + "\\image.jpg");
+                }
+                catch
+                {
+                    // Подавлено
+                }
+            }
+            _sl.WriteEyeInfo(args.Item1, args.Item2, args.Item3, rp);
+        }
+
+
+        public Tuple<string[], int[], int[], string> LoadEyeInfo(bool isLeft, Patient pat, DateTime date)
+        {
+            return _dl.ReadEyeInfo(pat, date, isLeft);
+        }
+
 
         public bool CheckIfEyeExist(Patient pat, DateTime date, bool isLeft)
         {

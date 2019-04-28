@@ -23,11 +23,11 @@ namespace Ophthalmology.EyeLogics
     {
         private readonly EfronLogic _el;
         private List<string> _diagStrings;
-        private bool  _systemCheckedChange;
+        private bool  _systemCheckedChange = true;
         private bool _showNulls;
         private readonly List<RadioButton> _rbs;
 
-        public Tuple<List<string>, List<int>> Diagnosis { get; set; }
+        public List<int> Diagnosis { get; private set; }
 
         public EfronWindow(List<int> curr)
         {

@@ -22,11 +22,11 @@ namespace Ophthalmology.ConfigLogics.Classes
         public string[] Parameters { get; private set; }
         private string _root;
 
-        private readonly SerializerLogic _sl;
-        private readonly DeserializerLogic _dl;
-        private readonly PatientLogic _pl;
-        private readonly DateLogic _dtl;
-        private readonly EyeLogic _el;
+        private SerializerLogic _sl;
+        private DeserializerLogic _dl;
+        private PatientLogic _pl;
+        private DateLogic _dtl;
+        private EyeLogic _el;
 
         private ConfigLogic()
         {
@@ -37,13 +37,11 @@ namespace Ophthalmology.ConfigLogics.Classes
                 (var pars, string root) = _dl.ReadConfig(_path);
                 Parameters = pars;
                 _root = root;
+                _sl = new SerializerLogic(_root);
+                _pl = new PatientLogic(_sl, _root, _dl);
+                _dtl = new DateLogic(_sl, _root, _dl);
+                _el = new EyeLogic(_sl, _root, _dl);
             }
-
-            _sl = new SerializerLogic(_root);
-            _pl = new PatientLogic(_sl, _root, _dl);
-            _dtl = new DateLogic(_sl, _root, _dl);
-            _el = new EyeLogic(_sl, _root, _dl);
-
             IsAdding = true;
         }
 
@@ -62,12 +60,18 @@ namespace Ophthalmology.ConfigLogics.Classes
                 Parameters = parameters,
                 RootFolder = rootFolder
             };
+
+            _dl = new DeserializerLogic(_root);
+            _sl = new SerializerLogic(_root);
+            _pl = new PatientLogic(_sl, _root, _dl);
+            _dtl = new DateLogic(_sl, _root, _dl);
+            _el = new EyeLogic(_sl, _root, _dl);
             _sl.SaveConfig(js, IsConfigPresent);
         }
 
-        public Tuple<List<string[]>, string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
+        public Tuple<string[], int[], int[], string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
         {
-            return _dl.ReadEyeInfo(pat, date, isLeft);
+            return _el.LoadEyeInfo(isLeft, pat, date);
         }
 
         public void AddPatient(string name)
@@ -90,9 +94,9 @@ namespace Ophthalmology.ConfigLogics.Classes
             _dtl.AddDate(pat, date);
         }
 
-        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, List<string> pars, List<string> diags)
+        public void AddEye(bool isLeft, Patient pat, DateTime date, string newPath, Tuple<string[], int[], int[], string> args)
         {
-            _el.AddEye(isLeft, pat, date, path, pars, diags);
+            _el.AddEye(isLeft, pat, date, newPath, args);
         }
 
         public Patient GetPatient(Patient input, bool next)

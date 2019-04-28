@@ -51,12 +51,13 @@ namespace Ophthalmology.ConfigLogics.Classes
             Serialize(dj, _root + '\\' + patientPath + "\\datelist.json");
         }
 
-        public void WriteEyeInfo(List<string> pars, List<string> diags, string eyePath)
+        public void WriteEyeInfo(string[] parNames, int[] parVals, int[] diags, string eyePath)
         {
             EyeJson ej = new EyeJson
             {
-                Params = pars.ToArray(),
-                Diags = diags.ToArray(),
+                Params = parNames,
+                ParamsValues = parVals,
+                Diags = diags,
                 Path = eyePath + "\\image.jpg"
             };
             Serialize(ej, eyePath + "\\info.json");

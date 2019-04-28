@@ -125,7 +125,6 @@ namespace Ophthalmology.PatientLogics
 
         private void RemovePatientButton_Click(object sender, RoutedEventArgs e)
         {
-            // todo: Добавить удаление даты
             int pos = _patients.IndexOf(Patient);
             // Лучший маркер
             if (Time != DateTime.MaxValue)

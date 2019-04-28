@@ -70,9 +70,9 @@ namespace Ophthalmology.EyeLogics
             CurrentStage = _diagnosis[0];
         }
 
-        public Tuple<List<string>, List<int>> GetDiagnosisTuple()
+        public List<int> GetDiagnosisTuple()
         {
-            return Tuple.Create(_diagsItself, _diagnosis);
+            return _diagnosis;
         }
 
 
