@@ -13,7 +13,7 @@
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Column="0" Name="MainArea"  Margin="10, 10, 5, 10">
+        <Canvas Grid.Column="0" Name="MainArea"  Margin="10, 10, 5, 10" MouseLeftButtonDown="SelectTextBlock" MouseLeftButtonUp="DeselectTextBlock" MouseMove="MoveTextBlock">
             <Image Name="BackImg" Source="../images/Eye.png" Stretch="Uniform"
                    Width="{Binding Source.PixelWidth,RelativeSource={RelativeSource Self}}"
                    Height="{Binding Source.PixelHeight,RelativeSource={RelativeSource Self}}"/>
@@ -31,11 +31,11 @@
 
             <TextBlock Grid.Row="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Доступные параметры</TextBlock>
 
-            <ListBox Grid.Row="1" Name="ParamsList" FontSize="16" Margin="10">
+            <ListBox Grid.Row="1" Name="ParamsList" FontSize="16" Margin="10" SelectionMode="Single">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding}" />
+                        <StackPanel Orientation="Vertical" MouseDown="ParamsList_MouseDown" >
+                            <TextBlock Text="{Binding}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -75,7 +75,7 @@
                 
             </Grid>
             
-            <Button Grid.Row="4" Margin="10" FontSize="16" Click="PlaceTextClick">Поместить текст</Button>
+            <Button Grid.Row="4" Margin="10" Name="PutBtn"  FontSize="16" Click="PlaceTextClick" IsEnabled="False">Поместить текст</Button>
 
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>

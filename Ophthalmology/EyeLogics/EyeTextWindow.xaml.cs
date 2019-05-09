@@ -22,9 +22,15 @@ namespace Ophthalmology.EyeLogics
         private int _fontSize = 20;
         private BitmapImage _img;
         private Color _textColor = Colors.Black;
+        private string _currentText;
+        private List<TextBlock> _textblocks;
+        private TextBlock _currentBlock;
+        private bool _isDragging;
+        private Point _lastPos;
         public EyeTextWindow(List<string> paramsList, string imagePath)
         {
             InitializeComponent();
+            _textblocks = new List<TextBlock>();
             ParamsList.ItemsSource = paramsList;
             BitmapImage bi3 = new BitmapImage();
             bi3.BeginInit();
@@ -50,6 +56,27 @@ namespace Ophthalmology.EyeLogics
             BackImg.Source = _img;
         }
 
+        private void Text()
+        {
+            TextBlock textBlock = new TextBlock
+            {
+                Text = _currentText,
+                Foreground = new SolidColorBrush(_textColor),
+                FontSize = _fontSize
+            };
+            textBlock.MouseRightButtonDown += (sender, args) => DeleteTB(textBlock);
+
+            Canvas.SetLeft(textBlock, 0);
+            Canvas.SetTop(textBlock, 0);
+            MainArea.Children.Add(textBlock);
+            _textblocks.Add(textBlock);
+        }
+
+        private void DeleteTB(TextBlock tb)
+        {
+            _textblocks.Remove(tb);
+            MainArea.Children.Remove(tb);
+        }
 
         private void UpdateFont()
         {
@@ -82,7 +109,10 @@ namespace Ophthalmology.EyeLogics
 
         private void PlaceTextClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if(_currentText != null)
+                Text();
+            _currentText = null;
+            PutBtn.IsEnabled = false;
         }
 
         private void SaveClick(object sender, RoutedEventArgs e)
@@ -95,6 +125,55 @@ namespace Ophthalmology.EyeLogics
         private void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ParamsList_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _currentText = ((sender as StackPanel).Children[0] as TextBlock).Text;
+            PutBtn.IsEnabled = true;
+        }
+
+        private void SelectTextBlock(object sender, MouseButtonEventArgs e)
+        {
+            _lastPos = Mouse.GetPosition(MainArea);
+
+            foreach (TextBlock textblock in _textblocks)
+            {
+                Point relativePoint = textblock.TransformToAncestor(MainArea)
+                    .Transform(new Point(0, 0));
+                Size a = textblock.DesiredSize;
+
+                if (!(_lastPos.X >= relativePoint.X) || !(_lastPos.X <= relativePoint.X + a.Width) ||
+                    !(_lastPos.Y >= relativePoint.Y) || !(_lastPos.Y <= relativePoint.Y + a.Height)) continue;
+                _currentBlock = textblock;
+                _isDragging = true;
+                Mouse.OverrideCursor = Cursors.Hand;
+                break;
+            }
+        }
+
+        private void DeselectTextBlock(object sender, MouseButtonEventArgs e)
+        {
+            _isDragging = false;
+            _currentBlock = null;
+            Mouse.OverrideCursor = Cursors.Arrow;
+        }
+
+        private void MoveTextBlock(object sender, MouseEventArgs e)
+        {
+            if (_isDragging)
+            {
+                var pos = Mouse.GetPosition(MainArea);
+                double dx = pos.X - _lastPos.X;
+                double dy = pos.Y - _lastPos.Y;
+
+                Point relativePoint = _currentBlock.TransformToAncestor(MainArea)
+                    .Transform(new Point(0, 0));
+
+                Canvas.SetLeft(_currentBlock, relativePoint.X + dx);
+                Canvas.SetTop(_currentBlock, relativePoint.Y + dy);
+                _lastPos = pos;
+            }
         }
     }
 }
