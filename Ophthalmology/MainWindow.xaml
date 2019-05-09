@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
-        Title="[PRE-ALPHA] Офтальмология v. 0.9" Height="820.697" Width="1096.824" Closing="Window_Closing">
+        Title="[ALPHA] Офтальмология v. 1.0" Height="820.697" Width="1096.824" Closing="Window_Closing">
     <Grid Margin="10,10,10,10">
         <Grid.Resources >
             <Style TargetType="Border" >
