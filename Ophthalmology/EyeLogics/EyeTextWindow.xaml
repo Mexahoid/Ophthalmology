@@ -1,0 +1,90 @@
+﻿<Window x:Class="Ophthalmology.EyeLogics.EyeTextWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ophthalmology.EyeLogics"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Помещение информации" Height="600" Width="1000" MinHeight="600" MinWidth="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+
+        <Canvas Grid.Column="0" Name="MainArea"  Margin="10, 10, 5, 10">
+            <Image Name="BackImg" Source="../images/Eye.png" Stretch="Uniform"
+                   Width="{Binding Source.PixelWidth,RelativeSource={RelativeSource Self}}"
+                   Height="{Binding Source.PixelHeight,RelativeSource={RelativeSource Self}}"/>
+        </Canvas>
+
+        <Grid Grid.Column="1" Margin="5, 0, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">Доступные параметры</TextBlock>
+
+            <ListBox Grid.Row="1" Name="ParamsList" FontSize="16" Margin="10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" >Размер текста</TextBlock>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" Margin="0, 5, 0, 5" VerticalAlignment="Center">
+                    <Button FontSize="14" FontFamily="Comic Sans MS" Content="˄" Width="16" Click="NudUp_Click" Margin="0, 0, 0, 2"/>
+                    <Button FontSize="14" FontFamily="Comic Sans MS" Content="˅" Width="16" Click="NudDown_Click" Margin="0, 2, 0, 0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="5">
+                    <TextBox Name="TxtNum" FontSize="16" TextAlignment="Center" x:FieldModifier="private" Width="30" VerticalContentAlignment="Center" Text="20" IsReadOnly="True"/>
+                </StackPanel>
+
+                <TextBox Grid.Column="3" Name="ExampleTxb"  Margin="10" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >Текст</TextBox>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    	<ColumnDefinition />
+                        <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Margin="10" FontSize="16">Цвет текста</TextBlock>
+
+                <xctk:ColorPicker Name="cp" Grid.Column="1"  DisplayColorAndName="True" Margin="10" SelectedColorChanged="SelectedColorChanged" AvailableColorsSortingMode="HueSaturationBrightness"/>
+                
+            </Grid>
+            
+            <Button Grid.Row="4" Margin="10" FontSize="16" Click="PlaceTextClick">Поместить текст</Button>
+
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="10" FontSize="16" Click="SaveClick">Готово</Button>
+                <Button Grid.Column="1" Margin="10" FontSize="16" Click="CancelClick">Отмена</Button>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

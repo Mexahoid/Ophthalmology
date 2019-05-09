@@ -70,6 +70,7 @@ namespace Ophthalmology.EyeLogics
                 UsedImagePath = ep.ImagePath;
                 NewImagePath = ep.ImagePath;
                 OkButton.IsEnabled = true;
+                DrawBtn.IsEnabled = true;
             }
             else
             {
@@ -130,6 +131,7 @@ namespace Ophthalmology.EyeLogics
             Image.Source = bi3;
 
             OkButton.IsEnabled = true;
+            DrawBtn.IsEnabled = true;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -141,6 +143,28 @@ namespace Ophthalmology.EyeLogics
             DialogResult = true;
 
             Close();
+        }
+
+
+        private void DrawTextButtonClick(object sender, RoutedEventArgs e)
+        {
+            List<string> paramsList = new List<string>();
+
+            foreach (PropObj propObj in _objs)
+            {
+                paramsList.Add($"{propObj.Property}: {propObj.Value}");
+            }
+
+            foreach (string s in _diagnosisBinding)
+            {
+                paramsList.Add(s);
+            }
+
+            EyeTextWindow w = new EyeTextWindow(paramsList, NewImagePath);
+            if (w.ShowDialog() != true)
+            {
+                return;
+            }
         }
     }
 }

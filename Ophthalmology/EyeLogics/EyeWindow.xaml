@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology.EyeLogics"
         mc:Ignorable="d"
-        Title="Здесь могла быть ваша реклама" Height="650" Width="570" MinHeight="650" MinWidth="570" MaxHeight="800" MaxWidth="700">
+        Title="Здесь могла быть ваша реклама" Height="800" Width="700" MinHeight="650" MinWidth="570" MaxHeight="800" MaxWidth="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -37,9 +37,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Margin="10, 0, 10, 10">Параметры:</TextBlock>
+                <TextBlock Grid.Row="0" FontSize="16" Margin="10, 0, 10, 10">Параметры:</TextBlock>
 
                 <DataGrid Grid.Row="1" Name="ParametersDataGrid" HeadersVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False"> 
                     <DataGrid.Columns >
@@ -53,6 +54,8 @@
                         </DataGridTextColumn>
                     </DataGrid.Columns >
                 </DataGrid>
+
+                <Button Grid.Row="2" Name="DrawBtn" FontSize="16" Margin="10, 10, 10, 0" Content="Записать на изображение" HorizontalAlignment="Center" Padding="3" Click="DrawTextButtonClick" IsEnabled="False"/>
             </Grid>
 
             <Grid Grid.Column="1" Margin="10, 10, 10, 10">
