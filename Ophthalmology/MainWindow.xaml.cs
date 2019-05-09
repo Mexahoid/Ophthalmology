@@ -37,8 +37,27 @@ namespace Ophthalmology
             LeftParsList.ItemsSource = LPars;
             RightParsList.ItemsSource = RPars;
             ShowListButton.IsEnabled = ConfigLogic.Instance.IsConfigPresent;
+
+            try
+            {
+                LoadLastPatient();
+            }
+            catch
+            {
+                // пропущено
+            }
         }
 
+
+        private void LoadLastPatient()
+        {
+            var t = ConfigLogic.Instance.LoadLastPatient();
+            pat = t.Item1;
+            time = t.Item2;
+            PreClear();
+            FillPat(pat, time);
+            FillEyes();
+        }
 
 
         private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string>> inputargs = null)
@@ -243,6 +262,10 @@ namespace Ophthalmology
             EyesGrid.Visibility = Visibility.Visible;
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ConfigLogic.Instance.SaveLastPatient(pat, time);
+        }
 
         private void LeftEyeButton_Click(object sender, RoutedEventArgs e)
         {

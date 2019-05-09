@@ -50,6 +50,15 @@ namespace Ophthalmology.ConfigLogics.Classes
             return new Tuple<string[], string>(Parameters, _root);
         }
 
+        public void SaveLastPatient(Patient p, DateTime d)
+        {
+            _pl.SaveLastPatient(p, d);
+        }
+
+        public (Patient, DateTime) LoadLastPatient()
+        {
+            return _pl.LoadLastPatient(GetPatients().ToList());
+        }
 
         public void CreateConfig(string[] parameters, string rootFolder)
         {

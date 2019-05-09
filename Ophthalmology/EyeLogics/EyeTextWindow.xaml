@@ -78,7 +78,8 @@
             <Button Grid.Row="4" Margin="10" FontSize="16" Click="PlaceTextClick">Поместить текст</Button>
 
             <Grid Grid.Row="5">
-                <Grid.ColumnDefinitions>                    <ColumnDefinition />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Margin="10" FontSize="16" Click="SaveClick">Готово</Button>

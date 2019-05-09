@@ -33,22 +33,20 @@ namespace Ophthalmology.EyeLogics
             _img = bi3;
             int width = bi3.PixelWidth;
             int height = bi3.PixelHeight;
-
-            int currw = (int)(Width * 0.7);
-            int currH = (int)Height;
-
+            
             int marg = 10;
             // 2 отступа сверху-снизу и 40 на отступ строки состояния
             height += marg + marg + 40;
             MinHeight = height;
             if (Height < MinHeight)
                 Height = MinHeight;
+            MaxHeight = MinHeight;
             width += marg + 5 + 10;
             // +300, т.к. дефолтно 700 под картинку и 300 под логику
             MinWidth = width + 300;
             if (Width < MinWidth)
                 Width = MinWidth;
-
+            MaxWidth = MinWidth;
             BackImg.Source = _img;
         }
 

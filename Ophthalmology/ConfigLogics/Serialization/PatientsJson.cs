@@ -4,5 +4,6 @@
     {
         public string[] PatientNames { get; set; }
         public string[] PatientFolderPaths { get; set; }
+
     }
 }

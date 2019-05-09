@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="ConfigLogics\Serialization\DatesJson.cs" />
     <Compile Include="ConfigLogics\Serialization\EyeJson.cs" />
+    <Compile Include="ConfigLogics\Serialization\LastPatientJson.cs" />
     <Compile Include="ConfigLogics\Serialization\PatientsJson.cs" />
     <Compile Include="EyeLogics\DiagnosiTextHolder.cs" />
     <Compile Include="EyeLogics\EfronLogic.cs" />

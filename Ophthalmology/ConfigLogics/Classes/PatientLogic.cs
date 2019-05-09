@@ -30,6 +30,36 @@ namespace Ophthalmology.ConfigLogics.Classes
             _sl.WritePatientsList(namesPaths);
         }
 
+        public void SaveLastPatient(Patient p, DateTime d)
+        {
+            _sl.WriteLastPatient(p.Name, d.ToShortDateString());
+        }
+
+        public (Patient, DateTime) LoadLastPatient(List<Patient> patients)
+        {
+            
+            var lj = _dl.LoadLastPatient();
+            Patient pat = null;
+            foreach (Patient patient in patients)
+            {
+                if (!patient.Name.Contains(lj[0]))
+                    continue;
+                pat = patient;
+                break;
+            }
+
+            DateTime dat = DateTime.MinValue;
+            foreach (DateTime dateTime in pat.Dates)
+            {
+                if (dateTime.ToShortDateString() != lj[1])
+                    continue;
+                dat = dateTime;
+                break;
+            }
+
+            return (pat, dat);
+        }
+
         public void AddPatient(string name)
         {
             var curr = _dl.ReadPatientsList();

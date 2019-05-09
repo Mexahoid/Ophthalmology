@@ -32,6 +32,12 @@ namespace Ophthalmology.ConfigLogics.Classes
             
         }
 
+        public string[] LoadLastPatient()
+        {
+            LastPatientJson lj = JsonConvert.DeserializeObject<LastPatientJson>(ReadData(_root + "\\lastpatient.json"));
+            return lj.LastPatient;
+        }
+
         public Tuple<string[], string> ReadConfig(string path)
         {
             string json = ReadData(path);
