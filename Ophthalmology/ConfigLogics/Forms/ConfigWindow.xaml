@@ -91,20 +91,6 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Конструктор отрисовки" Tag="Image">
-                <Grid ShowGridLines="True">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid>
-                        
-                    </Grid>
-
-                </Grid>
-            </TabItem>
-
             <TabItem Header="Конструктор отчетов" Tag="Report"></TabItem>
         </TabControl>
     </Grid>
