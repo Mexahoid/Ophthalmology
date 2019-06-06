@@ -2,7 +2,9 @@
 using Ophthalmology.PatientLogics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -86,11 +88,14 @@ namespace Ophthalmology
             }
 
             string path = inputargs == null ? art.Item4 : inputargs.Item1;
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri(path);
-            bi3.EndInit();
-            target_image.Source = bi3;
+            if(File.Exists(path))
+            {
+                BitmapImage bi3 = new BitmapImage();
+                bi3.BeginInit();
+                bi3.UriSource = new Uri(path);
+                bi3.EndInit();
+                target_image.Source = bi3;
+            }
 
 
             target_diag.ItemsSource = null;
@@ -185,10 +190,7 @@ namespace Ophthalmology
             DateTextBlock.Text = "Дата осмотра";
         }
 
-        private void PatientRightButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePatient(true);
-        }
+        private void PatientRightButton_Click(object sender, RoutedEventArgs e) => ChangePatient(true);
 
         private void ChangePatient(bool next)
         {
@@ -203,10 +205,7 @@ namespace Ophthalmology
             FillEyes();
         }
 
-        private void PatientLeftButton_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePatient(false);
-        }
+        private void PatientLeftButton_Click(object sender, RoutedEventArgs e) => ChangePatient(false);
 
         private void ChangeDate(bool next)
         {
@@ -234,14 +233,13 @@ namespace Ophthalmology
             FillEyes();
         }
 
-        private void DateNext_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeDate(true);
-        }
+        private void DateNext_Click(object sender, RoutedEventArgs e) => ChangeDate(true);
 
-        private void DatePrev_Click(object sender, RoutedEventArgs e)
+        private void DatePrev_Click(object sender, RoutedEventArgs e) => ChangeDate(false);
+
+        private void RecordButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeDate(false);
+            
         }
 
         private void NewDateButton_Click(object sender, RoutedEventArgs e)
@@ -264,7 +262,8 @@ namespace Ophthalmology
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ConfigLogic.Instance.SaveLastPatient(pat, time);
+            if(pat != null)
+                ConfigLogic.Instance.SaveLastPatient(pat, time);
         }
 
         private void LeftEyeButton_Click(object sender, RoutedEventArgs e)

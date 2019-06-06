@@ -51,10 +51,12 @@ namespace Ophthalmology.ConfigLogics.Classes
         public void AddEye(bool isLeft, Patient pat, DateTime date, string path, Tuple<string[], int[], int[], string> args)
         {
             string rp = ReadPaths(isLeft, pat, date);
-            if(path != args.Item4)
+            if(path == args.Item4)
             {
                 try
                 {
+                    if(File.Exists(rp + "\\image.jpg"))
+                        File.Delete(rp + "\\image.jpg");
                     File.Copy(path, rp + "\\image.jpg");
                 }
                 catch

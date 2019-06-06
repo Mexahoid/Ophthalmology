@@ -91,7 +91,126 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Конструктор отчетов" Tag="Report"></TabItem>
+            <TabItem Header="Конструктор отчетов" Tag="Report">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*" MinWidth="170"/>
+                        <ColumnDefinition Width="80*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1, 1, 0, 1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
+                                <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">Настройки</TextBlock>
+                            </Border>
+                            <TextBlock Grid.Row="1" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Шаблоны</TextBlock>
+
+                            <ListBox Grid.Row="2" Name="TemplatesListbox" Margin="5">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <Grid Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Name="DeleteButton" Margin="10, 10, 5, 10" Content="Удалить" IsEnabled="False"/>
+                                <Button Grid.Column="1" Margin="5, 10, 10, 10" Content="Добавить"/>
+                            </Grid>
+
+                            <TextBlock Grid.Row="4" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Доступные параметры</TextBlock>
+                            <DataGrid Grid.Row="5" Name="ParametersDataGrid" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Тег" Binding="{Binding Path=Alias}" Width="50*" IsReadOnly="True">
+                                        <DataGridTextColumn.CellStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                            </Style>
+                                        </DataGridTextColumn.CellStyle>
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="FontSize"
+                                                        Value="10" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Параметр" Binding="{Binding Path=Parameter}" Width="50*"  IsReadOnly="True">
+                                        <DataGridTextColumn.CellStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                                            </Style>
+                                        </DataGridTextColumn.CellStyle>
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment"
+                                                        Value="Center" />
+                                                <Setter Property="FontSize"
+                                                        Value="10" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
+
+                                </DataGrid.Columns >
+                            </DataGrid>
+                            <Button Grid.Row="6" Margin="10, 10, 10, 10" Content="Сохранить" />
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">Шаблон</TextBlock>
+                                <TextBox Grid.Column="1" Name="TemplateNameTextbox" FontSize="16" Margin="10, 2, 10, 1" >Шаблон 1</TextBox>
+                            </Grid>
+
+
+                            <ToolBar Grid.Row="1">
+                                <Button Margin="5" Width="20" FontFamily="Times New Roman" FontWeight="Bold" Command="EditingCommands.ToggleBold">B</Button>
+                                <Button Margin="5" Width="20" FontFamily="Times New Roman" FontStyle="Italic" Command="EditingCommands.ToggleItalic">I</Button>
+                                <Button Margin="5" Width="20" FontFamily="Times New Roman" Command="EditingCommands.ToggleUnderline">U</Button>
+                                <ComboBox Name="FontBox" Width="100" DropDownClosed="FontBox_DropDownClosed"/>
+                                <TextBox Name="FontSizeTB">14</TextBox>
+                                <StackPanel Orientation="Vertical">
+                                    <Button Content="˄" Click="NudUp_Click" />
+                                    <Button Content="˅" Click="NudDown_Click"/>
+                                </StackPanel>
+                            </ToolBar>
+
+                            <RichTextBox Name="DocumentTemplate" Grid.Row="2" Margin="5">
+
+                           </RichTextBox>
+                        </Grid>
+                    </Border>
+                    
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

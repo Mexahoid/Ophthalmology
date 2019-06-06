@@ -32,7 +32,7 @@ namespace Ophthalmology.EyeLogics
 
         public string NewImagePath { get; private set; }
 
-        public string UsedImagePath { get; }
+        public string UsedImagePath { get; private set; }
 
 
         public class PropObj
@@ -74,7 +74,11 @@ namespace Ophthalmology.EyeLogics
             }
             else
             {
-                RealDiagnosis = null;
+                RealDiagnosis = new List<int>();
+                for (int i = 0; i < 16; i++)
+                {
+                    RealDiagnosis.Add(0);
+                }
             }
 
             ParametersDataGrid.ItemsSource = _objs;
@@ -141,7 +145,7 @@ namespace Ophthalmology.EyeLogics
                 Parameters.Add(t.Property);
             }
             DialogResult = true;
-
+            UsedImagePath = NewImagePath;
             Close();
         }
 
