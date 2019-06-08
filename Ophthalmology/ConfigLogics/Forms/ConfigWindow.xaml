@@ -193,7 +193,7 @@
                             </Grid>
 
 
-                            <ToolBar Grid.Row="1">
+                          <!--  <ToolBar Grid.Row="1">
                                 <Button Margin="5" Width="20" FontFamily="Times New Roman" FontWeight="Bold" Command="EditingCommands.ToggleBold">B</Button>
                                 <Button Margin="5" Width="20" FontFamily="Times New Roman" FontStyle="Italic" Command="EditingCommands.ToggleItalic">I</Button>
                                 <Button Margin="5" Width="20" FontFamily="Times New Roman" Command="EditingCommands.ToggleUnderline">U</Button>
@@ -203,7 +203,7 @@
                                     <Button Content="˄" Click="NudUp_Click" />
                                     <Button Content="˅" Click="NudDown_Click"/>
                                 </StackPanel>
-                            </ToolBar>
+                            </ToolBar> -->
 
                             <RichTextBox Name="DocumentTemplate" Grid.Row="2" Margin="5">
 

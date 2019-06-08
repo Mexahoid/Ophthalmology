@@ -154,12 +154,26 @@ namespace Ophthalmology.ConfigLogics.Classes
             FlowDocument workDoc = new FlowDocument();
             TextRange tr = new TextRange(workDoc.ContentStart, workDoc.ContentEnd);
             LoadTemplate(templatename, tr);
+            var a = workDoc.Blocks;
 
             var eyes = new[]
             {
                 Tuple.Create(params_diags[0], params_diags[1]),
                 Tuple.Create(params_diags[2], params_diags[3])
             };
+
+            foreach (Block block in a)
+            {
+                var b = block as Paragraph;
+                var iss = b.Inlines;
+
+                foreach (Inline inline in iss)
+                {
+                    var ttt = inline.TextDecorations;
+                }
+
+                var tt = iss.FirstInline;
+            }
 
             int il = tr.Text.Length;
             StringBuilder sb = new StringBuilder();
@@ -185,7 +199,7 @@ namespace Ophthalmology.ConfigLogics.Classes
                 var tag = tr.Text.Substring(i, len);
 
                 var tag_parts = tag.Split('-');
-                int pos = int.Parse(tag_parts[1]) - 1;
+                int pos = int.Parse(tag_parts[1][0].ToString()) - 1;
                 var alias = _aliases[tag_parts[0]];
                 if (pos > 1)
                     continue;

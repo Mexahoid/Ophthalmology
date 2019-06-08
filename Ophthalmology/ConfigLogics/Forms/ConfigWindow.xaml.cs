@@ -39,8 +39,8 @@ namespace Ophthalmology.ConfigLogics.Forms
             DocumentTemplate.FontSize = _fontSize;
             Paragraph p = DocumentTemplate.Document.Blocks.FirstBlock as Paragraph;
             p.LineHeight = 10;
-            FontBox.ItemsSource = Fonts.SystemFontFamilies;
-            FontBox.Text = "Times New Roman";
+            //FontBox.ItemsSource = Fonts.SystemFontFamilies;
+            //FontBox.Text = "Times New Roman";
 
             _cfg = ConfigLogic.Instance;
             _tagobjs = new List<TagObj>();
@@ -211,7 +211,7 @@ namespace Ophthalmology.ConfigLogics.Forms
         {
             if (_fontSize < 100)
                 _fontSize++;
-            FontSizeTB.Text = _fontSize.ToString();
+            //FontSizeTB.Text = _fontSize.ToString();
             Update();
         }
 
@@ -219,15 +219,15 @@ namespace Ophthalmology.ConfigLogics.Forms
         {
             if (_fontSize > 2)
                 _fontSize--;
-            FontSizeTB.Text = _fontSize.ToString();
+            //FontSizeTB.Text = _fontSize.ToString();
             Update();
         }
 
         private void FontBox_DropDownClosed(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(FontBox.Text))
+            //if (string.IsNullOrEmpty(FontBox.Text))
                 return;
-            _font = new FontFamily(FontBox.Text);
+            //_font = new FontFamily(FontBox.Text);
             Update();
         }
 
