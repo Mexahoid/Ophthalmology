@@ -56,6 +56,16 @@ namespace Ophthalmology.ConfigLogics.Classes
             };
         }
 
+        public List<string[]> ReadTemplatesList(string path)
+        {
+            TemplateJson tj = JsonConvert.DeserializeObject<TemplateJson>(ReadData(path));
+            return new List<string[]>
+            {
+                tj.Names,
+                tj.Paths
+            };
+        }
+
         public Tuple<string[], int[], int[], string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
         {
             var pats = ReadPatientsList();

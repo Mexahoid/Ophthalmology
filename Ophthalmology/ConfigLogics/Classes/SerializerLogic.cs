@@ -32,6 +32,16 @@ namespace Ophthalmology.ConfigLogics.Classes
             }
         }
 
+        public void WriteTemplatesList(List<string[]> fields, string path)
+        {
+            TemplateJson tj = new TemplateJson
+            {
+                Names = fields[0],
+                Paths = fields[1]
+            };
+            Serialize(tj, path);
+        }
+
         public void WritePatientsList(List<string[]> fields)
         {
             PatientsJson pj = new PatientsJson
@@ -41,6 +51,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             };
             Serialize(pj, _root + "\\patientlist.json");
         }
+
 
         public void WriteDatesList(List<string[]> fields, string patientPath)
         {

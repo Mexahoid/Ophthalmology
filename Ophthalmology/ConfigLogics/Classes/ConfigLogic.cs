@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 using Ophthalmology.ConfigLogics.Serialization;
 using Ophthalmology.Patients.Classes;
 
@@ -27,6 +28,7 @@ namespace Ophthalmology.ConfigLogics.Classes
         private PatientLogic _pl;
         private DateLogic _dtl;
         private EyeLogic _el;
+        private TemplateLogic _tl;
 
         private ConfigLogic()
         {
@@ -38,11 +40,40 @@ namespace Ophthalmology.ConfigLogics.Classes
                 Parameters = pars;
                 _root = root;
                 _sl = new SerializerLogic(_root);
+                _tl = new TemplateLogic(_root, _sl, _dl);
                 _pl = new PatientLogic(_sl, _root, _dl);
                 _dtl = new DateLogic(_sl, _root, _dl);
                 _el = new EyeLogic(_sl, _root, _dl);
             }
             IsAdding = true;
+        }
+
+        public void AddTemplate(string name, TextRange tr)
+        {
+            _tl.AddTemplate(name, tr);
+        }
+
+        public void DeleteTemplate(string name)
+        {
+            _tl.DeleteTemplate(name);
+        }
+
+        public void LoadTemplate(string name, TextRange tr)
+        {
+            _tl.LoadTemplate(name, tr);
+        }
+
+        public List<string> GetTemplateNames()
+        {
+            return _tl.GetNames();
+        }
+
+        public void EditTemplate(string oldname, string newname, TextRange tr)
+        {
+            if(oldname == newname)
+                _tl.EditTemplate(oldname, tr);
+            else
+                _tl.EditTemplate(oldname, newname, tr);
         }
 
         public Tuple<string[], string> GetParametersAndRoot()

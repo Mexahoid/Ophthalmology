@@ -21,6 +21,7 @@ namespace Ophthalmology.ConfigLogics.Forms
         private int _selectedIndex;
         private int _fontSize = 14;
         private FontFamily _font = new FontFamily("Times New Roman");
+        private ObservableCollection<string> _names;
 
         private class TagObj
         {
@@ -36,11 +37,23 @@ namespace Ophthalmology.ConfigLogics.Forms
             DataContext = this;
             DocumentTemplate.FontFamily = _font;
             DocumentTemplate.FontSize = _fontSize;
+            Paragraph p = DocumentTemplate.Document.Blocks.FirstBlock as Paragraph;
+            p.LineHeight = 10;
             FontBox.ItemsSource = Fonts.SystemFontFamilies;
             FontBox.Text = "Times New Roman";
 
             _cfg = ConfigLogic.Instance;
             _tagobjs = new List<TagObj>();
+            _names = new ObservableCollection<string>();
+
+            var tn = _cfg.GetTemplateNames();
+            foreach (string s in tn)
+            {
+                _names.Add(s);
+            }
+
+            TemplatesListbox.ItemsSource = _names;
+
             if (_cfg.IsConfigPresent)
             {
                 Tuple<string[], string> tpl = _cfg.GetParametersAndRoot();
@@ -265,6 +278,63 @@ namespace Ophthalmology.ConfigLogics.Forms
                 selectionTextRange.ApplyPropertyValue(TextElement.FontSizeProperty, _fontSize.ToString());
                 selectionTextRange.ApplyPropertyValue(TextElement.FontFamilyProperty, _font);
             }
+        }
+
+        private void UpdateTemplatesList()
+        {
+            _names.Clear();
+
+            var tn = _cfg.GetTemplateNames();
+            foreach (string s in tn)
+            {
+                _names.Add(s);
+            }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = TemplateNameTextbox.Text;
+
+            TextRange tr = new TextRange(
+                DocumentTemplate.Document.ContentStart, DocumentTemplate.Document.ContentEnd);
+
+            ConfigLogic.Instance.AddTemplate(name, tr);
+            UpdateTemplatesList();
+        }
+
+        private void SaveTemplateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var on = TemplatesListbox.SelectedItems[0].ToString();
+            var nn = TemplateNameTextbox.Text;
+            TextRange tr = new TextRange(
+                DocumentTemplate.Document.ContentStart, DocumentTemplate.Document.ContentEnd);
+
+            ConfigLogic.Instance.EditTemplate(on, nn, tr);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigLogic.Instance.DeleteTemplate(TemplateNameTextbox.Text);
+            DocumentTemplate.Document.Blocks.Clear();
+            TemplateNameTextbox.Text = "";
+            UpdateTemplatesList();
+            DeleteButton.IsEnabled = false;
+        }
+
+        private void TemplatesListbox_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var si = TemplatesListbox.SelectedItems[0];
+            if (si == null)
+                return;
+            var n = si.ToString();
+
+            TextRange tr = new TextRange(
+                DocumentTemplate.Document.ContentStart, DocumentTemplate.Document.ContentEnd);
+
+            ConfigLogic.Instance.LoadTemplate(n, tr);
+            TemplateNameTextbox.Text = n;
+
+            DeleteButton.IsEnabled = true;
         }
     }
 }

@@ -104,6 +104,7 @@
     <Compile Include="ConfigLogics\Classes\EyeLogic.cs" />
     <Compile Include="ConfigLogics\Classes\PatientLogic.cs" />
     <Compile Include="ConfigLogics\Classes\SerializerLogic.cs" />
+    <Compile Include="ConfigLogics\Classes\TemplateLogic.cs" />
     <Compile Include="ConfigLogics\Serialization\ConfigJson.cs" />
     <Compile Include="ConfigLogics\Classes\ConfigLogic.cs" />
     <Compile Include="ConfigLogics\Forms\ConfigWindow.xaml.cs">
@@ -113,6 +114,7 @@
     <Compile Include="ConfigLogics\Serialization\EyeJson.cs" />
     <Compile Include="ConfigLogics\Serialization\LastPatientJson.cs" />
     <Compile Include="ConfigLogics\Serialization\PatientsJson.cs" />
+    <Compile Include="ConfigLogics\Serialization\TemplateJson.cs" />
     <Compile Include="EyeLogics\DiagnosiTextHolder.cs" />
     <Compile Include="EyeLogics\EfronLogic.cs" />
     <Compile Include="EyeLogics\EfronWindow.xaml.cs">

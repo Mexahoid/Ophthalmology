@@ -115,7 +115,7 @@
                             </Border>
                             <TextBlock Grid.Row="1" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Шаблоны</TextBlock>
 
-                            <ListBox Grid.Row="2" Name="TemplatesListbox" Margin="5">
+                            <ListBox Grid.Row="2" Name="TemplatesListbox" Margin="5" MouseUp="TemplatesListbox_MouseUp">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
@@ -130,8 +130,8 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Name="DeleteButton" Margin="10, 10, 5, 10" Content="Удалить" IsEnabled="False"/>
-                                <Button Grid.Column="1" Margin="5, 10, 10, 10" Content="Добавить"/>
+                                <Button Grid.Column="0" Name="DeleteButton" Margin="10, 10, 5, 10" Content="Удалить" IsEnabled="False" Click="DeleteButton_Click"/>
+                                <Button Grid.Column="1" Margin="5, 10, 10, 10" Content="Добавить" Click="AddButton_Click"/>
                             </Grid>
 
                             <TextBlock Grid.Row="4" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Доступные параметры</TextBlock>
@@ -170,7 +170,7 @@
 
                                 </DataGrid.Columns >
                             </DataGrid>
-                            <Button Grid.Row="6" Margin="10, 10, 10, 10" Content="Сохранить" />
+                            <Button Grid.Row="6" Margin="10, 10, 10, 10" Content="Сохранить" Click="SaveTemplateButton_Click" />
                         </Grid>
                     </Border>
 
