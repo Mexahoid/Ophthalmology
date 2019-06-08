@@ -1,6 +1,7 @@
 ﻿using Ophthalmology.EyeLogics;
 using Ophthalmology.PatientLogics;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -239,7 +240,30 @@ namespace Ophthalmology
 
         private void RecordButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            ReportWindow w = new ReportWindow();
+            if (w.ShowDialog() != true)
+            {
+                return;
+            }
+
+
+
+            List<string[]> diags_right = (from object o in RightDiagList.ItemsSource select o.ToString().Split(':')).ToList();
+            List<string[]> pars_right = (from object o in RightParsList.ItemsSource select o.ToString().Split(':')).ToList();
+            List<string[]> diags_left = (from object o in LeftDiagList.ItemsSource select o.ToString().Split(':')).ToList();
+            List<string[]> pars_left = (from object o in LeftParsList.ItemsSource select o.ToString().Split(':')).ToList();
+
+            var ps = new[]
+            {
+                pars_left,
+                diags_left,
+                pars_right,
+                diags_right
+            };
+
+
+
+            ConfigLogic.Instance.SaveReport(w.ReportPath, w.TemplateName, ps);
         }
 
         private void NewDateButton_Click(object sender, RoutedEventArgs e)

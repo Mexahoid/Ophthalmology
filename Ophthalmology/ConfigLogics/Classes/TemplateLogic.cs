@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using Ophthalmology.ConfigLogics.Serialization;
+using Ophthalmology.Properties;
 
 namespace Ophthalmology.ConfigLogics.Classes
 {
@@ -19,6 +20,8 @@ namespace Ophthalmology.ConfigLogics.Classes
         private readonly List<string> _names;
         private readonly List<string> _paths;
 
+        private readonly Dictionary<string, string> _aliases;
+
         public TemplateLogic(string root, SerializerLogic sl, DeserializerLogic dl)
         {
             _sl = sl;
@@ -30,8 +33,59 @@ namespace Ophthalmology.ConfigLogics.Classes
 
             _names = new List<string>();
             _paths = new List<string>();
+            _aliases = new Dictionary<string, string>();
 
             LoadTemplateList();
+        }
+
+        public List<string[]> GetAliases()
+        {
+            List<string[]> aliases = new List<string[]>();
+
+            var keys = _aliases.Keys;
+
+            foreach (string key in keys)
+            {
+                aliases.Add(new []{key, _aliases[key]});
+            }
+
+            return aliases;
+        }
+
+        public void InitParams(IEnumerable<string> paramnames)
+        {
+            List<string> names = new List<string>
+            {
+                Resources.B,
+                Resources.Cd,
+                Resources.Ci,
+                Resources.Cn,
+                Resources.Co,
+                Resources.Cr,
+                Resources.Cs,
+                Resources.Cst,
+                Resources.Cu,
+                Resources.Eb,
+                Resources.Em,
+                Resources.Ep,
+                Resources.Lr,
+                Resources.Mgd,
+                Resources.Pc,
+                Resources.Slk
+            };
+            
+            _aliases.Clear();
+            int number = 1;
+            foreach (string paramname in paramnames)
+            {
+                
+                _aliases.Add($"$_{number++}", paramname);
+            }
+
+            foreach (string name in names)
+            {
+                _aliases.Add($"$_{number++}", name);
+            }
         }
 
         public List<string> GetNames()
@@ -65,7 +119,11 @@ namespace Ophthalmology.ConfigLogics.Classes
                 File.Delete(_paths[ind]);
             _paths.RemoveAt(ind);
 
-            _sl.WriteTemplatesList(new List<string[]> { _names.ToArray(), _paths.ToArray() }, _file);
+            _sl.WriteTemplatesList(new List<string[]>
+            {
+                _names.ToArray(),
+                _paths.ToArray()
+            }, _file);
         }
 
         public void AddTemplate(string name, TextRange tr)
@@ -78,13 +136,84 @@ namespace Ophthalmology.ConfigLogics.Classes
             _names.Add(name);
             _paths.Add(path);
 
-            _sl.WriteTemplatesList(new List<string[]> { _names.ToArray(), _paths.ToArray() }, _file);
+            _sl.WriteTemplatesList(new List<string[]>
+            {
+                _names.ToArray(),
+                _paths.ToArray()
+            }, _file);
         }
 
         public void EditTemplate(string name, TextRange tr)
         {
             string path = _root + "\\" + name + ".rtf";
             ReSave(path, tr);
+        }
+
+        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags)
+        {
+            FlowDocument workDoc = new FlowDocument();
+            TextRange tr = new TextRange(workDoc.ContentStart, workDoc.ContentEnd);
+            LoadTemplate(templatename, tr);
+
+            var eyes = new[]
+            {
+                Tuple.Create(params_diags[0], params_diags[1]),
+                Tuple.Create(params_diags[2], params_diags[3])
+            };
+
+            int il = tr.Text.Length;
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < il; i++)
+            {
+                if (tr.Text[i] != '$')
+                {
+                    if (tr.Text[i] == '\r')
+                    {
+                        sb.Append(Environment.NewLine);
+                        i++;
+                    }
+                    else
+                        sb.Append(tr.Text[i]);
+                    continue;
+                }
+                    
+                int len = 1;
+                while (tr.Text[i + len] != ' ' && tr.Text[i + len] != '\r')
+                    len++;
+
+                var tag = tr.Text.Substring(i, len);
+
+                var tag_parts = tag.Split('-');
+                int pos = int.Parse(tag_parts[1]) - 1;
+                var alias = _aliases[tag_parts[0]];
+                if (pos > 1)
+                    continue;
+                var eye = eyes[pos];
+                foreach (var t in eye.Item1)
+                {
+                    if (t[0] != alias.Trim())
+                        continue;
+                    sb.Append(t[1].Trim());
+                    break;
+                }
+                foreach (var t in eye.Item2)
+                {
+                    if (t[0] != alias.Trim())
+                        continue;
+                    sb.Append(t[1].Trim());
+                    break;
+                }
+
+                i += len - 1;
+            }
+
+            tr.Text = sb.ToString();
+            il = tr.Text.Length;
+
+
+
+            ReSave(reportpath, tr);
         }
 
         public void EditTemplate(string oldname, string newname, TextRange tr)

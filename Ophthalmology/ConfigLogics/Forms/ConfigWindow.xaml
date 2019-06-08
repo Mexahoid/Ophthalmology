@@ -108,6 +108,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="30*"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0, 0, 0, 1">
@@ -134,10 +135,10 @@
                                 <Button Grid.Column="1" Margin="5, 10, 10, 10" Content="Добавить" Click="AddButton_Click"/>
                             </Grid>
 
-                            <TextBlock Grid.Row="4" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Доступные параметры</TextBlock>
+                            <TextBlock Grid.Row="4" FontSize="14" HorizontalAlignment="Left" Margin="5, 0, 0, 0" VerticalAlignment="Center">Таблица соответствия</TextBlock>
                             <DataGrid Grid.Row="5" Name="ParametersDataGrid" Margin="5" AutoGenerateColumns="False" CanUserAddRows="False">
                                 <DataGrid.Columns >
-                                    <DataGridTextColumn Header="Тег" Binding="{Binding Path=Alias}" Width="50*" IsReadOnly="True">
+                                    <DataGridTextColumn Header="Тег" Binding="{Binding Path=Alias}" Width="Auto" IsReadOnly="True">
                                         <DataGridTextColumn.CellStyle>
                                             <Style>
                                                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
@@ -152,7 +153,7 @@
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
                                     </DataGridTextColumn>
-                                    <DataGridTextColumn Header="Параметр" Binding="{Binding Path=Parameter}" Width="50*"  IsReadOnly="True">
+                                    <DataGridTextColumn Header="Параметр" Binding="{Binding Path=Parameter}" Width="*"  IsReadOnly="True">
                                         <DataGridTextColumn.CellStyle>
                                             <Style>
                                                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
@@ -170,7 +171,8 @@
 
                                 </DataGrid.Columns >
                             </DataGrid>
-                            <Button Grid.Row="6" Margin="10, 10, 10, 10" Content="Сохранить" Click="SaveTemplateButton_Click" />
+                            <TextBlock Grid.Row="6" TextWrapping="Wrap" Margin="5">Для левого глаза добавить -1, для правого глаза -2. Пример: $_1-2</TextBlock>
+                            <Button Grid.Row="7" Margin="10, 10, 10, 10" Content="Сохранить" Click="SaveTemplateButton_Click" />
                         </Grid>
                     </Border>
 

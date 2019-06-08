@@ -21,7 +21,7 @@ namespace Ophthalmology.ConfigLogics.Forms
         private int _selectedIndex;
         private int _fontSize = 14;
         private FontFamily _font = new FontFamily("Times New Roman");
-        private ObservableCollection<string> _names;
+        private readonly ObservableCollection<string> _names;
 
         private class TagObj
         {
@@ -59,12 +59,15 @@ namespace Ophthalmology.ConfigLogics.Forms
                 Tuple<string[], string> tpl = _cfg.GetParametersAndRoot();
                 _parameters = new ObservableCollection<string>(tpl.Item1);
                 //
-                foreach (string parameter in _parameters)
+
+                var aliases = _cfg.GetTemplateAliases();
+
+                foreach (var alias in aliases)
                 {
                     _tagobjs.Add(new TagObj
                     {
-                        Parameter = parameter,
-                        Alias = "$_sas"
+                        Parameter = alias[1],
+                        Alias = alias[0]
                     });
                 }
                 //
@@ -185,22 +188,22 @@ namespace Ophthalmology.ConfigLogics.Forms
             if ((Selector.SelectedItem as TabItem)?.Tag is "Pars")
             {
                 MainForm.MinHeight = 360;
-                MainForm.Height = 450;
+                //MainForm.Height = 450;
                 MainForm.MaxHeight = 450;
 
                 MainForm.MinWidth = 550;
-                MainForm.Width = 800;
+                //MainForm.Width = 800;
                 MainForm.MaxWidth = 800;
             }
-            else 
+            else
             {
                 MainForm.MinHeight = 700;
-                MainForm.Height = 700;
-                MainForm.MaxHeight = 1100;
+                //MainForm.Height = 700;
+                MainForm.MaxHeight = 1700;
 
                 MainForm.MinWidth = 500;
-                MainForm.Width = 650;
-                MainForm.MaxWidth = 900;
+                //MainForm.Width = 650;
+                MainForm.MaxWidth = 1300;
             }
         }
 
@@ -323,6 +326,8 @@ namespace Ophthalmology.ConfigLogics.Forms
 
         private void TemplatesListbox_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (TemplatesListbox.SelectedItems.Count < 1)
+                return;
             var si = TemplatesListbox.SelectedItems[0];
             if (si == null)
                 return;

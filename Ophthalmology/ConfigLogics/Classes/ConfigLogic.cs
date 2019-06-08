@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Documents;
 using Ophthalmology.ConfigLogics.Serialization;
 using Ophthalmology.Patients.Classes;
+using Ophthalmology.Properties;
 
 namespace Ophthalmology.ConfigLogics.Classes
 {
@@ -41,11 +42,22 @@ namespace Ophthalmology.ConfigLogics.Classes
                 _root = root;
                 _sl = new SerializerLogic(_root);
                 _tl = new TemplateLogic(_root, _sl, _dl);
+                _tl.InitParams(Parameters);
                 _pl = new PatientLogic(_sl, _root, _dl);
                 _dtl = new DateLogic(_sl, _root, _dl);
                 _el = new EyeLogic(_sl, _root, _dl);
             }
             IsAdding = true;
+        }
+
+        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags)
+        {
+            _tl.SaveReport(reportpath, templatename, params_diags);
+        }
+
+        public List<string[]> GetTemplateAliases()
+        {
+            return _tl.GetAliases();
         }
 
         public void AddTemplate(string name, TextRange tr)
