@@ -66,7 +66,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             };
         }
 
-        public Tuple<string[], int[], int[], string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
+        public Tuple<string[], int[], int[], string, double[], double[], string[]> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
         {
             var pats = ReadPatientsList();
             string patientPath = null;
@@ -85,7 +85,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             
             EyeJson ej = JsonConvert.DeserializeObject<EyeJson>(ReadData(path));
 
-            return Tuple.Create(ej.Params, ej.ParamsValues, ej.Diags, ej.Path);
+            return Tuple.Create(ej.Params, ej.ParamsValues, ej.Diags, ej.Path, ej.Xses, ej.Yses, ej.Texts);
         }
 
         public List<string[]> ReadDatesList(string patientPath)

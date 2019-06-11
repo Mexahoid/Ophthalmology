@@ -76,16 +76,19 @@ namespace Ophthalmology.ConfigLogics.Classes
             Serialize(lj, _root + "\\lastpatient.json");
         }
 
-        public void WriteEyeInfo(string[] parNames, int[] parVals, int[] diags, string eyePath)
+        public void WriteEyeInfo(Tuple<string[], int[], int[], string, double[], double[], string[]> args)
         {
             EyeJson ej = new EyeJson
             {
-                Params = parNames,
-                ParamsValues = parVals,
-                Diags = diags,
-                Path = eyePath + "\\image.jpg"
+                Params = args.Item1,
+                ParamsValues = args.Item2,
+                Diags = args.Item3,
+                Path = args.Item4 + "\\image.jpg",
+                Xses = args.Item5,
+                Yses = args.Item6,
+                Texts = args.Item7
             };
-            Serialize(ej, eyePath + "\\info.json");
+            Serialize(ej, args.Item4 + "\\info.json");
         }
 
         private void Serialize(object obj, string path)

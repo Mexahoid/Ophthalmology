@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ophthalmology.ConfigLogics.Serialization;
 using Ophthalmology.Patients.Classes;
 
 namespace Ophthalmology.ConfigLogics.Classes
@@ -48,7 +49,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             return _root + "\\" + paths + "\\" + datePath + "\\" + eye;
         }
 
-        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, Tuple<string[], int[], int[], string> args)
+        public void AddEye(bool isLeft, Patient pat, DateTime date, string path, Tuple<string[], int[], int[], string, double[], double[], string[]> args)
         {
             string rp = ReadPaths(isLeft, pat, date);
             if(path == args.Item4)
@@ -64,11 +65,11 @@ namespace Ophthalmology.ConfigLogics.Classes
                     // Подавлено
                 }
             }
-            _sl.WriteEyeInfo(args.Item1, args.Item2, args.Item3, rp);
+            _sl.WriteEyeInfo(args);
         }
 
 
-        public Tuple<string[], int[], int[], string> LoadEyeInfo(bool isLeft, Patient pat, DateTime date)
+        public Tuple<string[], int[], int[], string, double[], double[], string[]> LoadEyeInfo(bool isLeft, Patient pat, DateTime date)
         {
             return _dl.ReadEyeInfo(pat, date, isLeft);
         }

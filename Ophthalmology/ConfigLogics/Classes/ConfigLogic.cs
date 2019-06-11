@@ -121,7 +121,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             _sl.SaveConfig(js, IsConfigPresent);
         }
 
-        public Tuple<string[], int[], int[], string> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
+        public Tuple<string[], int[], int[], string, double[], double[], string[]> ReadEyeInfo(Patient pat, DateTime date, bool isLeft)
         {
             return _el.LoadEyeInfo(isLeft, pat, date);
         }
@@ -146,7 +146,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             _dtl.AddDate(pat, date);
         }
 
-        public void AddEye(bool isLeft, Patient pat, DateTime date, string newPath, Tuple<string[], int[], int[], string> args)
+        public void AddEye(bool isLeft, Patient pat, DateTime date, string newPath, Tuple<string[], int[], int[], string, double[], double[], string[]> args)
         {
             _el.AddEye(isLeft, pat, date, newPath, args);
         }

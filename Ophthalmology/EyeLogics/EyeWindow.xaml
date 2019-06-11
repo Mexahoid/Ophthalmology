@@ -33,9 +33,9 @@
 
 
 
-            <Image Grid.Row="1" Name="EyeImage" Margin="10, 0, 0, 0" Source="../images/Eye.png" MouseLeftButtonDown="ImageMouseDown" MouseLeftButtonUp="ImageMouseUp" MouseMove="ImageMove"/>
+            <Image Grid.Row="1" Name="EyeImage" Margin="10, 0, 0, 0" Source="../images/Eye.png" MouseLeftButtonDown="ImageMouseDown" MouseMove="ImageMove"/>
             <Canvas Grid.Row="1" Name="EyeCanvas" Margin="10, 0, 0, 0" Width="{Binding ElementName=EyeImage, Path=ActualWidth}"
-                    Height="{Binding ElementName=EyeImage, Path=ActualHeight}"/> 
+                    Height="{Binding ElementName=EyeImage, Path=ActualHeight}" MouseLeftButtonDown="CanvasMouseDown" MouseLeftButtonUp="CanvasMouseUp" /> 
 
 
             <Grid Grid.Row="2" MinHeight="200" Margin="10" >

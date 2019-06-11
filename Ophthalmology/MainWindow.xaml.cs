@@ -63,7 +63,7 @@ namespace Ophthalmology
         }
 
 
-        private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string>> inputargs = null)
+        private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string, double[], double[], string[]>> inputargs = null)
         {
             List<string> target_pars_list = left ? LPars : RPars;
             target_pars_list.Clear();
@@ -307,11 +307,16 @@ namespace Ophthalmology
             {
                 return;
             }
+
+            var c = w.GetComments();
             var t = Tuple.Create(
                 w.Parameters.ToArray(),
                 w.GetParamValues().ToArray(),
                 w.RealDiagnosis.ToArray(),
-                w.UsedImagePath);
+                w.UsedImagePath,
+                c.Item1,
+                c.Item2,
+                c.Item3);
             FillSide(left, Tuple.Create(w.NewImagePath, t));
 
             ConfigLogic.Instance.AddEye(left, pat, time, w.NewImagePath, t);

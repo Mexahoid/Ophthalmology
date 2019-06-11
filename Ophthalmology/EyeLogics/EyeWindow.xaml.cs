@@ -29,6 +29,7 @@ namespace Ophthalmology.EyeLogics
         private readonly List<string> _diagnosisBinding;
         private readonly List<PropObj> _objs;
         private readonly ObservableCollection<string> _commentBinding;
+        private readonly List<EllipseData> _ellipses;
 
         public List<int> RealDiagnosis { get; private set; }
 
@@ -43,7 +44,6 @@ namespace Ophthalmology.EyeLogics
         private bool _isDragging = false;
         private Point _lastPos;
         private Ellipse _currentFigure;
-        private List<EllipseData> _ellipses;
         private bool _programSelect;
 
         public class PropObj
@@ -130,6 +130,15 @@ namespace Ophthalmology.EyeLogics
             DiagList.ItemsSource = _diagnosisBinding;
         }
 
+        public Tuple<double[], double[], string[]> GetComments()
+        {
+            double[] xses = new double[_ellipses.Count];
+            double[] yses = new double[_ellipses.Count];
+            string[] texts = new string[_ellipses.Count];
+
+            return Tuple.Create(xses, yses, texts);
+        }
+
         private void DiagnosisButton_Click(object sender, RoutedEventArgs e)
         {
             EfronWindow ew = new EfronWindow(RealDiagnosis);
@@ -207,63 +216,53 @@ namespace Ophthalmology.EyeLogics
                 EyeCanvas.Children.Remove(ed.Figure);
             }
 
-            if (_commentBinding.Contains(ed.Text))
-
-            {
-                _programSelect = true;
-                _commentBinding.Remove(ed.Text);
-                _programSelect = false;
-            }
+            if (!_commentBinding.Contains(ed.Text))
+                return;
+            _programSelect = true;
+            _commentBinding.Remove(ed.Text);
+            _programSelect = false;
         }
 
         private void ImageMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (_isPlacing)
+            if (!_isPlacing)
+                return;
+            _lastPos = Mouse.GetPosition(EyeCanvas);
+            TextHelperForm t = new TextHelperForm();
+            if (t.ShowDialog() != true)
             {
-                _lastPos = Mouse.GetPosition(EyeCanvas);
-                TextHelperForm t = new TextHelperForm();
-                if (t.ShowDialog() != true)
-                {
-                    _isPlacing = false;
-                    return;
-                }
-
-                string text = t.Text;
-
-                Ellipse ell = new Ellipse
-                {
-                    Width = 20,
-                    Height = 20,
-                    Stroke = Brushes.Orange,
-                    Fill = Brushes.Transparent,
-                    StrokeThickness = 4
-                };
-
-                EllipseData ed = new EllipseData
-                {
-                    Text = text,
-                    Figure = ell
-                };
-                ell.MouseRightButtonDown += (ssender, args) => DeleteComment(ed);
-                _ellipses.Add(ed);
-
-                Canvas.SetLeft(ell, _lastPos.X - 5);
-                Canvas.SetTop(ell, _lastPos.Y - 5);
-                EyeCanvas.Children.Add(ell);
-                _commentBinding.Add(text);
                 _isPlacing = false;
-                AddComment.IsEnabled = true;
+                return;
             }
-            else
+
+            string text = t.Text;
+
+            Ellipse ell = new Ellipse
             {
-                if (_currentFigure == null)
-                    return;
-                _isDragging = true;
-                Mouse.OverrideCursor = Cursors.Hand;
-            }
+                Width = 20,
+                Height = 20,
+                Stroke = Brushes.Orange,
+                Fill = Brushes.Transparent,
+                StrokeThickness = 4
+            };
+
+            EllipseData ed = new EllipseData
+            {
+                Text = text,
+                Figure = ell
+            };
+            ell.MouseRightButtonDown += (ssender, args) => DeleteComment(ed);
+            _ellipses.Add(ed);
+
+            Canvas.SetLeft(ell, _lastPos.X - 5);
+            Canvas.SetTop(ell, _lastPos.Y - 5);
+            EyeCanvas.Children.Add(ell);
+            _commentBinding.Add(text);
+            _isPlacing = false;
+            AddComment.IsEnabled = true;
         }
 
-        private void ImageMouseUp(object sender, MouseButtonEventArgs e)
+        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Arrow;
             _isDragging = false;
@@ -273,11 +272,8 @@ namespace Ophthalmology.EyeLogics
 
         private void ImageMove(object sender, MouseEventArgs e)
         {
-            if (_isPlacing)
-            {
-
-            }
-            else if (_isDragging)
+            
+            if (_isDragging)
             {
                 var pos = Mouse.GetPosition(EyeCanvas);
                 double dx = pos.X - _lastPos.X;
@@ -306,13 +302,13 @@ namespace Ophthalmology.EyeLogics
                         !(_lastPos.Y >= relativePoint.Y - delta) ||
                         !(_lastPos.Y <= relativePoint.Y + ellipseData.Figure.Height + delta))
                     {
-                        DeselectEllipse(ellipseData);
+                        SelectEllipseCond(ellipseData, false);
                         continue;
                     }
 
                     if (found)
                         continue;
-                    SelectEllipse(ellipseData);
+                    SelectEllipseCond(ellipseData, true);
                     // Выделить в списке
                     foreach (var pos in PointsList.Items)
                     {
@@ -323,41 +319,30 @@ namespace Ophthalmology.EyeLogics
                         _programSelect = false;
                         break;
                     }
+                    _currentFigure = ellipseData.Figure;
 
                     found = true;
                 }
             }
         }
 
-        private void SelectEllipse(EllipseData ellipseData)
+        private void SelectEllipseCond(EllipseData ellipseData, bool select)
         {
             Point relativePoint = ellipseData.Figure.TransformToAncestor(EyeCanvas)
                 .Transform(new Point(0, 0));
-            _currentFigure = ellipseData.Figure;
-            _currentFigure.Width = 40;
-            _currentFigure.Height = 40;
-            if (_currentFigure.Stroke != Brushes.Red)
+            // Если выделение, то эллипс в 2 раза больше и красный
+            int dims = select ? 40 : 20;
+            int offset = select ? -10 : 10;
+            Brush cl = select ? Brushes.Red : Brushes.Orange;
+            ellipseData.Figure.Width = dims;
+            ellipseData.Figure.Height = dims;
+            if (ellipseData.Figure.Stroke != cl)
             {
-                Canvas.SetLeft(_currentFigure, relativePoint.X - 10);
-                Canvas.SetTop(_currentFigure, relativePoint.Y - 10);
+                Canvas.SetLeft(ellipseData.Figure, relativePoint.X + offset);
+                Canvas.SetTop(ellipseData.Figure, relativePoint.Y + offset);
             }
-            _currentFigure.Stroke = Brushes.Red;
+            ellipseData.Figure.Stroke = cl;
         }
-
-        private void DeselectEllipse(EllipseData ellipseData)
-        {
-            Point relativePoint = ellipseData.Figure.TransformToAncestor(EyeCanvas)
-                .Transform(new Point(0, 0));
-            ellipseData.Figure.Width = 20;
-            ellipseData.Figure.Height = 20;
-            if (ellipseData.Figure.Stroke != Brushes.Orange)
-            {
-                Canvas.SetLeft(ellipseData.Figure, relativePoint.X + 10);
-                Canvas.SetTop(ellipseData.Figure, relativePoint.Y + 10);
-            }
-            ellipseData.Figure.Stroke = Brushes.Orange;
-        }
-
 
         private void PointsList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -367,11 +352,16 @@ namespace Ophthalmology.EyeLogics
             string text = PointsList.SelectedItem.ToString();
             foreach (EllipseData ellipseData in _ellipses)
             {
-                if (text != ellipseData.Text)
-                    DeselectEllipse(ellipseData);
-                else
-                    SelectEllipse(ellipseData);
+                SelectEllipseCond(ellipseData, text == ellipseData.Text);
             }
+        }
+
+        private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_currentFigure == null)
+                return;
+            _isDragging = true;
+            Mouse.OverrideCursor = Cursors.Hand;
         }
     }
 }

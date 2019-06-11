@@ -6,5 +6,9 @@
         public int[] ParamsValues { get; set; }
         public int[] Diags { get; set; }
         public string Path { get; set; }
+
+        public double[] Xses { get; set; }
+        public double[] Yses { get; set; }
+        public string[] Texts { get; set; }
     }
 }

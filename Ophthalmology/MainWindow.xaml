@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
-        Title="[ALPHA] Офтальмология v. 1.5" Height="820.697" Width="1096.824" Closing="Window_Closing">
-    <Grid Margin="10,10,10,10">
+        Title="[ALPHA] Офтальмология v. 1.6" Height="820" Width="1100" Closing="Window_Closing">
+    <Grid Margin="10">
         <Grid.Resources >
             <Style TargetType="Border" >
-                <Setter Property="Padding" Value="5,5,5,5" />
+                <Setter Property="Padding" Value="5" />
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>

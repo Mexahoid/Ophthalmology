@@ -14,13 +14,12 @@ namespace Ophthalmology.EyeLogics
         public List<int> DiagsValues { get; }
         public string ImagePath { get; }
 
-        public EyeParser(Tuple<string[], int[], int[], string> tuple)
+        public EyeParser(Tuple<string[], int[], int[], string, double[], double[], string[]> tuple)
         {
-            (var item1, var item2, var item3, string item4) = tuple;
-            _params = item1.ToList();
-            _paramsValues = item2.ToList();
-            DiagsValues = item3.ToList();
-            ImagePath = item4;
+            _params = tuple.Item1.ToList();
+            _paramsValues = tuple.Item2.ToList();
+            DiagsValues = tuple.Item3.ToList();
+            ImagePath = tuple.Item4;
         }
 
         public void FillParams(IEnumerable<EyeWindow.PropObj> bindingList)
