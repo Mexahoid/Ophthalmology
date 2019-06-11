@@ -52,13 +52,14 @@ namespace Ophthalmology.EyeLogics
             public int Value { get; set; }
         }
 
-        private class EllipseData
+        public class EllipseData
         {
             public Ellipse Figure { get; set; }
 
             public string Text { get; set; }
         }
         
+
 
         public EyeWindow(bool isLeft, Patient pat, DateTime time)
         {
@@ -84,6 +85,11 @@ namespace Ophthalmology.EyeLogics
             {
                 EyeParser ep = new EyeParser(t);
                 ep.FillParams(_objs);
+                ep.FillEllipseDatas(_ellipses, EyeCanvas, DeleteComment);
+                foreach (EllipseData ellipseData in _ellipses)
+                {
+                    _commentBinding.Add(ellipseData.Text);
+                }
                 RealDiagnosis = ep.DiagsValues;
                 UpdateDiag();
                 EyeImage.Source = ep.GetImage();
@@ -135,6 +141,17 @@ namespace Ophthalmology.EyeLogics
             double[] xses = new double[_ellipses.Count];
             double[] yses = new double[_ellipses.Count];
             string[] texts = new string[_ellipses.Count];
+
+
+            for (int i = 0; i < _ellipses.Count; i++)
+            {
+                EllipseData ed = _ellipses[i];
+                Point relativePoint = ed.Figure.TransformToAncestor(EyeCanvas)
+                    .Transform(new Point(0, 0));
+                xses[i] = relativePoint.X;
+                yses[i] = relativePoint.Y;
+                texts[i] = ed.Text;
+            }
 
             return Tuple.Create(xses, yses, texts);
         }

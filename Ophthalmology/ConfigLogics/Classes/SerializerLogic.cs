@@ -83,12 +83,15 @@ namespace Ophthalmology.ConfigLogics.Classes
                 Params = args.Item1,
                 ParamsValues = args.Item2,
                 Diags = args.Item3,
-                Path = args.Item4 + "\\image.jpg",
+                Path = args.Item4,
                 Xses = args.Item5,
                 Yses = args.Item6,
                 Texts = args.Item7
             };
-            Serialize(ej, args.Item4 + "\\info.json");
+            var temp = args.Item4.Split('\\');
+            temp[temp.Length - 1] = "info.json";
+            var str = String.Join("\\", temp);
+            Serialize(ej, str);
         }
 
         private void Serialize(object obj, string path)
