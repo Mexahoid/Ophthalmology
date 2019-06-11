@@ -163,7 +163,7 @@ namespace Ophthalmology.EyeLogics
 
         private void ParamsList_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _currentText = ((sender as StackPanel).Children[0] as TextBlock).Text;
+            _currentText = ((sender as StackPanel)?.Children[0] as TextBlock)?.Text;
             PutBtn.IsEnabled = true;
         }
 

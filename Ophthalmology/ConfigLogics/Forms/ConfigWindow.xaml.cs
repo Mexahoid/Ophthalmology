@@ -226,7 +226,7 @@ namespace Ophthalmology.ConfigLogics.Forms
         private void FontBox_DropDownClosed(object sender, EventArgs e)
         {
             //if (string.IsNullOrEmpty(FontBox.Text))
-                return;
+                //return;
             //_font = new FontFamily(FontBox.Text);
             Update();
         }

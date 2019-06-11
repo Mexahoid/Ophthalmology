@@ -5,35 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology.EyeLogics"
         mc:Ignorable="d"
-        Title="Здесь могла быть ваша реклама" Height="800" Width="700" MinHeight="650" MinWidth="570" MaxHeight="800" MaxWidth="700">
+        Title="Здесь могла быть ваша реклама" Height="800" Width="1100" MinHeight="650" MinWidth="1000" MaxHeight="800" MaxWidth="1300">
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="33*"/>
-                <ColumnDefinition Width="33*"/>
-                <ColumnDefinition Width="33*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="LoadButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3" Click="LoadButton_Click">Загрузить фото</Button>
-            <Button Grid.Column="2" Name="OkButton" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" IsEnabled="False" FontSize="16" Padding="5, 3, 5, 3" Click="OkButton_Click">Готово</Button>
-            <Button Grid.Column="1" Name="CancelButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3">Отмена</Button>
-        </Grid>
-
-        <Image Grid.Row="1" Name="Image" Source="../images/Eye.png"/>
-
-        <Grid Grid.Row="2"  MinHeight="200">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+ 
 
 
-            <Grid Grid.Column="0" Margin="10, 10, 10, 10" >
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="gd">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Name="LoadButton" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" FontSize="16" Padding="5, 3, 5, 3" Click="LoadButton_Click">Загрузить фото</Button>
+                <Button Grid.Column="1" Name="OkButton" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,10,10,10" IsEnabled="False" FontSize="16" Padding="5, 3, 5, 3" Click="OkButton_Click">Готово</Button>
+            </Grid>
+
+
+
+            <Image Grid.Row="1" Name="EyeImage" Margin="10, 0, 0, 0" Source="../images/Eye.png" MouseLeftButtonDown="ImageMouseDown" MouseLeftButtonUp="ImageMouseUp" MouseMove="ImageMove"/>
+            <Canvas Grid.Row="1" Name="EyeCanvas" Margin="10, 0, 0, 0" Width="{Binding ElementName=EyeImage, Path=ActualWidth}"
+                    Height="{Binding ElementName=EyeImage, Path=ActualHeight}"/> 
+
+
+            <Grid Grid.Row="2" MinHeight="200" Margin="10" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
@@ -42,7 +47,7 @@
 
                 <TextBlock Grid.Row="0" FontSize="16" Margin="10, 0, 10, 10">Параметры:</TextBlock>
 
-                <DataGrid Grid.Row="1" Name="ParametersDataGrid" HeadersVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False"> 
+                <DataGrid Grid.Row="1" Name="ParametersDataGrid" HeadersVisibility="None" AutoGenerateColumns="False" CanUserAddRows="False">
                     <DataGrid.Columns >
                         <DataGridTextColumn Binding="{Binding Path=Property}" MinWidth="50" Width="100*" IsReadOnly="True" FontSize="16" />
                         <DataGridTextColumn Binding="{Binding Path=Value}" MinWidth="50" FontSize="16" >
@@ -57,19 +62,41 @@
 
                 <Button Grid.Row="2" Name="DrawBtn" FontSize="16" Margin="10, 10, 10, 0" Content="Записать на изображение" HorizontalAlignment="Center" Padding="3" Click="DrawTextButtonClick" IsEnabled="False"/>
             </Grid>
+        </Grid>
 
-            <Grid Grid.Column="1" Margin="10, 10, 10, 10">
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="10" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">Точки комментариев</TextBlock>
+
+            <ListBox Grid.Row="1" Name="PointsList" FontSize="16" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="PointsList_OnSelectionChanged">
+                <ListBox.ItemTemplate >
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Width="{Binding ElementName=PointsList, Path=ActualWidth}" Text="{Binding}" TextWrapping="WrapWithOverflow"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button Grid.Row="2" Name="AddComment" Margin="10" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Center" Padding="5" Click="AddCommentButton_Click">Добавить</Button>
+            
+            <Grid Grid.Row="3" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" FontSize="16">Диагноз:</TextBlock>
+                <TextBlock Grid.Row="0" FontSize="16" Margin="10">Диагноз:</TextBlock>
 
-                <Button Grid.Row="1" Name="DiagnosisButton" Margin="10, 10, 10, 10" FontSize="16" Click="DiagnosisButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10, 10, 10, 10">Выбрать диагноз(-ы)</Button>
 
-                <ListBox Grid.Row="2" Name="DiagList" FontSize="16">
+                <ListBox Grid.Row="1" Name="DiagList" FontSize="16">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
@@ -78,9 +105,8 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Button Grid.Row="2" Name="DiagnosisButton" Margin="10" FontSize="16" Click="DiagnosisButton_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10">Выбрать диагноз(-ы)</Button>
             </Grid>
-            
-
         </Grid>
     </Grid>
 </Window>
