@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using Ophthalmology.ConfigLogics.Classes;
 using Ophthalmology.ConfigLogics.Forms;
 using Ophthalmology.Patients.Classes;
@@ -23,9 +24,10 @@ namespace Ophthalmology
     {
         private Patient pat;
         private DateTime time;
+        // Плейсхолдер
         private ImageSource _is;
 
-        private List<string> LPars, LDiags, RPars, RDiags;
+        private List<string> LPars, LDiags, RPars, RDiags, LTexts, RTexts;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace Ophthalmology
             RPars = new List<string>();
             LDiags = new List<string>();
             RDiags = new List<string>();
+            LTexts = new List<string>();
+            RTexts = new List<string>();
             _is = LeftImage.Source;
 
             LeftDiagList.ItemsSource = LDiags;
@@ -62,6 +66,28 @@ namespace Ophthalmology
             FillEyes();
         }
 
+        private event Action LoadedInvoker;
+        private void OnLoadedInvoker(Canvas target_canvas, double[] x, double[] y)
+        {
+            target_canvas.Children.Clear();
+            if (x != null)
+                for (int i = 0; i < x.Length; i++)
+                {
+                    Ellipse figure = new Ellipse
+                    {
+                        Width = 15,
+                        Height = 15,
+                        Stroke = Brushes.Orange,
+                        Fill = Brushes.Transparent,
+                        StrokeThickness = 4
+                    };
+                    target_canvas.Children.Add(figure);
+                    Point relativePoint = figure.TransformToAncestor(target_canvas)
+                        .Transform(new Point(0, 0));
+                    Canvas.SetLeft(figure, relativePoint.X + x[i] / 100 * target_canvas.Width);
+                    Canvas.SetTop(figure, relativePoint.Y + y[i] / 100 * target_canvas.Height);
+                }
+        }
 
         private void FillSide(bool left, Tuple<string, Tuple<string[], int[], int[], string, double[], double[], string[]>> inputargs = null)
         {
@@ -72,6 +98,8 @@ namespace Ophthalmology
             Image target_image = left ? LeftImage : RightImage;
             ListBox target_diag = left ? LeftDiagList : RightDiagList;
             ListBox target_pars = left ? LeftParsList : RightParsList;
+            List<string> target_texts = left ? LTexts : RTexts;
+            Canvas target_canvas = left ? LeftEyeCanvas : RightEyeCanvas;
 
 
             var art = inputargs == null ? ConfigLogic.Instance.ReadEyeInfo(pat, time, left) : inputargs.Item2;
@@ -87,6 +115,12 @@ namespace Ophthalmology
                     target_diag_list.Add($"{diagTexts[i]}: {art.Item3[i]}");
                 }
             }
+
+            target_texts.Clear();
+            target_texts.AddRange(art.Item7);
+
+            LoadedInvoker += () => OnLoadedInvoker(target_canvas, art.Item5, art.Item6);
+
 
             string path = inputargs == null ? art.Item4 : inputargs.Item1;
             if(File.Exists(path))
@@ -105,8 +139,7 @@ namespace Ophthalmology
             target_pars.ItemsSource = target_pars_list;
             UpdateLayout();
         }
-
-
+        
         private void FillPat(Patient _pat, DateTime _time)
         {
             pat = _pat;
@@ -263,7 +296,12 @@ namespace Ophthalmology
 
 
 
-            ConfigLogic.Instance.SaveReport(w.ReportPath, w.TemplateName, ps);
+            ConfigLogic.Instance.SaveReport(w.ReportPath, w.TemplateName, ps, new[] { LTexts, RTexts });
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadedInvoker?.Invoke();
         }
 
         private void NewDateButton_Click(object sender, RoutedEventArgs e)

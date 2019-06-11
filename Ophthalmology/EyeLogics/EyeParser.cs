@@ -44,8 +44,6 @@ namespace Ophthalmology.EyeLogics
             }
         }
 
-
-
         public void FillEllipseDatas(List<EyeWindow.EllipseData> datas, Canvas c, Action<EyeWindow.EllipseData> deleter)
         {
             c.Children.Clear();
@@ -69,8 +67,8 @@ namespace Ophthalmology.EyeLogics
                 c.Children.Add(ed.Figure);
                 Point relativePoint = ed.Figure.TransformToAncestor(c)
                     .Transform(new Point(0, 0));
-                Canvas.SetLeft(ed.Figure, relativePoint.X + _xses[i]);
-                Canvas.SetTop(ed.Figure, relativePoint.Y + _yses[i]);
+                Canvas.SetLeft(ed.Figure, relativePoint.X + _xses[i] / 100 * c.Width);
+                Canvas.SetTop(ed.Figure, relativePoint.Y + _yses[i] / 100 * c.Height);
                 ed.Figure.MouseRightButtonDown += (ssender, args) => deleter(ed);
                 datas.Add(ed);
             }

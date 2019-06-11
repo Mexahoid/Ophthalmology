@@ -39,7 +39,7 @@ namespace Ophthalmology.EyeLogics
 
         public string UsedImagePath { get; private set; }
 
-
+        private EyeParser ep;
         private bool _isPlacing = false;
         private bool _isDragging = false;
         private Point _lastPos;
@@ -55,12 +55,9 @@ namespace Ophthalmology.EyeLogics
         public class EllipseData
         {
             public Ellipse Figure { get; set; }
-
             public string Text { get; set; }
         }
         
-
-
         public EyeWindow(bool isLeft, Patient pat, DateTime time)
         {
             Parameters = new List<string>();
@@ -83,9 +80,8 @@ namespace Ophthalmology.EyeLogics
 
             if (t != null)
             {
-                EyeParser ep = new EyeParser(t);
+                ep = new EyeParser(t);
                 ep.FillParams(_objs);
-                ep.FillEllipseDatas(_ellipses, EyeCanvas, DeleteComment);
                 foreach (EllipseData ellipseData in _ellipses)
                 {
                     _commentBinding.Add(ellipseData.Text);
@@ -97,6 +93,7 @@ namespace Ophthalmology.EyeLogics
                 NewImagePath = ep.ImagePath;
                 OkButton.IsEnabled = true;
                 DrawBtn.IsEnabled = true;
+                
             }
             else
             {
@@ -148,8 +145,8 @@ namespace Ophthalmology.EyeLogics
                 EllipseData ed = _ellipses[i];
                 Point relativePoint = ed.Figure.TransformToAncestor(EyeCanvas)
                     .Transform(new Point(0, 0));
-                xses[i] = relativePoint.X;
-                yses[i] = relativePoint.Y;
+                xses[i] = relativePoint.X / EyeCanvas.Width * 100;
+                yses[i] = relativePoint.Y / EyeCanvas.Height * 100;
                 texts[i] = ed.Text;
             }
 
@@ -379,6 +376,11 @@ namespace Ophthalmology.EyeLogics
                 return;
             _isDragging = true;
             Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ep?.FillEllipseDatas(_ellipses, EyeCanvas, DeleteComment);
         }
     }
 }

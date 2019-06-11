@@ -50,9 +50,9 @@ namespace Ophthalmology.ConfigLogics.Classes
             IsAdding = true;
         }
 
-        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags)
+        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags, List<string>[] texts)
         {
-            _tl.SaveReport(reportpath, templatename, params_diags);
+            _tl.SaveReport(reportpath, templatename, params_diags, texts);
         }
 
         public List<string[]> GetTemplateAliases()

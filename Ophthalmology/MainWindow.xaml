@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology"
         mc:Ignorable="d"
-        Title="[ALPHA] Офтальмология v. 1.6" Height="820" Width="1100" Closing="Window_Closing">
+        Title="[ALPHA] Офтальмология v. 1.7" Height="820" Width="1100" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid Margin="10">
         <Grid.Resources >
             <Style TargetType="Border" >
@@ -89,7 +89,9 @@
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <Image Name="LeftImage" Grid.Column="1" Source="images/Eye.png" Margin="5, 5, 5, 5"/>
+                    <Image Name="LeftImage" Grid.Column="1" Source="images/Eye.png" Margin="5"/>
+                    <Canvas Name="LeftEyeCanvas" Grid.Column="1" Margin="5" Width="{Binding ElementName=LeftImage, Path=ActualWidth}"
+                            Height="{Binding ElementName=LeftImage, Path=ActualHeight}" />
 
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -140,7 +142,9 @@
                         <ColumnDefinition Width="30*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Image Name="RightImage" Grid.Column="0" Source="images/Eye.png" Margin="5, 5, 5, 5"/>
+                    <Image Name="RightImage" Grid.Column="0" Source="images/Eye.png" Margin="5"/>
+                    <Canvas Name="RightEyeCanvas" Grid.Column="0" Margin="5" Width="{Binding ElementName=RightImage, Path=ActualWidth}"
+                            Height="{Binding ElementName=RightImage, Path=ActualHeight}" />
                     
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -175,97 +179,5 @@
             </Grid>
         </Grid>
 
-        <!--   <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"></ColumnDefinition>
-                <ColumnDefinition Width="50*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Image Source="images\Human.png"/>
-                <Ellipse Width="20" Height="20" Margin="200,30,0,0"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-                <Ellipse Width="5" Height="5" Margin="200,30,0,0"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-
-                <Ellipse Width="20" Height="20" Margin="114,26,235,61"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-                <Ellipse Width="5" Height="5" Margin="122,33,243,68"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-
-                <Ellipse Width="40" Height="40" Margin="100,0,0,90"
-                         StrokeThickness="5"
-                         Stroke="Red"/>
-                <Ellipse Width="10" Height="10" Margin="100,0,0,90"
-                         StrokeThickness="5"
-                         Stroke="Red"/>
-            </Grid>
-
-            <Grid Grid.Column="1">
-                <Image Source="images\Human2.png"/>
-
-                <Ellipse Width="20" Height="20" Margin="146,132,-130,185"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-                <Ellipse Width="5" Height="5" Margin="152,140,-124,193"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-
-
-                <Ellipse Width="20" Height="20" Margin="170,240,79,79"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-                <Ellipse Width="5" Height="5" Margin="177,248,86,87"
-                         StrokeThickness="5"
-                         Stroke="Orange"/>
-
-            </Grid>
-        </Grid>
-
-         ShowGridLines="True"  <Button Grid.Column="2" Grid.Row="2" Content="Комментарии"/> 
-            <TextBlock VerticalAlignment="Center" FontSize="20">Пациент:</TextBlock>-->
-
-       <!-- <Grid Grid.Row="5" Grid.ColumnSpan="2" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="70*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Точки</TextBlock>
-
-            <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Название:</TextBlock>
-            <TextBox Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="DarkSlateGray" Name="NameTextBox" BorderThickness="2" FontSize="16" VerticalAlignment="Center"/>
-
-            <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Grid.ColumnSpan="3">Комментарий</TextBlock>
-
-            <ListBox Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Name="DatesList" BorderBrush="DarkSlateGray" BorderThickness="2" FontSize="16">
-                <ListBoxItem Background="LightGray">Название точки 1</ListBoxItem>
-                <ListBoxItem>Название точки 2</ListBoxItem>
-                <ListBoxItem Background="LightGray">Название точки 3</ListBoxItem>
-                <ListBoxItem>Название точки 4</ListBoxItem>
-            </ListBox>
-
-            <TextBox Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="3" Name="CommentaryTextBox" BorderBrush="DarkSlateGray" BorderThickness="2" FontSize="16" TextWrapping="Wrap"/>
-
-
-            <Button Grid.Column="2" Grid.Row="6" Name="SaveButton" FontSize="18" IsEnabled="True">Добавить</Button>
-
-            <Button Grid.Column="4" Grid.Row="6" Name="DeleteButton" FontSize="18">Сбросить</Button>
-        </Grid> -->
     </Grid>
 </Window>

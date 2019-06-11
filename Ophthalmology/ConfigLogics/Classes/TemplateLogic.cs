@@ -78,7 +78,6 @@ namespace Ophthalmology.ConfigLogics.Classes
             int number = 1;
             foreach (string paramname in paramnames)
             {
-                
                 _aliases.Add($"$_{number++}", paramname);
             }
 
@@ -86,6 +85,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             {
                 _aliases.Add($"$_{number++}", name);
             }
+            _aliases.Add($"$_{number++}", "Комментарий");
         }
 
         public List<string> GetNames()
@@ -93,7 +93,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             return _names;
         }
 
-        public void LoadTemplateList()
+        private void LoadTemplateList()
         {
             _names.Clear();
             _paths.Clear();
@@ -149,7 +149,7 @@ namespace Ophthalmology.ConfigLogics.Classes
             ReSave(path, tr);
         }
 
-        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags)
+        public void SaveReport(string reportpath, string templatename, List<string[]>[] params_diags, List<string>[] texts)
         {
             FlowDocument workDoc = new FlowDocument();
             TextRange tr = new TextRange(workDoc.ContentStart, workDoc.ContentEnd);
@@ -199,24 +199,39 @@ namespace Ophthalmology.ConfigLogics.Classes
                 var tag = tr.Text.Substring(i, len);
 
                 var tag_parts = tag.Split('-');
+
+                
                 int pos = int.Parse(tag_parts[1][0].ToString()) - 1;
                 var alias = _aliases[tag_parts[0]];
                 if (pos > 1)
                     continue;
-                var eye = eyes[pos];
-                foreach (var t in eye.Item1)
+                if (alias == "Комментарий")
                 {
-                    if (t[0] != alias.Trim())
-                        continue;
-                    sb.Append(t[1].Trim());
-                    break;
+                    sb.Append(Environment.NewLine);
+                    for (int j = 0; j < texts[pos].Count; j++)
+                    {
+                        sb.Append(texts[pos][j]);
+                        sb.Append(Environment.NewLine);
+                    }
                 }
-                foreach (var t in eye.Item2)
+                else
                 {
-                    if (t[0] != alias.Trim())
-                        continue;
-                    sb.Append(t[1].Trim());
-                    break;
+                    var eye = eyes[pos];
+                    foreach (var t in eye.Item1)
+                    {
+                        if (t[0] != alias.Trim())
+                            continue;
+                        sb.Append(t[1].Trim());
+                        break;
+                    }
+
+                    foreach (var t in eye.Item2)
+                    {
+                        if (t[0] != alias.Trim())
+                            continue;
+                        sb.Append(t[1].Trim());
+                        break;
+                    }
                 }
 
                 i += len - 1;
@@ -224,8 +239,6 @@ namespace Ophthalmology.ConfigLogics.Classes
 
             tr.Text = sb.ToString();
             il = tr.Text.Length;
-
-
 
             ReSave(reportpath, tr);
         }

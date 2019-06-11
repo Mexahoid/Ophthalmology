@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ophthalmology.EyeLogics"
         mc:Ignorable="d"
-        Title="Здесь могла быть ваша реклама" Height="800" Width="1100" MinHeight="650" MinWidth="1000" MaxHeight="800" MaxWidth="1300">
+        Title="Здесь могла быть ваша реклама" Height="800" Width="1100" MinHeight="650" MinWidth="1000" MaxHeight="800" MaxWidth="1300" Loaded="Window_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
